@@ -106,7 +106,54 @@ const DEFAULT_STATE={rotationIndex:0,active:null,history:[],bodyweight:[],gym:"C
 let state=load();
 let page="today";
 
-function load(){try{return {...DEFAULT_STATE,...JSON.parse(localStorage.getItem("flexppl")||"{}")}}catch{return structuredClone(DEFAULT_STATE)}}
+function cloneDefault(){return JSON.parse(JSON.stringify(DEFAULT_STATE))}
+function makeId(){
+  return (window.crypto&&window.crypto.randomUUID)?window.crypto.randomUUID():"id-"+Date.now()+"-"+Math.random().toString(36).slice(2);
+}
+function isTrue(v){return v===true||v===1||v==="true"}
+function normalizeItem(x={},index=0){
+  const sets=Array.isArray(x.sets)?x.sets.slice(0,3):[null,null,null];
+  while(sets.length<3) sets.push(null);
+  return {
+    ...x,
+    id:x.id||makeId(),
+    name:x.name||"Exercise",
+    weight:Number(x.weight||0),
+    target:Number(x.target||0),
+    inc:Number(x.inc||0),
+    swaps:Array.isArray(x.swaps)?x.swaps:[],
+    sets:sets.map(v=>v===""||v===undefined?null:v),
+    done:isTrue(x.done),
+    skipped:isTrue(x.skipped),
+    order:Number.isFinite(Number(x.order))?Number(x.order):index
+  };
+}
+function normalizeWorkout(w={},fallbackName){
+  return {
+    ...w,
+    id:w.id||makeId(),
+    name:w.name||fallbackName||"Workout",
+    date:w.date||today(),
+    startedAt:w.startedAt||Date.now(),
+    gym:w.gym||DEFAULT_STATE.gym,
+    busy:w.busy||"2",
+    items:(Array.isArray(w.items)?w.items:[]).map(normalizeItem),
+    core:Array.isArray(w.core)?w.core:(w.core||null)
+  };
+}
+function normalizeState(raw={}){
+  const merged={...cloneDefault(),...raw};
+  const fallbackName=ROTATION[Number(merged.rotationIndex||0)%ROTATION.length]||ROTATION[0];
+  merged.customGyms=Array.isArray(merged.customGyms)&&merged.customGyms.length?merged.customGyms:cloneDefault().customGyms;
+  merged.history=Array.isArray(merged.history)?merged.history.map(w=>normalizeWorkout(w,fallbackName)):[];
+  merged.bodyweight=Array.isArray(merged.bodyweight)?merged.bodyweight:[];
+  merged.notes=merged.notes&&typeof merged.notes==="object"?merged.notes:{};
+  merged.lastWeights=merged.lastWeights&&typeof merged.lastWeights==="object"?merged.lastWeights:{};
+  merged.gymWeights=merged.gymWeights&&typeof merged.gymWeights==="object"?merged.gymWeights:{};
+  merged.active=merged.active?normalizeWorkout(merged.active,fallbackName):null;
+  return merged;
+}
+function load(){try{return normalizeState(JSON.parse(localStorage.getItem("flexppl")||"{}"))}catch{return cloneDefault()}}
 function save(){localStorage.setItem("flexppl",JSON.stringify(state))}
 function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.style.display="block";setTimeout(()=>t.style.display="none",1800)}
 function today(){return new Date().toISOString().slice(0,10)}
@@ -116,18 +163,15 @@ function recWeight(name,base){
   return state.gymWeights[gymKey]?.next ?? state.lastWeights[name]?.next ?? base;
 }
 function startWorkout(name=nextWorkout()){
-  const busy=(prompt("How busy is the gym?
-1. Empty
-2. Normal
-3. Packed","2")||"2");
-  let items=PROGRAM[name].map((e,i)=>({id:crypto.randomUUID(),name:e[0],weight:recWeight(e[0],e[1]),target:e[2],inc:e[3],swaps:e[4],sets:[null,null,null],done:false,skipped:false,order:i}));
+  const busy=(prompt("How busy is the gym?\n1. Empty\n2. Normal\n3. Packed","2")||"2");
+  let items=PROGRAM[name].map((e,i)=>({id:makeId(),name:e[0],weight:recWeight(e[0],e[1]),target:e[2],inc:e[3],swaps:e[4],sets:[null,null,null],done:false,skipped:false,order:i}));
   if(busy==="3"){
     const priority={"Cable Lateral Raise":1,"DB / Cable Lateral Raise":1,"Face Pull":1,"Cable Curl":1,"Rope Hammer Curl":1,"Rear-Delt Fly":1,
                     "Bar Triceps Pushdown":1,"Rope Pushdown":1,"Overhead Rope Extension":1,"Cable Fly (High to Low)":2,"Cable Fly (Low to High)":2,
                     "Straight-Arm Pulldown":2,"Leg Extension":2,"Seated Hamstring Curl":2,"Lying Hamstring Curl":2};
     items.sort((a,b)=>(priority[a.name]||9)-(priority[b.name]||9));
   }
-  state.active={id:crypto.randomUUID(),name,date:today(),startedAt:Date.now(),gym:state.gym,busy,items,core:null}; save(); render();
+  state.active={id:makeId(),name,date:today(),startedAt:Date.now(),gym:state.gym,busy,items,core:null}; save(); render();
 }
 function completeItem(id){
   const x=state.active.items.find(i=>i.id===id); if(!x)return;
@@ -192,7 +236,7 @@ function editHistory(index){
   state.active.editingIndex=index;
   state.active.items=(state.active.items||[]).map(x=>({
     ...x,
-    id:x.id||crypto.randomUUID(),
+    id:x.id||makeId(),
     sets:Array.isArray(x.sets)?x.sets:[null,null,null],
     target:Number(x.target||0),
     weight:Number(x.weight||0),
@@ -240,8 +284,8 @@ function cancelWorkout(){
 function logBodyweight(){const v=prompt("Bodyweight");if(v){state.bodyweight.unshift({date:today(),value:Number(v)});save();render()}}
 function addGym(){const n=prompt("Gym name");if(n){state.customGyms.push(n);state.gym=n;save();render()}}
 function exportData(){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:"application/json"}));a.download="flexppl-backup.json";a.click()}
-function importData(ev){const f=ev.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{state=JSON.parse(r.result);save();render();toast("Backup restored")}catch{alert("Invalid backup")}};r.readAsText(f)}
-function resetData(){if(confirm("Delete all FlexPPL data?")){localStorage.removeItem("flexppl");state=structuredClone(DEFAULT_STATE);render()}}
+function importData(ev){const f=ev.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{state=normalizeState(JSON.parse(r.result));save();render();toast("Backup restored")}catch{alert("Invalid backup")}};r.readAsText(f)}
+function resetData(){if(confirm("Delete all FlexPPL data?")){localStorage.removeItem("flexppl");state=cloneDefault();render()}}
 function render(){document.getElementById("app").innerHTML=`
 <header><div class="brand">FlexPPL</div><div class="pill">${state.gym}</div></header>
 ${page==="today"?renderToday():page==="history"?renderHistory():page==="progress"?renderProgress():renderSettings()}
