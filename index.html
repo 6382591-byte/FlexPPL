@@ -41,6 +41,9 @@
     .hidden{display:none!important}.section-title{margin:22px 2px 8px;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
     .history-item{padding:12px 0;border-bottom:1px solid var(--line)} .history-item:last-child{border-bottom:0}
     .core-choice{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:82px;background:#052e16;color:#dcfce7;padding:12px 16px;border-radius:12px;border:1px solid #166534;display:none}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,.72);display:flex;align-items:center;justify-content:center;padding:18px;z-index:30;backdrop-filter:blur(6px)}
+    .modal{width:min(460px,100%);background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 24px 70px rgba(0,0,0,.55)}
+    .modal h2{margin:0 0 8px}.modal-actions{display:grid;gap:12px;margin-top:18px}.busy-btn{padding:20px 16px;font-size:18px;text-align:left}.busy-btn strong{display:block;font-size:22px}.busy-btn span{display:block;margin-top:3px;color:var(--muted);font-size:14px}
     .drag{color:var(--muted);font-size:22px;cursor:grab}.top-actions{display:flex;gap:8px}.top-actions button{padding:8px 10px}
     @media (max-width:520px){.grid{grid-template-columns:1fr}.entry-grid{grid-template-columns:76px repeat(3,minmax(0,1fr));gap:6px}.entry-grid input{padding:11px 4px;font-size:15px}.hero h1{font-size:28px}}
   </style>
@@ -48,6 +51,18 @@
 <body>
 <div id="app" class="app"></div>
 <div id="toast" class="toast"></div>
+<div id="busyModal" class="modal-backdrop hidden" onclick="closeBusyModal()" role="presentation">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="busyModalTitle" onclick="event.stopPropagation()">
+    <h2 id="busyModalTitle">How busy is the gym?</h2>
+    <p class="muted">Choose a level to start your workout now.</p>
+    <div class="modal-actions">
+      <button class="btn secondary busy-btn" onclick="beginWorkoutWithBusy('1')"><strong>Empty</strong><span>Use the normal exercise order.</span></button>
+      <button class="btn secondary busy-btn" onclick="beginWorkoutWithBusy('2')"><strong>Normal</strong><span>Use the normal exercise order.</span></button>
+      <button class="btn primary busy-btn" onclick="beginWorkoutWithBusy('3')"><strong>Packed</strong><span>Prioritize easier-to-access stations first.</span></button>
+    </div>
+    <button class="btn secondary wide" style="margin-top:14px" onclick="closeBusyModal()">Cancel</button>
+  </div>
+</div>
 <script>
 const ROTATION=["Push A","Pull A","Legs A","Push B","Pull B","Legs B"];
 const PROGRAM={
@@ -105,6 +120,7 @@ const CORE={
 const DEFAULT_STATE={rotationIndex:0,active:null,history:[],bodyweight:[],gym:"Crunch Gym",customGyms:["Crunch Gym","Travel Gym","Hotel Gym"],notes:{},lastWeights:{},gymWeights:{},skippedCore:0};
 let state=load();
 let page="today";
+let pendingWorkoutName=null;
 
 function cloneDefault(){return JSON.parse(JSON.stringify(DEFAULT_STATE))}
 function makeId(){
@@ -163,7 +179,16 @@ function recWeight(name,base){
   return state.gymWeights[gymKey]?.next ?? state.lastWeights[name]?.next ?? base;
 }
 function startWorkout(name=nextWorkout()){
-  const busy=(prompt("How busy is the gym?\n1. Empty\n2. Normal\n3. Packed","2")||"2");
+  pendingWorkoutName=name;
+  document.getElementById("busyModal").classList.remove("hidden");
+}
+function closeBusyModal(){
+  pendingWorkoutName=null;
+  document.getElementById("busyModal").classList.add("hidden");
+}
+function beginWorkoutWithBusy(busy){
+  const name=pendingWorkoutName||nextWorkout();
+  closeBusyModal();
   let items=PROGRAM[name].map((e,i)=>({id:makeId(),name:e[0],weight:recWeight(e[0],e[1]),target:e[2],inc:e[3],swaps:e[4],sets:[null,null,null],done:false,skipped:false,order:i}));
   if(busy==="3"){
     const priority={"Cable Lateral Raise":1,"DB / Cable Lateral Raise":1,"Face Pull":1,"Cable Curl":1,"Rope Hammer Curl":1,"Rear-Delt Fly":1,
