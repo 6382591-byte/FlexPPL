@@ -3,52 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#111827" />
-  <meta name="description" content="Flexible PPL workout tracker" />
+  <meta name="theme-color" content="#050505" />
+  <meta name="description" content="VEKTR training tracker" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="icon.svg" type="image/svg+xml" />
-  <title>FlexPPL</title>
+  <title>VEKTR</title>
   <style>
-    :root{--bg:#0b1220;--card:#111827;--muted:#94a3b8;--text:#f8fafc;--accent:#22c55e;--accent2:#38bdf8;--danger:#ef4444;--line:#263244;--warn:#f59e0b}
-    *{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#07101d,#0b1220 35%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-    button,input,select{font:inherit}.app{max-width:760px;margin:auto;min-height:100vh;padding:16px 16px 88px}
-    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.brand{font-weight:800;font-size:24px}.pill{background:#152033;border:1px solid var(--line);padding:8px 12px;border-radius:999px;color:var(--muted)}
-    .card{background:rgba(17,24,39,.96);border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px 0;box-shadow:0 10px 30px rgba(0,0,0,.22)}
-    .hero{padding:20px}.hero h1{font-size:34px;margin:0 0 6px}.muted{color:var(--muted)}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .btn{border:0;border-radius:14px;padding:14px 16px;font-weight:750;cursor:pointer}.primary{background:var(--accent);color:#052e16}.secondary{background:#172033;color:var(--text);border:1px solid var(--line)}.danger{background:#33161b;color:#fecaca;border:1px solid #7f1d1d}
-    .wide{width:100%}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#0d1727;border:1px solid var(--line);border-radius:14px;padding:12px}
-    .stat b{display:block;font-size:21px}.tabs{position:fixed;left:0;right:0;bottom:0;background:#0a111d;border-top:1px solid var(--line);display:flex;justify-content:center;z-index:10}
-    .tabs .inner{width:min(760px,100%);display:grid;grid-template-columns:repeat(4,1fr)}.tab{background:none;border:0;color:var(--muted);padding:13px 5px}.tab.active{color:var(--accent)}
-    .exercise{display:block;position:relative}.exercise.done{opacity:1}.exercise h3{margin:0 0 6px;padding-right:92px}.meta{font-size:14px;color:var(--muted)}
-    .exercise-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-    .order-controls{position:absolute;top:14px;right:14px;display:flex;gap:6px}
-    .order-controls button{width:38px;height:38px;padding:0;border-radius:10px}
-    .field-label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em}
-    .entry-grid{display:grid;grid-template-columns:88px repeat(3,minmax(0,1fr));gap:7px;margin-top:14px}
-    .entry-grid label{min-width:0}
-    .entry-grid input{min-width:0;width:100%;background:#0a1321;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px 6px;text-align:center;font-size:16px}
-    .status-first{border-left:4px solid var(--accent2)}
-    .status-repeat{border-left:4px solid var(--warn)}
-    .status-increase{border-left:4px solid var(--accent)}
-    .collapsed-done{padding:13px 15px;background:#0d1b16;border-color:#166534}
-    .collapsed-done .done-summary{display:flex;justify-content:space-between;align-items:center;gap:12px}
-    .collapsed-done .done-title{font-weight:800}
-    .completed-section{margin-top:18px}
-    .completed-section summary{cursor:pointer;color:var(--muted);font-weight:700;padding:10px 2px}
-    .setline{display:grid;grid-template-columns:76px repeat(3,minmax(0,1fr));gap:7px;margin-top:12px}.setline input{min-width:0;width:100%;background:#0a1321;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px 6px;text-align:center;font-size:16px}
-    select,input[type=number],input[type=text]{background:#0a1321;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px}
-    .mini{padding:9px 12px;border-radius:12px}.complete{background:#10351f;color:#bbf7d0;border:1px solid #166534}.swap{background:#102639;color:#bae6fd;border:1px solid #075985}
-    .hidden{display:none!important}.section-title{margin:22px 2px 8px;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
-    .history-item{padding:12px 0;border-bottom:1px solid var(--line)} .history-item:last-child{border-bottom:0}
-    .core-choice{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:82px;background:#052e16;color:#dcfce7;padding:12px 16px;border-radius:12px;border:1px solid #166534;display:none}
-    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,.72);display:flex;align-items:center;justify-content:center;padding:18px;z-index:30;backdrop-filter:blur(6px)}
-    .modal{width:min(460px,100%);background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 24px 70px rgba(0,0,0,.55)}
-    .modal h2{margin:0 0 8px}.modal-actions{display:grid;gap:12px;margin-top:18px}.busy-btn,.choice-btn{padding:20px 16px;font-size:18px;text-align:left}.busy-btn strong,.choice-btn strong{display:block;font-size:22px}.busy-btn span,.choice-btn span{display:block;margin-top:3px;color:var(--muted);font-size:14px}
-    .best-badge{display:inline-block;margin-bottom:7px;background:rgba(34,197,94,.16);color:#bbf7d0;border:1px solid #166534;border-radius:999px;padding:4px 8px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
-    .weight-wrap{display:grid;grid-template-columns:minmax(0,1fr) 42px;gap:6px}.calc-btn{width:42px;height:42px;margin-top:22px;padding:0;border-radius:12px}
-    .plate-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.plate-options button.active{background:var(--accent);color:#052e16}.plate-result{background:#0d1727;border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:14px}.plate-list{font-size:24px;font-weight:850;margin-top:4px}
-    .drag{color:var(--muted);font-size:22px;cursor:grab}.top-actions{display:flex;gap:8px}.top-actions button{padding:8px 10px}
-    @media (max-width:520px){.grid{grid-template-columns:1fr}.entry-grid{grid-template-columns:76px repeat(3,minmax(0,1fr));gap:6px}.entry-grid input{padding:11px 4px;font-size:15px}.hero h1{font-size:28px}}
+    :root{--page:#050505;--elev:#0B0B0C;--card:#111113;--surface:#171719;--line:#2A2A2E;--red:#B3121B;--red2:#D01822;--redDark:#7A0C12;--text:#F3F3F3;--muted:#A3A3AA;--dim:#6F6F77;--green:#5F9F73;--amber:#B9903B;--reduce:#C2474A;--blue:#5E7F9F}
+    *{box-sizing:border-box}html{background:var(--page)}body{margin:0;background:radial-gradient(circle at 50% -10%,rgba(179,18,27,.16),transparent 34%),linear-gradient(180deg,#050505,#090909 55%,#050505);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;letter-spacing:.01em}button,input,select,textarea{font:inherit}.app{max-width:760px;margin:auto;min-height:100vh;padding:14px 14px calc(104px + env(safe-area-inset-bottom));overflow-x:hidden}
+    header{display:grid;grid-template-columns:44px 1fr 44px;align-items:center;margin:0 0 14px;padding:8px 0}.brand{display:flex;justify-content:center;align-items:center;gap:10px;font-weight:850;font-size:22px;letter-spacing:.28em;text-indent:.28em}.brand img{width:30px;height:30px}.icon-btn{height:40px;width:40px;border-radius:12px;background:transparent;border:1px solid var(--line);color:var(--muted)}.pill{background:var(--surface);border:1px solid var(--line);padding:8px 11px;border-radius:999px;color:var(--muted);font-size:13px}.card{background:linear-gradient(180deg,rgba(23,23,25,.78),rgba(17,17,19,.98));border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0;box-shadow:0 18px 38px rgba(0,0,0,.22)}.hero{padding:22px}.eyebrow,.section-title,.field-label{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.16em}.hero h1,h1{font-size:34px;margin:6px 0 8px;line-height:1}.muted{color:var(--muted)}.dim{color:var(--dim)}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.btn{border:0;border-radius:14px;padding:13px 15px;font-weight:780;cursor:pointer;min-height:44px}.primary{background:linear-gradient(135deg,var(--redDark),var(--red2));color:white;border:1px solid #C31520}.secondary{background:var(--surface);color:var(--text);border:1px solid var(--line)}.danger{background:rgba(194,71,74,.13);color:#F0B1B3;border:1px solid rgba(194,71,74,.55)}.outline-red{background:transparent;color:#F1B6B9;border:1px solid var(--red)}.wide{width:100%}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:var(--elev);border:1px solid var(--line);border-radius:14px;padding:13px}.stat b{display:block;font-size:24px;line-height:1.1;margin-top:4px}.tabs{position:fixed;left:0;right:0;bottom:0;background:rgba(11,11,12,.94);border-top:1px solid var(--line);display:flex;justify-content:center;z-index:10;backdrop-filter:blur(14px);padding-bottom:env(safe-area-inset-bottom)}.tabs .inner{width:min(760px,100%);display:grid;grid-template-columns:repeat(4,1fr)}.tab{background:none;border:0;color:var(--dim);padding:11px 5px 10px;font-size:12px}.tab svg{display:block;margin:0 auto 4px;stroke:currentColor}.tab.active{color:var(--red2)}
+    .exercise{position:relative}.exercise h3{margin:0 84px 6px 0;font-size:21px}.target-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.target-num{font-size:30px;font-weight:850}.meta{font-size:14px;color:var(--muted)}.order-controls{position:absolute;top:14px;right:14px;display:flex;gap:6px}.order-controls button{width:36px;height:36px;padding:0}.entry-grid{display:grid;grid-template-columns:minmax(88px,1.2fr) repeat(3,minmax(0,1fr));gap:7px;margin-top:14px}.entry-grid label{min-width:0}.entry-grid input,select,input[type=number],input[type=text],textarea{min-width:0;width:100%;background:#09090A;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px 7px;text-align:center;font-size:16px}textarea{text-align:left;min-height:120px}.status-first{border-left:3px solid var(--blue)}.status-repeat{border-left:3px solid var(--amber)}.status-increase{border-left:3px solid var(--green)}.status-reduce{border-left:3px solid var(--reduce)}.collapsed-done{padding:12px 14px;background:#0C0D0C}.done-summary{display:flex;justify-content:space-between;align-items:center;gap:12px}.done-title{font-weight:820}.completed-section{margin-top:18px}.completed-section summary{cursor:pointer;color:var(--muted);font-weight:700;padding:10px 2px}.mini{padding:9px 12px;border-radius:12px;min-height:38px}.hidden{display:none!important}.history-item{padding:13px 0;border-bottom:1px solid var(--line)}.history-item:last-child{border-bottom:0}.core-choice{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:86px;background:#101812;color:#D9F0DF;padding:12px 16px;border-radius:12px;border:1px solid rgba(95,159,115,.55);display:none;z-index:40}.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.76);display:flex;align-items:center;justify-content:center;padding:18px;z-index:30;backdrop-filter:blur(8px)}.modal{width:min(480px,100%);max-height:calc(100vh - 36px);overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 24px 70px rgba(0,0,0,.58)}.modal h2{margin:0 0 8px}.modal-actions{display:grid;gap:12px;margin-top:18px}.busy-btn,.choice-btn{padding:18px 16px;text-align:left}.busy-btn strong,.choice-btn strong{display:block;font-size:21px}.busy-btn span,.choice-btn span{display:block;margin-top:4px;color:var(--muted);font-size:14px}.recommended,.choice-btn:first-child{border-color:var(--red);box-shadow:inset 0 0 0 1px rgba(179,18,27,.25)}.best-badge{display:inline-block;margin-bottom:8px;color:#F3C2C5;border:1px solid var(--red);border-radius:999px;padding:4px 8px;font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:.1em}.weight-wrap{display:grid;grid-template-columns:minmax(0,1fr) 42px;gap:6px}.calc-btn{width:42px;height:42px;padding:0}.plate-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.plate-options button{border-radius:999px}.plate-options button.active{background:rgba(179,18,27,.24);border-color:var(--red);color:#fff}.plate-result{background:var(--elev);border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:14px}.plate-list{font-size:24px;font-weight:850;margin-top:4px}.note-preview{width:100%;font-size:13px;color:var(--muted);padding-top:2px}.chart{height:90px;width:100%;margin-top:10px}.wordmark{letter-spacing:.3em;text-indent:.3em}.vcheck{font-size:52px;color:var(--red2);text-align:center;line-height:1}.top-actions{display:flex;gap:8px}.progress-line{stroke:var(--red2);fill:none;stroke-width:2}.gridline{stroke:#252529;stroke-width:1}
+    @media (max-width:520px){.app{padding-left:12px;padding-right:12px}.grid{grid-template-columns:1fr}.entry-grid{grid-template-columns:82px repeat(3,minmax(0,1fr));gap:6px}.entry-grid input{padding:11px 4px;font-size:15px}.hero h1,h1{font-size:29px}.brand{font-size:18px}.target-num{font-size:26px}.btn{padding-left:12px;padding-right:12px}.tab{font-size:11px}}
   </style>
 </head>
 <body>
@@ -57,11 +22,11 @@
 <div id="busyModal" class="modal-backdrop hidden" onclick="closeBusyModal()" role="presentation">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="busyModalTitle" onclick="event.stopPropagation()">
     <h2 id="busyModalTitle">How busy is the gym?</h2>
-    <p class="muted">Choose a level to start your workout now.</p>
+    <p class="muted">Choose a traffic level to set the exercise order.</p>
     <div class="modal-actions">
       <button class="btn secondary busy-btn" onclick="beginWorkoutWithBusy('1')"><strong>Empty</strong><span>Use the normal exercise order.</span></button>
       <button class="btn secondary busy-btn" onclick="beginWorkoutWithBusy('2')"><strong>Normal</strong><span>Use the normal exercise order.</span></button>
-      <button class="btn primary busy-btn" onclick="beginWorkoutWithBusy('3')"><strong>Packed</strong><span>Prioritize easier-to-access stations first.</span></button>
+      <button class="btn primary busy-btn recommended" onclick="beginWorkoutWithBusy('3')"><strong>Packed</strong><span>Prioritize easier-to-access stations first.</span></button>
       <button class="btn secondary busy-btn" onclick="closeBusyModal()"><strong>Cancel</strong><span>Go back without starting.</span></button>
     </div>
   </div>
@@ -69,6 +34,7 @@
 <div id="swapModal" class="modal-backdrop hidden" onclick="closeSwapModal()" role="presentation"></div>
 <div id="plateModal" class="modal-backdrop hidden" onclick="closePlateModal()" role="presentation"></div>
 <div id="quickInputModal" class="modal-backdrop hidden" onclick="closeQuickInputModal()" role="presentation"></div>
+<div id="notesModal" class="modal-backdrop hidden" onclick="closeNotesModal()" role="presentation"></div>
 <script>
 const ROTATION=["Push A","Pull A","Legs A","Push B","Pull B","Legs B"];
 const PROGRAM={
@@ -242,6 +208,20 @@ function chooseSwap(name){
   render();
   toast("Temporary swap added");
 }
+
+function openNotes(name){
+  const modal=document.getElementById("notesModal");
+  const note=state.notes[name]||"";
+  modal.innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-labelledby="notesModalTitle" onclick="event.stopPropagation()">
+    <h2 id="notesModalTitle">Notes</h2><p class="muted">${name}</p>
+    <textarea id="noteText" placeholder="Add setup cues, form notes, or machine settings.">${String(note).replace(/</g,"&lt;")}</textarea>
+    <div class="modal-actions"><button class="btn primary wide" onclick="saveNote('${escAttr(name)}')">Save Note</button><button class="btn secondary wide" onclick="closeNotesModal()">Cancel</button></div>
+  </div>`;
+  modal.classList.remove("hidden");
+}
+function saveNote(name){const v=document.getElementById("noteText")?.value||""; if(v.trim()) state.notes[name]=v.trim(); else delete state.notes[name]; save(); closeNotesModal(); render();}
+function closeNotesModal(){document.getElementById("notesModal").classList.add("hidden")}
+
 function renderSwapModal(){
   const x=state.active?.items.find(i=>i.id===pendingSwapId);
   const modal=document.getElementById("swapModal");
@@ -250,7 +230,7 @@ function renderSwapModal(){
   modal.innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-labelledby="swapModalTitle" onclick="event.stopPropagation()">
     <h2 id="swapModalTitle">Can't do this?</h2>
     <p class="muted">Pick one replacement for this workout only.</p>
-    <div class="modal-actions">${choices.map((name,i)=>`<button class="btn secondary choice-btn" onclick="chooseSwap('${escAttr(name)}')">${i===0?`<span class="best-badge">Best replacement</span>`:""}<strong>${name}</strong><span>Tap to use now.</span></button>`).join("")}</div>
+    <div class="modal-actions">${choices.map((name,i)=>`<button class="btn secondary choice-btn" onclick="chooseSwap('${escAttr(name)}')">${i===0?`<span class="best-badge">Best replacement</span>`:""}<strong>${name}</strong><span>${i===0?"Same movement pattern":"Similar stimulus"}</span></button>`).join("")}</div>
     <button class="btn secondary wide" style="margin-top:14px" onclick="closeSwapModal()">Cancel</button>
   </div>`;
   modal.classList.remove("hidden");
@@ -270,8 +250,16 @@ function plateBreakdown(total,bar=45){
   let side=(Number(total||0)-bar)/2;
   if(side<0) side=0;
   const plates=[];
-  [45,35,25,10,5,2.5].forEach(p=>{while(side+0.001>=p){plates.push(p);side-=p;}});
+  [45,35,25,15,10,5].forEach(p=>{while(side+0.001>=p){plates.push(p);side-=p;}});
   return {plates,extra:side};
+}
+function achievableAround(total,bar=45){
+  const vals=[];
+  for(let w=bar;w<=Math.max(Number(total||0)+100,bar);w+=10) vals.push(w);
+  let lower=bar,higher=bar;
+  vals.forEach(v=>{if(v<=total)lower=v;if(v>=total&&higher<total)higher=v});
+  higher=vals.find(v=>v>=total)||lower;
+  return {lower,higher};
 }
 function renderPlateModal(){
   const x=state.active?.items.find(i=>i.id===pendingPlateId);
@@ -279,12 +267,16 @@ function renderPlateModal(){
   if(!x){closePlateModal();return;}
   const weight=Number(x.weight||0);
   const result=plateBreakdown(weight,plateBar);
+  const around=achievableAround(weight,plateBar);
   modal.innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-labelledby="plateModalTitle" onclick="event.stopPropagation()">
     <h2 id="plateModalTitle">Plate calculator</h2>
-    <p class="muted">${x.name} · ${weight} lb total</p>
-    <div class="field-label">Bar</div>
-    <div class="plate-options">${[45,35,15].map(v=>`<button class="btn secondary mini ${plateBar===v?"active":""}" onclick="setPlateBar(${v})">${v} lb</button>`).join("")}</div>
-    <div class="plate-result"><div class="muted">Add to each side</div><div class="plate-list">${result.plates.length?result.plates.join(" + "):"No plates"}</div>${result.extra>0.01?`<div class="muted">Plus ${result.extra.toFixed(1)} lb per side to be exact.</div>`:""}</div>
+    <p class="muted">${x.name}</p>
+    <div class="grid"><div class="stat"><span class="eyebrow">Total</span><b>${weight} lb</b></div><div class="stat"><span class="eyebrow">Per side</span><b>${result.plates.length?result.plates.join(" + "):"0"}</b></div></div>
+    <div class="field-label" style="margin-top:14px">Bar</div>
+    <div class="plate-options">${[45,35].map(v=>`<button class="btn secondary mini ${plateBar===v?"active":""}" onclick="setPlateBar(${v})">${v} lb</button>`).join("")}</div>
+    <div class="field-label" style="margin-top:14px">Plate options</div>
+    <div class="plate-options">${[45,35,25,15,10,5].map(v=>`<button class="btn secondary mini ${result.plates.includes(v)?"active":""}">${v}</button>`).join("")}</div>
+    <div class="plate-result"><div class="eyebrow">Nearest achievable</div><div class="row"><span class="pill">Lower ${around.lower} lb</span><span class="pill">Higher ${around.higher} lb</span></div>${result.extra>0.01?`<div class="muted" style="margin-top:8px">Exact target falls between available plate jumps.</div>`:""}</div>
     <button class="btn primary wide" style="margin-top:14px" onclick="closePlateModal()">Done</button>
   </div>`;
   modal.classList.remove("hidden");
@@ -406,17 +398,21 @@ function submitQuickInput(){
 }
 function logBodyweight(){openQuickInput("Bodyweight","Weight","number","bodyweight")}
 function addGym(){openQuickInput("Add gym","Gym name","text","gym")}
-function exportData(){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:"application/json"}));a.download="flexppl-backup.json";a.click()}
+function exportData(){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:"application/json"}));a.download="vektr-backup.json";a.click()}
 function importData(ev){const f=ev.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{state=normalizeState(JSON.parse(r.result));save();render();toast("Backup restored")}catch{toast("Invalid backup")}};r.readAsText(f)}
-function resetData(){if(confirm("Delete all FlexPPL data?")){localStorage.removeItem("flexppl");state=cloneDefault();render()}}
+function resetData(){if(confirm("Delete all VEKTR data?")){localStorage.removeItem("flexppl");state=cloneDefault();render()}}
+function navIcon(name){
+  const icons={today:"M4 11h16M12 3v18M6 17l6 4 6-4",history:"M4 6h16M6 6v14h12V6M8 11h8M8 15h5",progress:"M4 18l5-5 4 3 7-9M4 21h16",settings:"M12 8a4 4 0 100 8 4 4 0 000-8zM4 12h2m12 0h2M12 4v2m0 12v2"};
+  return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="${icons[name]}"></path></svg>`;
+}
 function render(){document.getElementById("app").innerHTML=`
-<header><div class="brand">FlexPPL</div><div class="pill">${state.gym}</div></header>
+<header><button class="icon-btn" aria-label="Menu">☰</button><div class="brand"><img src="icon.svg" alt=""><span class="wordmark">VEKTR</span></div><button class="icon-btn" aria-label="Back" onclick="if(page!=='today'){page='today';render()}">‹</button></header>
 ${page==="today"?renderToday():page==="history"?renderHistory():page==="progress"?renderProgress():renderSettings()}
 <div class="tabs"><div class="inner">
-<button class="tab ${page==="today"?"active":""}" onclick="page='today';render()">Today</button>
-<button class="tab ${page==="history"?"active":""}" onclick="page='history';render()">History</button>
-<button class="tab ${page==="progress"?"active":""}" onclick="page='progress';render()">Progress</button>
-<button class="tab ${page==="settings"?"active":""}" onclick="page='settings';render()">Settings</button>
+<button class="tab ${page==="today"?"active":""}" onclick="page='today';render()">${navIcon("today")}Today</button>
+<button class="tab ${page==="history"?"active":""}" onclick="page='history';render()">${navIcon("history")}History</button>
+<button class="tab ${page==="progress"?"active":""}" onclick="page='progress';render()">${navIcon("progress")}Progress</button>
+<button class="tab ${page==="settings"?"active":""}" onclick="page='settings';render()">${navIcon("settings")}Settings</button>
 </div></div>`}
 function renderToday(){
  if(!state.active){
@@ -429,14 +425,14 @@ function renderToday(){
      return (d1-d2)<=3*86400000?n+1:n;
    },state.history.length?0:0);
    return `
- <section class="card hero"><div class="muted">Today's workout</div><h1>${nextWorkout()}</h1>
+ <section class="card hero"><div class="eyebrow">Current workout</div><h1>${nextWorkout()}</h1>
  <p class="muted">${new Date().toLocaleDateString()} · ${state.gym}</p>
  ${last?`<div class="row" style="margin:10px 0 16px">
    <span class="pill">Last: ${last.duration||0} min</span>
    <span class="pill">${daysAgo===0?"Last done today":`Last done ${daysAgo} day${daysAgo===1?"":"s"} ago`}</span>
-   <span class="pill">🔥 ${streak} workout${streak===1?"":"s"}</span>
+   <span class="pill">${streak} recent workout${streak===1?"":"s"}</span>
  </div>`:""}
- <button class="btn primary wide" onclick="startWorkout()">Start Today's Workout</button>
+ <button class="btn primary wide" onclick="startWorkout()">Start Workout</button>
  <div class="row" style="margin-top:10px"><button class="btn secondary" onclick="logBodyweight()">Quick Log Bodyweight</button>
  <select onchange="state.gym=this.value;save();render()">${state.customGyms.map(g=>`<option ${g===state.gym?"selected":""}>${g}</option>`).join("")}</select></div></section>
  <div class="grid"><div class="stat"><span class="muted">Last workout</span><b>${last?.name||"None yet"}</b></div><div class="stat"><span class="muted">Bodyweight</span><b>${state.bodyweight[0]?.value||"—"}</b></div></div>
@@ -458,13 +454,14 @@ function renderToday(){
  <div class="core-choice"><button class="btn secondary" onclick="finishWithCore('skip')">Skip</button><button class="btn secondary" onclick="finishWithCore('5')">5 min</button><button class="btn primary" onclick="finishWithCore('10')">10 min</button></div></div>`;
 }
 function renderExercise(x,collapsed=false){
- const status=x.done?(x.coach==="INCREASE"||x.coach==="ADD REPS"?"status-increase":"status-repeat"):(x.coach==="REPEAT"?"status-repeat":"status-first");
+ const status=x.skipped?"status-reduce":x.done?(x.coach==="INCREASE"||x.coach==="ADD REPS"?"status-increase":"status-repeat"):(x.coach==="REPEAT"?"status-repeat":"status-first");
+ const note=state.notes[x.name]||"";
  if(collapsed){
-   return `<section class="card collapsed-done ${status}" onclick="this.classList.toggle('expanded')">
+   return `<section class="card collapsed-done ${status}">
      <div class="done-summary">
        <div><div class="done-title">${x.skipped?"Skipped: ":"✓ "}${x.name}</div>
-       <div class="muted">${x.skipped?"Not completed":`${x.weight} × ${x.sets.join(" / ")} · Next ${x.next}`}</div></div>
-       <button class="btn secondary mini" onclick="event.stopPropagation();xDoneToggle('${x.id}')">Edit</button>
+       <div class="muted">${x.skipped?"Not completed":`${x.weight} lb · ${x.sets.join(" / ")} reps · Next ${x.next} (${x.coach||"baseline"})`}</div></div>
+       <button class="btn secondary mini" onclick="xDoneToggle('${x.id}')">Edit</button>
      </div>
    </section>`;
  }
@@ -473,15 +470,19 @@ function renderExercise(x,collapsed=false){
    <button class="btn secondary mini" onclick="moveItem('${x.id}',-1)" aria-label="Move up">↑</button>
    <button class="btn secondary mini" onclick="moveItem('${x.id}',1)" aria-label="Move down">↓</button>
  </div>
- <div class="exercise-head"><div><h3>${x.name}</h3><div class="meta">Goal ${x.target} reps · ${x.coach||"First log"}</div></div></div>
+ <h3>${x.name}</h3><div class="meta">${x.coach||"Baseline"}</div>
+ <div class="target-row"><div class="stat"><span class="eyebrow">Target weight</span><b class="target-num">${x.weight}</b><span class="muted">lb</span></div><div class="stat"><span class="eyebrow">Target reps</span><b class="target-num">${x.target}</b><span class="muted">per set</span></div></div>
  <div class="entry-grid">
-   <label><span class="field-label">Weight</span><span class="weight-wrap"><input type="number" value="${x.weight}" onchange="changeWeight('${x.id}',this.value)" aria-label="Weight"><button type="button" class="btn secondary calc-btn" onclick="openPlateCalculator('${x.id}')" aria-label="Plate calculator">🧮</button></span></label>
+   <label><span class="field-label">Weight</span><span class="weight-wrap"><input type="number" value="${x.weight}" onchange="changeWeight('${x.id}',this.value)" aria-label="Weight"><button type="button" class="btn secondary calc-btn" onclick="openPlateCalculator('${x.id}')" aria-label="Plate calculator">⌁</button></span></label>
    ${[0,1,2].map(i=>`<label><span class="field-label">S${i+1}</span><input type="number" inputmode="numeric" value="${x.sets[i]??""}" onchange="setVal('${x.id}',${i},this.value)"></label>`).join("")}
  </div>
  <div class="row" style="margin-top:12px">
-   <button class="btn swap mini" onclick="swapItem('${x.id}')">Can't do this</button>
+   <button class="btn secondary mini" onclick="openNotes('${escAttr(x.name)}')">◇ Notes</button>${note?`<div class="note-preview">${note.slice(0,90)}${note.length>90?"…":""}</div>`:""}
+ </div>
+ <div class="row" style="margin-top:10px">
+   <button class="btn outline-red mini" onclick="swapItem('${x.id}')">Can't do this</button>
    <button class="btn secondary mini" onclick="skipItem('${x.id}')">Skip</button>
-   <button class="btn primary mini" style="margin-left:auto" onclick="completeItem('${x.id}')">Complete</button>
+   <button class="btn primary mini" style="margin-left:auto" onclick="completeItem('${x.id}')">${x.done?"Finish Exercise":"Complete"}</button>
  </div>
  </section>`;
 }
@@ -508,7 +509,7 @@ function renderProgress(){
 function renderSettings(){return `<section class="card"><h2>Gym profile</h2><select onchange="state.gym=this.value;save();render()">${state.customGyms.map(g=>`<option ${g===state.gym?"selected":""}>${g}</option>`).join("")}</select> <button class="btn secondary mini" onclick="addGym()">Add gym</button></section>
  <section class="card"><h2>Backup</h2><div class="row"><button class="btn secondary" onclick="exportData()">Export JSON</button><label class="btn secondary">Import JSON<input class="hidden" type="file" accept=".json" onchange="importData(event)"></label></div></section>
  <section class="card"><h2>Data</h2><button class="btn danger" onclick="resetData()">Reset everything</button></section>
- <section class="card"><h2>App version</h2><p class="muted">FlexPPL 0.5 — simple swaps and plate calculator</p></section><section class="card"><h2>Install</h2><p class="muted">In Chrome, open the menu and choose <b>Add to Home screen</b> or <b>Install app</b>.</p></section>`}
+ <section class="card"><h2>App version</h2><p class="muted">VEKTR 1.0 — offline training tracker</p></section><section class="card"><h2>Install</h2><p class="muted">In Chrome, open the menu and choose <b>Add to Home screen</b> or <b>Install app</b>.</p></section>`}
 render();
 if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}))}
 </script>
