@@ -36,10 +36,12 @@
 <div id="plateModal" class="modal-backdrop hidden" onclick="closePlateModal()" role="presentation"></div>
 <div id="quickInputModal" class="modal-backdrop hidden" onclick="closeQuickInputModal()" role="presentation"></div>
 <div id="notesModal" class="modal-backdrop hidden" onclick="closeNotesModal()" role="presentation"></div>
+<script src="js/exercises.js"></script>
+<script src="js/programs.js"></script>
 <script src="js/state.js"></script>
 <script>
-const ROTATION=["Push A","Pull A","Legs A","Push B","Pull B","Legs B"];
-const PROGRAM={
+const LEGACY_ROTATION_SEED=["Push A","Pull A","Legs A","Push B","Pull B","Legs B"];
+const LEGACY_PROGRAM_SEED={
 "Push A":[
  ["Bench Press",175,6,5,["DB Bench Press","Smith Bench Press","Machine Chest Press","Push-Ups"]],
  ["Incline DB Press",65,12,5,["Incline Smith Press","Incline Machine Press","Low-to-High Cable Press"]],
@@ -87,10 +89,12 @@ const PROGRAM={
  ["Lying Hamstring Curl",70,12,10,["Seated Ham Curl","Standing Ham Curl"]],
  ["Seated Calf Raise",90,20,10,["Standing Calf Raise","Leg Press Calf Raise"]]
 ]};
+const ROTATION=VEKTR_PROGRAMS.ROTATION;
+const PROGRAM=VEKTR_PROGRAMS.LEGACY_PROGRAM;
 
-const MOVEMENT_FAMILIES=['horizontal press','incline press','chest fly','vertical press','lateral raise','rear-delt raise','vertical pull','horizontal pull','straight-arm shoulder extension','upper-back/rear-delt pull','supinated curl','neutral-grip curl','reverse curl','triceps pushdown','overhead triceps extension','squat','unilateral squat/lunge','knee extension','hip hinge','knee flexion','standing calf raise','seated calf raise','shrug','loaded carry','trunk flexion','anti-extension','anti-rotation','lateral core'];
-const META_DEFAULT={id:'generic',displayName:'Generic movement',aliases:[],primaryMuscleGroup:'General',secondaryMuscleGroups:[],movementFamily:'General',movementVariant:'generic',equipment:'Bodyweight',exerciseType:'compound',gymModes:'Both',imageAsset:null,validReplacementIds:[],lessExactReplacementIds:[]};
-const EXERCISE_SEEDS=[
+const MOVEMENT_FAMILIES=VEKTR_EXERCISES.MOVEMENT_FAMILIES;
+const META_DEFAULT=VEKTR_EXERCISES.META_DEFAULT;
+const LEGACY_EXERCISE_SEEDS=[
 // Chest / shoulders / triceps
 ['bench-press','Bench Press',['Barbell Bench Press'],'Chest',['Triceps','Shoulders'],'horizontal press','barbell','Barbell','compound','Both','bench-press'],['db-bench-press','DB Bench Press',['Flat DB Press','Dumbbell Bench Press'],'Chest',['Triceps','Shoulders'],'horizontal press','dumbbell','Dumbbell','compound','Both','db-bench-press'],['smith-bench-press','Smith Bench Press',['Smith Bench'],'Chest',['Triceps','Shoulders'],'horizontal press','smith','Smith machine','compound','Home','smith-bench-press'],['machine-chest-press','Machine Chest Press',[],'Chest',['Triceps','Shoulders'],'horizontal press','machine','Machine','compound','Home','machine-chest-press'],['push-ups','Push-Ups',['Push Up','Pushups'],'Chest',['Triceps','Shoulders'],'horizontal press','bodyweight','Bodyweight','compound','Both','push-ups'],
 ['incline-bench-press','Incline Bench Press',[],'Chest',['Triceps','Shoulders'],'incline press','barbell','Barbell','compound','Both','incline-bench-press'],['incline-db-press','Incline DB Press',['Incline Dumbbell Press'],'Chest',['Triceps','Shoulders'],'incline press','dumbbell','Dumbbell','compound','Both','incline-db-press'],['incline-smith-press','Incline Smith Press',[],'Chest',['Triceps','Shoulders'],'incline press','smith','Smith machine','compound','Home','incline-smith-press'],['incline-machine-press','Incline Machine Press',['Machine Incline Press'],'Chest',['Triceps','Shoulders'],'incline press','machine','Machine','compound','Home','incline-machine-press'],['low-to-high-cable-press','Low-to-High Cable Press',[],'Chest',['Triceps','Shoulders'],'incline press','cable','Cable','compound','Home','low-to-high-cable-press'],
@@ -109,10 +113,10 @@ const EXERCISE_SEEDS=[
 ['standing-calf-raise','Standing Calf Raise',[],'Calves',[],'standing calf raise','machine','Machine','isolation','Home','standing-calf-raise'],['leg-press-calf-raise','Leg Press Calf Raise',[],'Calves',[],'standing calf raise','leg press','Machine','isolation','Home','leg-press-calf-raise'],['smith-machine-calf-raise','Smith Machine Calf Raise',[],'Calves',[],'standing calf raise','smith','Smith machine','isolation','Home',null],['single-leg-standing-calf-raise','Single-Leg Standing Calf Raise',[],'Calves',[],'standing calf raise','single-leg','Bodyweight','isolation','Both','standing-calf-raise'],['dumbbell-standing-calf-raise','Dumbbell Standing Calf Raise',[],'Calves',[],'standing calf raise','dumbbell','Dumbbell','isolation','Both','standing-calf-raise'],['barbell-standing-calf-raise','Barbell Standing Calf Raise',[],'Calves',[],'standing calf raise','barbell','Barbell','isolation','Both','standing-calf-raise'],['seated-calf-raise','Seated Calf Raise',[],'Calves',[],'seated calf raise','machine','Machine','isolation','Home','seated-calf-raise'],['plate-loaded-seated-calf-raise','Plate-Loaded Seated Calf Raise',[],'Calves',[],'seated calf raise','plate-loaded','Machine','isolation','Home','seated-calf-raise'],['seated-dumbbell-calf-raise','Seated Dumbbell Calf Raise',[],'Calves',[],'seated calf raise','dumbbell','Dumbbell','isolation','Both','seated-calf-raise'],['seated-barbell-calf-raise','Seated Barbell Calf Raise',[],'Calves',[],'seated calf raise','barbell','Barbell','isolation','Both','seated-calf-raise'],['bent-knee-calf-raise','Bent-Knee Calf Raise',[],'Calves',[],'seated calf raise','bent-knee','Bodyweight','isolation','Both','seated-calf-raise'],
 ['barbell-shrug','Barbell Shrug',[],'Traps',['Grip'],'shrug','barbell','Barbell','isolation','Both','shrug-carry'],['trap-bar-shrug','Trap-Bar Shrug',[],'Traps',['Grip'],'shrug','trap bar','Trap bar','isolation','Both','shrug-carry'],['farmer-carry','Farmer Carry',[],'Traps',['Grip'],'loaded carry','dumbbell','Dumbbell','compound','Both','shrug-carry']
 ];
-const EXERCISE_LIBRARY=EXERCISE_SEEDS.map(r=>({id:r[0],displayName:r[1],name:r[1],aliases:r[2],primaryMuscleGroup:r[3],primaryMuscle:r[3],secondaryMuscleGroups:r[4],secondaryMuscles:r[4],movementFamily:r[5],movementPattern:r[5],movementVariant:r[6],equipment:r[7],equipmentType:r[7],exerciseType:r[8],type:r[8],gymModes:r[9],imageAsset:r[10]?`assets/exercises/${r[10]}.svg`:null,validReplacementIds:[],lessExactReplacementIds:[]}));
-const EXERCISE_BY_ID=Object.fromEntries(EXERCISE_LIBRARY.map(e=>[e.id,e]));
-const EXERCISE_ALIASES={}; EXERCISE_LIBRARY.forEach(e=>[e.displayName,...e.aliases].forEach(n=>EXERCISE_ALIASES[String(n).toLowerCase()]=e.id));
-function link(ids,valid,less=[]){ids.forEach(id=>{const e=EXERCISE_BY_ID[id]; if(e){e.validReplacementIds=[...new Set(valid.filter(v=>v!==id))]; e.lessExactReplacementIds=[...new Set(less.filter(v=>v!==id))];}})}
+const EXERCISE_LIBRARY=VEKTR_EXERCISES.EXERCISE_LIBRARY;
+const EXERCISE_BY_ID=VEKTR_EXERCISES.EXERCISE_BY_ID;
+const EXERCISE_ALIASES=VEKTR_EXERCISES.EXERCISE_ALIASES;
+function link(){/* Relationships are curated in js/exercises.js. */}
 link(['standing-calf-raise','leg-press-calf-raise','smith-machine-calf-raise','single-leg-standing-calf-raise','dumbbell-standing-calf-raise','barbell-standing-calf-raise'],['standing-calf-raise','leg-press-calf-raise','smith-machine-calf-raise','single-leg-standing-calf-raise','dumbbell-standing-calf-raise','barbell-standing-calf-raise'],['seated-calf-raise']);
 link(['seated-calf-raise','plate-loaded-seated-calf-raise','seated-dumbbell-calf-raise','seated-barbell-calf-raise','bent-knee-calf-raise'],['seated-calf-raise','plate-loaded-seated-calf-raise','seated-dumbbell-calf-raise','seated-barbell-calf-raise','bent-knee-calf-raise'],['standing-calf-raise']);
 link(['hack-squat-leg-press','hack-squat','leg-press','smith-squat','barbell-back-squat','front-squat','goblet-squat','belt-squat'],['hack-squat','leg-press','smith-squat','barbell-back-squat','front-squat','goblet-squat','belt-squat','hack-squat-leg-press']);

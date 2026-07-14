@@ -2,4 +2,7 @@
 baseline-*.log
 baseline-*.html
 baseline-*.png
+foundation-*.log
+foundation-*.html
+foundation-*.png
 test-results/
