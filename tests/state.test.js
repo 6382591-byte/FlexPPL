@@ -57,7 +57,7 @@ test("migrates legacy state without losing user data", () => {
   });
 
   assert.equal(migrated.stateVersion, CURRENT_STATE_VERSION);
-  assert.equal(migrated.gym, "Travel Gym");
+  assert.equal(migrated.gym, "Travel");
   assert.equal(migrated.notes["Bench Press"], "Pinky on ring");
   assert.equal(migrated.replacementPrefs["lat-pulldown"]["barbell-row"], 2);
   assert.equal(migrated.bodyweight[0].value, 181.4);
@@ -107,4 +107,12 @@ test("save keeps the legacy storage key and stamps the schema version", () => {
   const stored = JSON.parse(storage.value());
   assert.equal(stored.stateVersion, CURRENT_STATE_VERSION);
   assert.equal(stored.history[0].name, "Push A");
+});
+
+test("migrates legacy gym profiles to zero-setup Home and Travel modes", () => {
+  const migrated = normalizeState({ gym: "Crunch Gym", customGyms: ["Crunch Gym", "Hotel Gym", "Gold's"], history: [{ name: "Push A", gym: "Hotel Gym", items: [] }] }, { today: "2026-07-12" });
+  assert.equal(migrated.gym, "Home");
+  assert.deepEqual(migrated.customGyms, ["Home", "Travel"]);
+  assert.equal(migrated.history[0].gym, "Travel");
+  assert.equal(migrated.activeProgramId, "ppl6");
 });

@@ -236,6 +236,53 @@ try {
   assert(appliedWeight === 195, "Apply Weight did not update the active exercise");
   await evaluate("state.active = null; save(); render();");
 
+  const progressAudit = await evaluate(`(() => {
+    state.history = [
+      { id:'w2', name:'Pull A', date:'2026-07-10', gym:'Home', duration:52, items:[
+        { id:'e2', exerciseId:'barbell-row', name:'Barbell Bent-Over Row', displayNameAtTimeOfWorkout:'Barbell Bent-Over Row', weight:135, sets:[10,10,10], workingSets:3, target:10, done:true, skipped:false, coach:'INCREASE', next:140 },
+        { id:'e3', exerciseId:'barbell-curl', name:'Barbell Curl', displayNameAtTimeOfWorkout:'Barbell Curl', weight:65, sets:[10,10,9], workingSets:3, target:10, done:true, skipped:false, coach:'REPEAT', next:65 }
+      ], core:[{ exerciseId:'plank', name:'Plank', target:45, actual:45, completed:true }] },
+      { id:'w1', name:'Pull A', date:'2026-07-03', gym:'Travel', duration:45, items:[
+        { id:'e1', exerciseId:'barbell-row', name:'Barbell Bent-Over Row', displayNameAtTimeOfWorkout:'Barbell Bent-Over Row', weight:125, sets:[10,10,10], workingSets:3, target:10, done:true, skipped:false, coach:'INCREASE', next:135 }
+      ], core:[] }
+    ];
+    state.bodyweight = [{ value:180.2, date:'2026-07-10' }, { value:181, date:'2026-07-03' }];
+    page='progress';
+    render();
+    const categories = [...document.querySelectorAll('details.category')].map(node => node.textContent.trim());
+    const collapsed = [...document.querySelectorAll('details.category')].every(node => !node.open);
+    const bodyweight = document.body.innerText.includes('180.2 lb') && document.body.innerText.includes('-0.8 lb');
+    const noDump = !document.body.innerText.includes('Last sets:');
+    return { categories, collapsed, bodyweight, noDump, overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth };
+  })()`);
+  assert(progressAudit.categories.some(text => text.includes('Back')), "Progress has no Back category");
+  assert(progressAudit.categories.some(text => text.includes('Biceps')), "Progress has no Biceps category");
+  assert(progressAudit.categories.some(text => text.includes('Core')), "Logged core is missing from Progress");
+  assert(progressAudit.collapsed, "Progress categories do not start collapsed");
+  assert(progressAudit.bodyweight, "Compact bodyweight summary is wrong");
+  assert(progressAudit.noDump, "Old continuous Progress dump is still visible");
+  assert(!progressAudit.overflow, "Progress introduced horizontal overflow");
+  const progressScreenshot = await client.call("Page.captureScreenshot", { format: "png", fromSurface: true });
+  await import("node:fs/promises").then(({ writeFile }) =>
+    writeFile(path.join(RESULTS_DIR, "browser-smoke-progress.png"), Buffer.from(progressScreenshot.data, "base64")),
+  );
+
+  const historySettingsCoreAudit = await evaluate(`(() => {
+    page='history'; render();
+    const historyCollapsed = document.querySelectorAll('details.history-workout').length === 2 && [...document.querySelectorAll('details.history-workout')].every(node => !node.open);
+    page='settings'; render();
+    const cleanSettings = document.body.innerText.includes('Training Program') && !document.body.innerText.includes('Install app') && !document.body.innerText.includes('Add gym');
+    page='today';state.active = null; pendingWorkoutName='Push A'; beginWorkoutWithBusy('2');
+    startCoreLog('5');
+    setCoreActual(0,15);
+    saveCoreLog();
+    const savedCore = state.history[0].core;
+    return { historyCollapsed, cleanSettings, savedCoreLength:savedCore.length, firstCore:savedCore[0] };
+  })()`);
+  assert(historySettingsCoreAudit.historyCollapsed, "History is not compact/collapsed");
+  assert(historySettingsCoreAudit.cleanSettings, "Settings still contains setup clutter");
+  assert(historySettingsCoreAudit.savedCoreLength === 3 && historySettingsCoreAudit.firstCore.actual === 15 && historySettingsCoreAudit.firstCore.completed, "Core was not actually logged");
+
   const workoutEngineAudit = await evaluate(`(() => {
     state.active = null;
     pendingWorkoutName = 'Push A';

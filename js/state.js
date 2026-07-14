@@ -6,16 +6,17 @@
   "use strict";
 
   const STORAGE_KEY = "flexppl";
-  const CURRENT_STATE_VERSION = 2;
-  const DEFAULT_GYMS = ["Crunch Gym", "Travel Gym", "Hotel Gym"];
+  const CURRENT_STATE_VERSION = 3;
+  const DEFAULT_GYMS = ["Home", "Travel"];
   const DEFAULT_STATE = Object.freeze({
     stateVersion: CURRENT_STATE_VERSION,
     rotationIndex: 0,
     active: null,
     history: [],
     bodyweight: [],
-    gym: "Crunch Gym",
+    gym: "Home",
     customGyms: DEFAULT_GYMS,
+    activeProgramId: "ppl6",
     notes: {},
     lastWeights: {},
     gymWeights: {},
@@ -118,6 +119,18 @@
       migrated = { ...migrated, replacementPrefs: plainObject(migrated.replacementPrefs) };
     }
     if (sourceVersion < 2) migrated = { ...migrated, stateVersion: 2 };
+    if (sourceVersion < 3) {
+      const mapGym = (gym) => /travel|hotel/i.test(String(gym || "")) ? "Travel" : "Home";
+      migrated = {
+        ...migrated,
+        gym: mapGym(migrated.gym),
+        customGyms: DEFAULT_GYMS.slice(),
+        activeProgramId: migrated.activeProgramId || "ppl6",
+        active: migrated.active ? { ...migrated.active, gym: mapGym(migrated.active.gym || migrated.gym) } : null,
+        history: Array.isArray(migrated.history) ? migrated.history.map((workout) => ({ ...workout, gym: mapGym(workout.gym) })) : [],
+        stateVersion: 3,
+      };
+    }
 
     return { ...migrated, stateVersion: CURRENT_STATE_VERSION };
   }
