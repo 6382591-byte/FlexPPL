@@ -2,6 +2,7 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 const exercises = require("./js/exercises.js");
 const illustrations = require("./js/illustrations.js");
+const replacements = require("./js/replacements.js");
 const programs = require("./js/programs.js");
 
 function assert(condition, message) {
@@ -53,7 +54,9 @@ assert(html.includes("BEST REPLACEMENT") && html.includes("OTHER OPTIONS") && ht
 assert(/PLATE CALCULATOR/.test(html) && /TARGET WEIGHT/.test(html) && /PER SIDE/.test(html), "Plate labels missing");
 assert(html.includes('src="js/exercises.js"'), "Exercise module not loaded");
 assert(html.includes('src="js/illustrations.js"'), "Illustration module not loaded");
+assert(html.includes('src="js/replacements.js"'), "Replacement module not loaded");
 assert(html.includes('src="js/programs.js"'), "Program module not loaded");
 assert(html.includes('src="js/state.js"'), "State module not loaded");
 
-console.log(`validation passed (${exercises.EXERCISE_LIBRARY.length} canonical exercises, ${visibleExerciseIds.size} audited illustrations, ${Object.keys(programs.WORKOUT_TEMPLATES).length} workouts)`);
+assert(replacements.auditReplacementIntegrity().length === 0, "Replacement integrity audit failed");
+console.log(`validation passed (${exercises.EXERCISE_LIBRARY.length} canonical exercises, ${visibleExerciseIds.size} audited illustrations, strict swap integrity, ${Object.keys(programs.WORKOUT_TEMPLATES).length} workouts)`);

@@ -176,6 +176,32 @@ try {
   );
   await evaluate("closeSwapModal(); state.active = null; save(); render();");
 
+  const correctionAudit = await evaluate(`(() => {
+    state.gym = 'Travel';
+    state.active = null;
+    pendingWorkoutName = 'Pull A';
+    beginWorkoutWithBusy('2');
+    const curl = state.active.items.find(item => item.name === 'Cable Curl');
+    curl.weight = 65;
+    curl.sets = [10, 9, 8];
+    pendingSwapId = curl.id;
+    chooseSwap('EZ-Bar Curl');
+    renameExercise(curl.id, 'Barbell Curl');
+    const corrected = { name: curl.name, exerciseId: curl.exerciseId, originalName: curl.originalName, sets: [...curl.sets], weight: curl.weight };
+    restoreOriginalExercise(curl.id);
+    const restored = { name: curl.name, exerciseId: curl.exerciseId, sets: [...curl.sets], weight: curl.weight };
+    state.active = null;
+    save();
+    render();
+    return { corrected, restored };
+  })()`);
+  assert(correctionAudit.corrected.name === "Barbell Curl", "Replacement rename did not persist");
+  assert(correctionAudit.corrected.exerciseId === "barbell-curl", "Replacement canonical ID is wrong");
+  assert(correctionAudit.corrected.originalName === "Cable Curl", "Original exercise was not retained");
+  assert(correctionAudit.corrected.sets.join(",") === "10,9,8" && correctionAudit.corrected.weight === 65, "Correction lost logged work");
+  assert(correctionAudit.restored.exerciseId === "cable-curl", "Restore original exercise failed");
+  assert(correctionAudit.restored.sets.join(",") === "10,9,8" && correctionAudit.restored.weight === 65, "Restore lost logged work");
+
   const legacyState = {
     rotationIndex: 1,
     gym: "Travel Gym",

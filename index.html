@@ -38,6 +38,7 @@
 <div id="notesModal" class="modal-backdrop hidden" onclick="closeNotesModal()" role="presentation"></div>
 <script src="js/exercises.js"></script>
 <script src="js/illustrations.js"></script>
+<script src="js/replacements.js"></script>
 <script src="js/programs.js"></script>
 <script src="js/state.js"></script>
 <script>
@@ -133,21 +134,11 @@ function getMeta(name,subs){const lib=libraryByName(name);return lib?{...lib,sub
 function canonicalExerciseId(name){return getMeta(name).id||slugifyExercise(name)}
 function displayExerciseName(name){return getMeta(name).displayName||name}
 function isTravelGym(){return /travel|hotel/i.test(state.gym||'')}
-function travelFriendly(eq){return ['Barbell','Bench-supported','Plate','Dumbbell','Kettlebell','Trap bar','Bodyweight','Smith machine'].includes(eq)}
-function gymCompatible(m){return !isTravelGym() || m.gymModes==='Both' || travelFriendly(m.equipment)}
 function replacementPrefs(){return state.replacementPrefs&&typeof state.replacementPrefs==='object'?state.replacementPrefs:(state.replacementPrefs={})}
-function approvedByBase(base,candidate){return base.validReplacementIds.includes(candidate.id)||base.lessExactReplacementIds.includes(candidate.id)}
-function passesReplacementFilter(base,candidate){if(!candidate||candidate.id===base.id)return false; if(base.validReplacementIds.includes(candidate.id)||base.lessExactReplacementIds.includes(candidate.id))return true; if(candidate.movementFamily===base.movementFamily&&candidate.primaryMuscleGroup===base.primaryMuscleGroup)return true; if(candidate.primaryMuscleGroup===base.primaryMuscleGroup&&base.lessExactReplacementIds.includes(candidate.id))return true; return false}
-function reasonForMeta(base,m,bits={}){if(bits.usual)return 'Your usual replacement'; if(base.validReplacementIds.includes(m.id))return 'Approved exact replacement'; if(m.movementFamily===base.movementFamily&&m.primaryMuscleGroup===base.primaryMuscleGroup)return 'Same movement family'; if(base.lessExactReplacementIds.includes(m.id))return 'Less-exact fallback'; return 'Approved replacement'}
 function rankedReplacements(x,limit=3){
   const originalName=x.originalName||x.name, base=getMeta(originalName,x.swaps), prefs=replacementPrefs()[base.id]||{};
-  const explicit=(x.swaps||[]).map(canonicalExerciseId); const poolIds=[...base.validReplacementIds,...base.lessExactReplacementIds,...explicit,...EXERCISE_LIBRARY.filter(e=>e.movementFamily===base.movementFamily&&e.primaryMuscleGroup===base.primaryMuscleGroup).map(e=>e.id)];
-  return [...new Set(poolIds)].map(id=>EXERCISE_BY_ID[id]).filter(m=>passesReplacementFilter(base,m)).map(m=>{let score=1,bits={};
-    if(base.validReplacementIds.includes(m.id))score+=700; if(m.movementFamily===base.movementFamily&&m.primaryMuscleGroup===base.primaryMuscleGroup)score+=500; if(base.lessExactReplacementIds.includes(m.id))score+=80;
-    if(gymCompatible(m))score+=70; else score-=260; if(m.equipment===base.equipment)score+=35; if(m.exerciseType===base.exerciseType)score+=20; if(explicit.includes(m.id))score+=45;
-    const pref=Number(prefs[m.id]||0); if(pref){score+=Math.min(90,pref*30);bits.usual=true}
-    return {name:m.displayName,meta:m,score,reason:reasonForMeta(base,m,bits),lessExact:base.lessExactReplacementIds.includes(m.id)};
-  }).filter(c=>c.score>0).sort((a,b)=>b.score-a.score||a.name.localeCompare(b.name)).slice(0,limit)}
+  return VEKTR_REPLACEMENTS.rankReplacements({baseExerciseId:base.id,explicitIds:(x.swaps||[]).map(canonicalExerciseId),gymMode:isTravelGym()?'Travel':'Home',preferenceCounts:prefs,limit});
+}
 function calculatePlateLoad(targetWeight,barWeight,availablePlates=[45,35,25,15,10,5]){
   const target=Number(targetWeight), bar=Number(barWeight||45); if(!Number.isFinite(target)||target<bar)return {exact:false,platesPerSide:[],achievedWeight:bar,lowerOption:null,higherOption:{weight:bar,platesPerSide:[]},invalid:true};
   const plates=[...availablePlates].map(Number).sort((a,b)=>b-a); const maxSide=Math.max(0,Math.ceil((target-bar)/2)+1000); const best=new Map([[0,[]]]);
@@ -235,15 +226,18 @@ function chooseSwap(name){
   const original=x.originalName||x.name;
   x.originalName=original;
   x.originalExerciseName=original;
+  x.originalExerciseId=x.originalExerciseId||canonicalExerciseId(original);
   x.replacementId=canonicalExerciseId(name);
   x.replacementName=displayExerciseName(name);
   x.name=x.replacementName;
+  x.exerciseId=x.replacementId;
+  x.displayNameAtTimeOfWorkout=x.replacementName;
   x.weight=recWeight(x.name,x.weight);
   const prefs=replacementPrefs(); const oid=canonicalExerciseId(original); prefs[oid]=prefs[oid]||{}; prefs[oid][x.replacementId]=Number(prefs[oid][x.replacementId]||0)+1;
   closeSwapModal(); save(); render(); toast('Temporary swap added');
 }
-function restoreOriginalExercise(id){const x=state.active?.items.find(i=>i.id===id); if(!x||!x.originalName)return; x.name=x.originalName; delete x.replacementId; delete x.replacementName; save(); render();}
-function renameExercise(id,val){const x=state.active?.items.find(i=>i.id===id); if(!x)return; x.name=val.trim()||x.name; x.replacementName=x.name; x.replacementId=canonicalExerciseId(x.name); save(); render();}
+function restoreOriginalExercise(id){const x=state.active?.items.find(i=>i.id===id); if(!x||!x.originalName)return; x.name=x.originalName; x.exerciseId=x.originalExerciseId||canonicalExerciseId(x.originalName); x.displayNameAtTimeOfWorkout=x.originalName; delete x.replacementId; delete x.replacementName; save(); render();}
+function renameExercise(id,val){const x=state.active?.items.find(i=>i.id===id); if(!x)return; x.name=val.trim()||x.name; x.replacementName=x.name; x.replacementId=canonicalExerciseId(x.name); x.exerciseId=x.replacementId; x.displayNameAtTimeOfWorkout=x.name; save(); render();}
 function changeExercise(id){pendingSwapId=id; renderSwapModal(true)}
 
 
