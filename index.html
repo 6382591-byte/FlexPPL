@@ -13,8 +13,10 @@
     *{box-sizing:border-box}html{background:var(--page)}body{margin:0;background:radial-gradient(circle at 50% -10%,rgba(179,18,27,.16),transparent 34%),linear-gradient(180deg,#050505,#090909 55%,#050505);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;letter-spacing:.01em}button,input,select,textarea{font:inherit}.app{max-width:760px;margin:auto;min-height:100vh;padding:14px 14px calc(104px + env(safe-area-inset-bottom));overflow-x:hidden}
     header{display:flex;justify-content:center;align-items:center;margin:0 0 14px;padding:8px 0}.brand{display:flex;justify-content:center;align-items:center;gap:10px;font-weight:850;font-size:22px;letter-spacing:.28em;text-indent:.28em}.brand img{width:34px;height:34px}.icon-btn{height:40px;width:40px;border-radius:12px;background:transparent;border:1px solid var(--line);color:var(--muted)}.pill{background:var(--surface);border:1px solid var(--line);padding:8px 11px;border-radius:999px;color:var(--muted);font-size:13px}.card{background:linear-gradient(180deg,rgba(23,23,25,.78),rgba(17,17,19,.98));border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0;box-shadow:0 18px 38px rgba(0,0,0,.22)}.hero{padding:22px}.eyebrow,.section-title,.field-label{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.16em}.hero h1,h1{font-size:34px;margin:6px 0 8px;line-height:1}.muted{color:var(--muted)}.dim{color:var(--dim)}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.btn{border:0;border-radius:14px;padding:13px 15px;font-weight:780;cursor:pointer;min-height:44px}.primary{background:linear-gradient(135deg,var(--redDark),var(--red2));color:white;border:1px solid #C31520}.secondary{background:var(--surface);color:var(--text);border:1px solid var(--line)}.danger{background:rgba(194,71,74,.13);color:#F0B1B3;border:1px solid rgba(194,71,74,.55)}.outline-red{background:transparent;color:#F1B6B9;border:1px solid var(--red)}.wide{width:100%}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:var(--elev);border:1px solid var(--line);border-radius:14px;padding:13px}.stat b{display:block;font-size:24px;line-height:1.1;margin-top:4px}.tabs{position:fixed;left:0;right:0;bottom:0;background:rgba(11,11,12,.94);border-top:1px solid var(--line);display:flex;justify-content:center;z-index:10;backdrop-filter:blur(14px);padding-bottom:env(safe-area-inset-bottom)}.tabs .inner{width:min(760px,100%);display:grid;grid-template-columns:repeat(4,1fr)}.tab{background:none;border:0;color:var(--dim);padding:11px 5px 10px;font-size:12px}.tab svg{display:block;margin:0 auto 4px;stroke:currentColor}.tab.active{color:var(--red2)}
     .exercise{position:relative}.exercise h3{margin:0 84px 6px 0;font-size:21px}.target-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.target-num{font-size:30px;font-weight:850}.meta{font-size:14px;color:var(--muted)}.order-controls{position:absolute;top:14px;right:14px;display:flex;gap:6px}.order-controls button{width:36px;height:36px;padding:0}.entry-grid{display:grid;grid-template-columns:minmax(88px,1.2fr) repeat(3,minmax(0,1fr));gap:7px;margin-top:14px}.entry-grid label{min-width:0}.entry-grid input,select,input[type=number],input[type=text],textarea{min-width:0;width:100%;background:#09090A;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px 7px;text-align:center;font-size:16px}textarea{text-align:left;min-height:120px}.status-first{border-left:3px solid var(--blue)}.status-repeat{border-left:3px solid var(--amber)}.status-increase{border-left:3px solid var(--green)}.status-reduce{border-left:3px solid var(--reduce)}.status-skipped{border-left:3px solid #57575f;opacity:.82}.status-skipped .done-title{color:#B8B8BE}.subline{font-size:12px;color:var(--muted);margin-top:2px}.text-link{background:none;border:0;color:var(--muted);text-decoration:underline;padding:0;min-height:0}.calc-icon{width:21px;height:21px;display:block;margin:auto;stroke:currentColor}.nearest-btn b{display:block}.swap-extra{margin-top:12px}.swap-card.less-exact{opacity:.9}.collapsed-done{padding:12px 14px;background:#0C0D0C}.done-summary{display:flex;justify-content:space-between;align-items:center;gap:12px}.done-title{font-weight:820}.completed-section{margin-top:18px}.completed-section summary{cursor:pointer;color:var(--muted);font-weight:700;padding:10px 2px}.mini{padding:9px 12px;border-radius:12px;min-height:38px}.hidden{display:none!important}.history-item{padding:13px 0;border-bottom:1px solid var(--line)}.history-item:last-child{border-bottom:0}.core-choice{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:86px;background:#101812;color:#D9F0DF;padding:12px 16px;border-radius:12px;border:1px solid rgba(95,159,115,.55);display:none;z-index:40}.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.76);display:flex;align-items:center;justify-content:center;padding:18px;z-index:30;backdrop-filter:blur(8px)}.modal{width:min(480px,100%);max-height:calc(100vh - 36px);overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 24px 70px rgba(0,0,0,.58)}.modal.full{width:min(720px,100%);height:calc(100vh - 24px);border-radius:24px;display:flex;flex-direction:column}.modal-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}.modal-head h2{margin:0;font-size:24px;letter-spacing:.06em}.swap-card{display:grid;grid-template-columns:86px 1fr;gap:13px;align-items:center;background:var(--elev);border:1px solid var(--line);border-radius:18px;padding:12px;text-align:left;color:var(--text);width:100%}.swap-card.best{border-color:var(--red);box-shadow:inset 0 0 0 1px rgba(179,18,27,.3)}.swap-card img{width:86px;height:58px;object-fit:cover;border-radius:12px;opacity:.78}.swap-card strong{display:block;font-size:19px}.swap-card span{display:block;color:var(--muted);font-size:13px;margin-top:3px}.calc-total{font-size:48px;font-weight:900;text-align:center}.plate-visual{display:flex;gap:6px;align-items:end;justify-content:center;min-height:62px}.plate-disc{width:28px;border-radius:6px;background:linear-gradient(180deg,#343438,#151517);border:1px solid #555;color:#ddd;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800}.trend-wrap{overflow:hidden}.notes-list .history-item{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start}.modal h2{margin:0 0 8px}.modal-actions{display:grid;gap:12px;margin-top:18px}.busy-btn,.choice-btn{padding:18px 16px;text-align:left}.busy-btn strong,.choice-btn strong{display:block;font-size:21px}.busy-btn span,.choice-btn span{display:block;margin-top:4px;color:var(--muted);font-size:14px}.recommended,.choice-btn:first-child{border-color:var(--red);box-shadow:inset 0 0 0 1px rgba(179,18,27,.25)}.best-badge{display:inline-block;margin-bottom:8px;color:#F3C2C5;border:1px solid var(--red);border-radius:999px;padding:4px 8px;font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:.1em}.weight-wrap{display:grid;grid-template-columns:minmax(0,1fr) 42px;gap:6px}.calc-btn{width:42px;height:42px;padding:0}.plate-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.plate-options button{border-radius:999px}.plate-options button.active{background:rgba(179,18,27,.24);border-color:var(--red);color:#fff}.plate-result{background:var(--elev);border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:14px}.plate-list{font-size:24px;font-weight:850;margin-top:4px}.note-preview{width:100%;font-size:13px;color:var(--muted);padding-top:2px}.chart{height:90px;width:100%;margin-top:10px}.wordmark{letter-spacing:.3em;text-indent:.3em}.vcheck{font-size:52px;color:var(--red2);text-align:center;line-height:1}.top-actions{display:flex;gap:8px}.progress-line{stroke:var(--red2);fill:none;stroke-width:2}.gridline{stroke:#252529;stroke-width:1}
-    .swap-card.no-image{grid-template-columns:1fr}.plate-modal{max-width:360px;padding:14px}.plate-modal .modal-head{justify-content:space-between;margin-bottom:8px}.plate-modal h2{font-size:15px;letter-spacing:.08em}.plate-modal .calc-total{font-size:30px;text-align:left;padding:8px 10px}.bar-options{grid-template-columns:1fr 1fr}.plate-dots{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px}.plate-dot{height:54px;border:1px solid var(--line);border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:18px;background:#09090A}.plate-dot.active{border-color:var(--red);color:white;box-shadow:inset 0 0 0 1px rgba(179,18,27,.25)}.plate-result.compact{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center}.plate-result.compact b{display:block;font-size:20px;margin-top:4px}.nearest-grid{grid-template-columns:1fr 1fr}.nearest-btn span{font-size:12px;color:var(--muted)}.plate-actions{grid-template-columns:1fr 1fr;gap:10px}
-    @media (max-width:520px){.app{padding-left:12px;padding-right:12px}.grid{grid-template-columns:1fr}.entry-grid{grid-template-columns:82px repeat(3,minmax(0,1fr));gap:6px}.entry-grid input{padding:11px 4px;font-size:15px}.hero h1,h1{font-size:29px}.brand{font-size:18px}.target-num{font-size:26px}.btn{padding-left:12px;padding-right:12px}.tab{font-size:11px}}
+    .exercise-art{display:block;width:112px;min-width:0}.exercise-art svg{display:block;width:100%;height:auto}.swap-card.no-image{grid-template-columns:1fr}.plate-modal{max-width:360px;padding:14px}.plate-modal .modal-head{justify-content:space-between;margin-bottom:8px}.plate-modal h2{font-size:15px;letter-spacing:.08em}.plate-modal .calc-total{font-size:30px;text-align:left;padding:8px 10px}.bar-options{grid-template-columns:1fr 1fr}.plate-dots{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px}.plate-dot{height:54px;border:1px solid var(--line);border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:18px;background:#09090A}.plate-dot.active{border-color:var(--red);color:white;box-shadow:inset 0 0 0 1px rgba(179,18,27,.25)}.plate-result.compact{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center}.plate-result.compact b{display:block;font-size:20px;margin-top:4px}.nearest-grid{grid-template-columns:1fr 1fr}.nearest-btn span{font-size:12px;color:var(--muted)}.plate-actions{grid-template-columns:1fr 1fr;gap:10px}
+    .plate-mode-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#09090A;border:1px solid var(--line);padding:4px;border-radius:14px;margin:10px 0 14px}.plate-mode-tabs button{border:0;border-radius:10px;background:transparent;color:var(--muted);padding:10px 6px;font-size:12px;font-weight:850;letter-spacing:.06em}.plate-mode-tabs button.active{background:rgba(179,18,27,.22);color:#fff}.loaded-plate-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:8px}.plate-dot{min-height:58px;height:auto;flex-direction:column;color:var(--muted)}.plate-dot small{font-size:10px;margin-top:2px}.loaded-plate{display:grid;grid-template-columns:1fr 30px;gap:4px;align-items:center}.loaded-plate .plate-dot{width:100%}.plate-minus{width:30px;height:30px;padding:0;border-radius:999px}.plate-clear{display:block;margin:10px auto 0}.plate-modal{max-width:390px;padding:16px}.workout-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.workout-timer{font-variant-numeric:tabular-nums;font-size:20px;letter-spacing:.05em;min-width:86px}.workout-timer.paused{color:var(--amber)}.workout-target{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:13px;margin:5px 88px 4px 0}.workout-target b{color:var(--text)}.manual-next{display:grid;grid-template-columns:1fr 100px;gap:10px;align-items:center;margin-top:10px}.manual-next>span,.manual-next .field-label,.manual-next .subline{display:block}.stall-note{font-size:12px;color:var(--muted);margin-top:8px}.entry-grid.dynamic-sets{grid-template-columns:minmax(78px,1.15fr) repeat(var(--set-count),minmax(44px,1fr))}
+    .progress-summary{display:grid;grid-template-columns:1fr 1fr;gap:8px}.progress-summary .stat{padding:11px}.progress-summary .stat b{font-size:21px}.highlight-row,.exercise-progress-row,.pr-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}.highlight-row:last-child,.exercise-progress-row:last-child,.pr-row:last-child{border-bottom:0}.category{margin:8px 0;background:var(--card);border:1px solid var(--line);border-radius:14px}.category summary{display:flex;justify-content:space-between;align-items:center;cursor:pointer;padding:14px;list-style:none}.category summary::-webkit-details-marker{display:none}.category-body{padding:0 14px 8px}.status-dot{width:9px;height:9px;border-radius:50%;background:var(--blue);flex:0 0 auto}.status-dot.increase{background:var(--green)}.status-dot.repeat{background:var(--amber)}.status-dot.reduce{background:var(--reduce)}.status-dot.first{background:var(--blue)}.exercise-progress-row{width:100%;border-width:0 0 1px;background:transparent;color:var(--text);text-align:left}.history-workout{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:9px 0}.history-workout>summary{cursor:pointer;padding:14px;list-style:none}.history-workout>summary::-webkit-details-marker{display:none}.history-detail{padding:0 14px 14px}.history-exercise{padding:9px 0;border-top:1px solid var(--line)}.core-log-row{display:grid;grid-template-columns:28px 1fr 90px;gap:9px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.core-log-row input[type=checkbox]{width:22px;height:22px}.core-log-row input[type=number]{padding:9px}.progress-chart{width:100%;height:110px;margin:12px 0}.settings-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--line)}.settings-row:last-child{border-bottom:0}
+    @media (max-width:520px){.app{padding-left:12px;padding-right:12px}.grid{grid-template-columns:1fr}.swap-card{grid-template-columns:96px 1fr}.exercise-art{width:96px}.entry-grid{grid-template-columns:82px repeat(3,minmax(0,1fr));gap:6px}.entry-grid input{padding:11px 4px;font-size:15px}.hero h1,h1{font-size:29px}.brand{font-size:18px}.target-num{font-size:26px}.btn{padding-left:12px;padding-right:12px}.tab{font-size:11px}}
   </style>
 </head>
 <body>
@@ -36,9 +38,19 @@
 <div id="plateModal" class="modal-backdrop hidden" onclick="closePlateModal()" role="presentation"></div>
 <div id="quickInputModal" class="modal-backdrop hidden" onclick="closeQuickInputModal()" role="presentation"></div>
 <div id="notesModal" class="modal-backdrop hidden" onclick="closeNotesModal()" role="presentation"></div>
+<div id="timerModal" class="modal-backdrop hidden" onclick="closeTimerModal()" role="presentation"></div>
+<div id="progressModal" class="modal-backdrop hidden" onclick="closeProgressModal()" role="presentation"></div>
+<script src="js/exercises.js"></script>
+<script src="js/illustrations.js"></script>
+<script src="js/replacements.js"></script>
+<script src="js/plate-calculator.js"></script>
+<script src="js/progression.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/programs.js"></script>
+<script src="js/state.js"></script>
 <script>
-const ROTATION=["Push A","Pull A","Legs A","Push B","Pull B","Legs B"];
-const PROGRAM={
+const LEGACY_ROTATION_SEED=["Push A","Pull A","Legs A","Push B","Pull B","Legs B"];
+const LEGACY_PROGRAM_SEED={
 "Push A":[
  ["Bench Press",175,6,5,["DB Bench Press","Smith Bench Press","Machine Chest Press","Push-Ups"]],
  ["Incline DB Press",65,12,5,["Incline Smith Press","Incline Machine Press","Low-to-High Cable Press"]],
@@ -86,10 +98,12 @@ const PROGRAM={
  ["Lying Hamstring Curl",70,12,10,["Seated Ham Curl","Standing Ham Curl"]],
  ["Seated Calf Raise",90,20,10,["Standing Calf Raise","Leg Press Calf Raise"]]
 ]};
+const ROTATION=VEKTR_PROGRAMS.ROTATION;
+const PROGRAM=VEKTR_PROGRAMS.LEGACY_PROGRAM;
 
-const MOVEMENT_FAMILIES=['horizontal press','incline press','chest fly','vertical press','lateral raise','rear-delt raise','vertical pull','horizontal pull','straight-arm shoulder extension','upper-back/rear-delt pull','supinated curl','neutral-grip curl','reverse curl','triceps pushdown','overhead triceps extension','squat','unilateral squat/lunge','knee extension','hip hinge','knee flexion','standing calf raise','seated calf raise','shrug','loaded carry','trunk flexion','anti-extension','anti-rotation','lateral core'];
-const META_DEFAULT={id:'generic',displayName:'Generic movement',aliases:[],primaryMuscleGroup:'General',secondaryMuscleGroups:[],movementFamily:'General',movementVariant:'generic',equipment:'Bodyweight',exerciseType:'compound',gymModes:'Both',imageAsset:null,validReplacementIds:[],lessExactReplacementIds:[]};
-const EXERCISE_SEEDS=[
+const MOVEMENT_FAMILIES=VEKTR_EXERCISES.MOVEMENT_FAMILIES;
+const META_DEFAULT=VEKTR_EXERCISES.META_DEFAULT;
+const LEGACY_EXERCISE_SEEDS=[
 // Chest / shoulders / triceps
 ['bench-press','Bench Press',['Barbell Bench Press'],'Chest',['Triceps','Shoulders'],'horizontal press','barbell','Barbell','compound','Both','bench-press'],['db-bench-press','DB Bench Press',['Flat DB Press','Dumbbell Bench Press'],'Chest',['Triceps','Shoulders'],'horizontal press','dumbbell','Dumbbell','compound','Both','db-bench-press'],['smith-bench-press','Smith Bench Press',['Smith Bench'],'Chest',['Triceps','Shoulders'],'horizontal press','smith','Smith machine','compound','Home','smith-bench-press'],['machine-chest-press','Machine Chest Press',[],'Chest',['Triceps','Shoulders'],'horizontal press','machine','Machine','compound','Home','machine-chest-press'],['push-ups','Push-Ups',['Push Up','Pushups'],'Chest',['Triceps','Shoulders'],'horizontal press','bodyweight','Bodyweight','compound','Both','push-ups'],
 ['incline-bench-press','Incline Bench Press',[],'Chest',['Triceps','Shoulders'],'incline press','barbell','Barbell','compound','Both','incline-bench-press'],['incline-db-press','Incline DB Press',['Incline Dumbbell Press'],'Chest',['Triceps','Shoulders'],'incline press','dumbbell','Dumbbell','compound','Both','incline-db-press'],['incline-smith-press','Incline Smith Press',[],'Chest',['Triceps','Shoulders'],'incline press','smith','Smith machine','compound','Home','incline-smith-press'],['incline-machine-press','Incline Machine Press',['Machine Incline Press'],'Chest',['Triceps','Shoulders'],'incline press','machine','Machine','compound','Home','incline-machine-press'],['low-to-high-cable-press','Low-to-High Cable Press',[],'Chest',['Triceps','Shoulders'],'incline press','cable','Cable','compound','Home','low-to-high-cable-press'],
@@ -108,10 +122,10 @@ const EXERCISE_SEEDS=[
 ['standing-calf-raise','Standing Calf Raise',[],'Calves',[],'standing calf raise','machine','Machine','isolation','Home','standing-calf-raise'],['leg-press-calf-raise','Leg Press Calf Raise',[],'Calves',[],'standing calf raise','leg press','Machine','isolation','Home','leg-press-calf-raise'],['smith-machine-calf-raise','Smith Machine Calf Raise',[],'Calves',[],'standing calf raise','smith','Smith machine','isolation','Home',null],['single-leg-standing-calf-raise','Single-Leg Standing Calf Raise',[],'Calves',[],'standing calf raise','single-leg','Bodyweight','isolation','Both','standing-calf-raise'],['dumbbell-standing-calf-raise','Dumbbell Standing Calf Raise',[],'Calves',[],'standing calf raise','dumbbell','Dumbbell','isolation','Both','standing-calf-raise'],['barbell-standing-calf-raise','Barbell Standing Calf Raise',[],'Calves',[],'standing calf raise','barbell','Barbell','isolation','Both','standing-calf-raise'],['seated-calf-raise','Seated Calf Raise',[],'Calves',[],'seated calf raise','machine','Machine','isolation','Home','seated-calf-raise'],['plate-loaded-seated-calf-raise','Plate-Loaded Seated Calf Raise',[],'Calves',[],'seated calf raise','plate-loaded','Machine','isolation','Home','seated-calf-raise'],['seated-dumbbell-calf-raise','Seated Dumbbell Calf Raise',[],'Calves',[],'seated calf raise','dumbbell','Dumbbell','isolation','Both','seated-calf-raise'],['seated-barbell-calf-raise','Seated Barbell Calf Raise',[],'Calves',[],'seated calf raise','barbell','Barbell','isolation','Both','seated-calf-raise'],['bent-knee-calf-raise','Bent-Knee Calf Raise',[],'Calves',[],'seated calf raise','bent-knee','Bodyweight','isolation','Both','seated-calf-raise'],
 ['barbell-shrug','Barbell Shrug',[],'Traps',['Grip'],'shrug','barbell','Barbell','isolation','Both','shrug-carry'],['trap-bar-shrug','Trap-Bar Shrug',[],'Traps',['Grip'],'shrug','trap bar','Trap bar','isolation','Both','shrug-carry'],['farmer-carry','Farmer Carry',[],'Traps',['Grip'],'loaded carry','dumbbell','Dumbbell','compound','Both','shrug-carry']
 ];
-const EXERCISE_LIBRARY=EXERCISE_SEEDS.map(r=>({id:r[0],displayName:r[1],name:r[1],aliases:r[2],primaryMuscleGroup:r[3],primaryMuscle:r[3],secondaryMuscleGroups:r[4],secondaryMuscles:r[4],movementFamily:r[5],movementPattern:r[5],movementVariant:r[6],equipment:r[7],equipmentType:r[7],exerciseType:r[8],type:r[8],gymModes:r[9],imageAsset:r[10]?`assets/exercises/${r[10]}.svg`:null,validReplacementIds:[],lessExactReplacementIds:[]}));
-const EXERCISE_BY_ID=Object.fromEntries(EXERCISE_LIBRARY.map(e=>[e.id,e]));
-const EXERCISE_ALIASES={}; EXERCISE_LIBRARY.forEach(e=>[e.displayName,...e.aliases].forEach(n=>EXERCISE_ALIASES[String(n).toLowerCase()]=e.id));
-function link(ids,valid,less=[]){ids.forEach(id=>{const e=EXERCISE_BY_ID[id]; if(e){e.validReplacementIds=[...new Set(valid.filter(v=>v!==id))]; e.lessExactReplacementIds=[...new Set(less.filter(v=>v!==id))];}})}
+const EXERCISE_LIBRARY=VEKTR_EXERCISES.EXERCISE_LIBRARY;
+const EXERCISE_BY_ID=VEKTR_EXERCISES.EXERCISE_BY_ID;
+const EXERCISE_ALIASES=VEKTR_EXERCISES.EXERCISE_ALIASES;
+function link(){/* Relationships are curated in js/exercises.js. */}
 link(['standing-calf-raise','leg-press-calf-raise','smith-machine-calf-raise','single-leg-standing-calf-raise','dumbbell-standing-calf-raise','barbell-standing-calf-raise'],['standing-calf-raise','leg-press-calf-raise','smith-machine-calf-raise','single-leg-standing-calf-raise','dumbbell-standing-calf-raise','barbell-standing-calf-raise'],['seated-calf-raise']);
 link(['seated-calf-raise','plate-loaded-seated-calf-raise','seated-dumbbell-calf-raise','seated-barbell-calf-raise','bent-knee-calf-raise'],['seated-calf-raise','plate-loaded-seated-calf-raise','seated-dumbbell-calf-raise','seated-barbell-calf-raise','bent-knee-calf-raise'],['standing-calf-raise']);
 link(['hack-squat-leg-press','hack-squat','leg-press','smith-squat','barbell-back-squat','front-squat','goblet-squat','belt-squat'],['hack-squat','leg-press','smith-squat','barbell-back-squat','front-squat','goblet-squat','belt-squat','hack-squat-leg-press']);
@@ -127,22 +141,12 @@ function getMeta(name,subs){const lib=libraryByName(name);return lib?{...lib,sub
 function canonicalExerciseId(name){return getMeta(name).id||slugifyExercise(name)}
 function displayExerciseName(name){return getMeta(name).displayName||name}
 function isTravelGym(){return /travel|hotel/i.test(state.gym||'')}
-function travelFriendly(eq){return ['Barbell','Bench-supported','Plate','Dumbbell','Kettlebell','Trap bar','Bodyweight','Smith machine'].includes(eq)}
-function gymCompatible(m){return !isTravelGym() || m.gymModes==='Both' || travelFriendly(m.equipment)}
 function replacementPrefs(){return state.replacementPrefs&&typeof state.replacementPrefs==='object'?state.replacementPrefs:(state.replacementPrefs={})}
-function approvedByBase(base,candidate){return base.validReplacementIds.includes(candidate.id)||base.lessExactReplacementIds.includes(candidate.id)}
-function passesReplacementFilter(base,candidate){if(!candidate||candidate.id===base.id)return false; if(base.validReplacementIds.includes(candidate.id)||base.lessExactReplacementIds.includes(candidate.id))return true; if(candidate.movementFamily===base.movementFamily&&candidate.primaryMuscleGroup===base.primaryMuscleGroup)return true; if(candidate.primaryMuscleGroup===base.primaryMuscleGroup&&base.lessExactReplacementIds.includes(candidate.id))return true; return false}
-function reasonForMeta(base,m,bits={}){if(bits.usual)return 'Your usual replacement'; if(base.validReplacementIds.includes(m.id))return 'Approved exact replacement'; if(m.movementFamily===base.movementFamily&&m.primaryMuscleGroup===base.primaryMuscleGroup)return 'Same movement family'; if(base.lessExactReplacementIds.includes(m.id))return 'Less-exact fallback'; return 'Approved replacement'}
 function rankedReplacements(x,limit=3){
   const originalName=x.originalName||x.name, base=getMeta(originalName,x.swaps), prefs=replacementPrefs()[base.id]||{};
-  const explicit=(x.swaps||[]).map(canonicalExerciseId); const poolIds=[...base.validReplacementIds,...base.lessExactReplacementIds,...explicit,...EXERCISE_LIBRARY.filter(e=>e.movementFamily===base.movementFamily&&e.primaryMuscleGroup===base.primaryMuscleGroup).map(e=>e.id)];
-  return [...new Set(poolIds)].map(id=>EXERCISE_BY_ID[id]).filter(m=>passesReplacementFilter(base,m)).map(m=>{let score=1,bits={};
-    if(base.validReplacementIds.includes(m.id))score+=700; if(m.movementFamily===base.movementFamily&&m.primaryMuscleGroup===base.primaryMuscleGroup)score+=500; if(base.lessExactReplacementIds.includes(m.id))score+=80;
-    if(gymCompatible(m))score+=70; else score-=260; if(m.equipment===base.equipment)score+=35; if(m.exerciseType===base.exerciseType)score+=20; if(explicit.includes(m.id))score+=45;
-    const pref=Number(prefs[m.id]||0); if(pref){score+=Math.min(90,pref*30);bits.usual=true}
-    return {name:m.displayName,meta:m,score,reason:reasonForMeta(base,m,bits),lessExact:base.lessExactReplacementIds.includes(m.id)};
-  }).filter(c=>c.score>0).sort((a,b)=>b.score-a.score||a.name.localeCompare(b.name)).slice(0,limit)}
-function calculatePlateLoad(targetWeight,barWeight,availablePlates=[45,35,25,15,10,5]){
+  return VEKTR_REPLACEMENTS.rankReplacements({baseExerciseId:base.id,explicitIds:(x.swaps||[]).map(canonicalExerciseId),gymMode:isTravelGym()?'Travel':'Home',preferenceCounts:prefs,limit});
+}
+function legacyCalculatePlateLoad(targetWeight,barWeight,availablePlates=[45,35,25,15,10,5]){
   const target=Number(targetWeight), bar=Number(barWeight||45); if(!Number.isFinite(target)||target<bar)return {exact:false,platesPerSide:[],achievedWeight:bar,lowerOption:null,higherOption:{weight:bar,platesPerSide:[]},invalid:true};
   const plates=[...availablePlates].map(Number).sort((a,b)=>b-a); const maxSide=Math.max(0,Math.ceil((target-bar)/2)+1000); const best=new Map([[0,[]]]);
   const better=(a,b)=>!b||a.length<b.length||(a.length===b.length&&a.join(',')>b.join(','));
@@ -151,78 +155,40 @@ function calculatePlateLoad(targetWeight,barWeight,availablePlates=[45,35,25,15,
   const exact=achievable.find(o=>o.weight===target); const lower=[...achievable].reverse().find(o=>o.weight<=target)||null; const higher=achievable.find(o=>o.weight>=target)||null; const chosen=exact||lower||higher;
   return {exact:!!exact,platesPerSide:chosen?.plates||[],achievedWeight:chosen?.weight||bar,lowerOption:lower?{weight:lower.weight,platesPerSide:lower.plates}:null,higherOption:higher?{weight:higher.weight,platesPerSide:higher.plates}:null};
 }
-function canUsePlateCalculator(x){const m=getMeta(x.originalName||x.name,x.swaps); return m.equipment==='Barbell' && !/hack|leg press/i.test(m.displayName)}
+function canUsePlateCalculator(x){const m=EXERCISE_BY_ID[x.exerciseId]||getMeta(x.name,x.swaps);return Boolean(m.supportsPlateCalculator)&&m.equipment==='Barbell'&&!/hack|leg press/i.test(m.displayName)}
 
 const CORE={
   "5":[["Cable Crunch",12],["Dead Bug / side",10],["Side Plank / side (sec)",30]],
   "10":[["Hanging Knee Raise",10],["Pallof Press / side",10],["Reverse Crunch",12],["Plank (sec)",45]]
 };
-const DEFAULT_STATE={rotationIndex:0,active:null,history:[],bodyweight:[],gym:"Crunch Gym",customGyms:["Crunch Gym","Travel Gym","Hotel Gym"],notes:{},lastWeights:{},gymWeights:{},skippedCore:0,replacementPrefs:{}};
+const DEFAULT_STATE=VEKTR_STATE.DEFAULT_STATE;
 let state=load();
 let page="today";
 let pendingWorkoutName=null;
 let pendingSwapId=null;
 let pendingPlateId=null;
 let plateBar=45;
+let plateMode='target';
+let plateTarget='';
+let loadedPlateCounts={45:0,35:0,25:0,15:0,10:0,5:0};
 let quickInputAction=null;
 
-function cloneDefault(){return JSON.parse(JSON.stringify(DEFAULT_STATE))}
-function makeId(){
-  return (window.crypto&&window.crypto.randomUUID)?window.crypto.randomUUID():"id-"+Date.now()+"-"+Math.random().toString(36).slice(2);
-}
-function isTrue(v){return v===true||v===1||v==="true"}
-function normalizeItem(x={},index=0){
-  const sets=Array.isArray(x.sets)?x.sets.slice(0,3):[null,null,null];
-  while(sets.length<3) sets.push(null);
-  return {
-    ...x,
-    id:x.id||makeId(),
-    name:x.name||"Exercise",
-    weight:Number(x.weight||0),
-    target:Number(x.target||0),
-    inc:Number(x.inc||0),
-    swaps:Array.isArray(x.swaps)?x.swaps:[],
-    sets:sets.map(v=>v===""||v===undefined?null:v),
-    done:isTrue(x.done),
-    skipped:isTrue(x.skipped),
-    order:Number.isFinite(Number(x.order))?Number(x.order):index
-  };
-}
-function normalizeWorkout(w={},fallbackName){
-  return {
-    ...w,
-    id:w.id||makeId(),
-    name:w.name||fallbackName||"Workout",
-    date:w.date||today(),
-    startedAt:w.startedAt||Date.now(),
-    gym:w.gym||DEFAULT_STATE.gym,
-    busy:w.busy||"2",
-    items:(Array.isArray(w.items)?w.items:[]).map(normalizeItem),
-    core:Array.isArray(w.core)?w.core:(w.core||null)
-  };
-}
-function normalizeState(raw={}){
-  const merged={...cloneDefault(),...raw};
-  const fallbackName=ROTATION[Number(merged.rotationIndex||0)%ROTATION.length]||ROTATION[0];
-  merged.customGyms=Array.isArray(merged.customGyms)&&merged.customGyms.length?merged.customGyms:cloneDefault().customGyms;
-  merged.history=Array.isArray(merged.history)?merged.history.map(w=>normalizeWorkout(w,fallbackName)):[];
-  merged.bodyweight=Array.isArray(merged.bodyweight)?merged.bodyweight:[];
-  merged.notes=merged.notes&&typeof merged.notes==="object"?merged.notes:{};
-  merged.lastWeights=merged.lastWeights&&typeof merged.lastWeights==="object"?merged.lastWeights:{};
-  merged.gymWeights=merged.gymWeights&&typeof merged.gymWeights==="object"?merged.gymWeights:{};
-  merged.replacementPrefs=merged.replacementPrefs&&typeof merged.replacementPrefs==="object"?merged.replacementPrefs:{};
-  merged.active=merged.active?normalizeWorkout(merged.active,fallbackName):null;
-  return merged;
-}
-function load(){try{return normalizeState(JSON.parse(localStorage.getItem("flexppl")||"{}"))}catch{return cloneDefault()}}
-function save(){localStorage.setItem("flexppl",JSON.stringify(state))}
+function cloneDefault(){return VEKTR_STATE.cloneDefault()}
+function makeId(){return VEKTR_STATE.createId()}
+function normalizeItem(x={},index=0){return VEKTR_STATE.normalizeItem(x,index,{idFactory:makeId})}
+function normalizeWorkout(w={},fallbackName){return VEKTR_STATE.normalizeWorkout(w,fallbackName,{idFactory:makeId,today:today()})}
+function normalizeState(raw={}){return VEKTR_STATE.normalizeState(raw,{rotation:ROTATION,idFactory:makeId,today:today()})}
+function load(){return VEKTR_STATE.loadState(localStorage,{rotation:ROTATION,idFactory:makeId,today:today()})}
+function save(){VEKTR_STATE.saveState(localStorage,state)}
 function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.style.display="block";setTimeout(()=>t.style.display="none",1800)}
 function today(){return new Date().toISOString().slice(0,10)}
 function nextWorkout(){return ROTATION[state.rotationIndex%ROTATION.length]}
-function recWeight(name,base){
-  const gymKey=state.gym+"::"+name;
-  return state.gymWeights[gymKey]?.next ?? state.lastWeights[name]?.next ?? base;
+function recWeight(name,base,exerciseId=canonicalExerciseId(name)){
+  const gymKey=state.gym+"::"+exerciseId;
+  const legacyGymKey=state.gym+"::"+name;
+  return state.gymWeights[gymKey]?.next ?? state.lastWeights[exerciseId]?.next ?? state.gymWeights[legacyGymKey]?.next ?? state.lastWeights[name]?.next ?? base;
 }
+function recTarget(name,base,exerciseId=canonicalExerciseId(name)){return state.lastWeights[exerciseId]?.nextTarget??state.lastWeights[name]?.nextTarget??base}
 function startWorkout(name=nextWorkout()){
   pendingWorkoutName=name;
   document.getElementById("busyModal").classList.remove("hidden");
@@ -231,23 +197,21 @@ function closeBusyModal(){
   pendingWorkoutName=null;
   document.getElementById("busyModal").classList.add("hidden");
 }
+function groupPackedWorkout(items){if(items.length<3)return items;const [lead,...rest]=items,groups=new Map();for(const item of rest){const equipment=(EXERCISE_BY_ID[item.exerciseId]||getMeta(item.name)).equipment||'Other';if(!groups.has(equipment))groups.set(equipment,[]);groups.get(equipment).push(item)}return [lead,...[...groups.values()].flat()].map((item,index)=>({...item,order:index}))}
 function beginWorkoutWithBusy(busy){
   const name=pendingWorkoutName||nextWorkout();
   closeBusyModal();
-  let items=PROGRAM[name].map((e,i)=>({id:makeId(),name:e[0],weight:recWeight(e[0],e[1]),target:e[2],inc:e[3],swaps:e[4],sets:[null,null,null],done:false,skipped:false,order:i}));
-  if(busy==="3"){
-    const priority={"Cable Lateral Raise":1,"DB / Cable Lateral Raise":1,"Face Pull":1,"Cable Curl":1,"Rope Hammer Curl":1,"Rear-Delt Fly":1,
-                    "Bar Triceps Pushdown":1,"Rope Pushdown":1,"Overhead Rope Extension":1,"Cable Fly (High to Low)":2,"Cable Fly (Low to High)":2,
-                    "Straight-Arm Pulldown":2,"Leg Extension":2,"Seated Hamstring Curl":2,"Lying Hamstring Curl":2};
-    items.sort((a,b)=>(priority[a.name]||9)-(priority[b.name]||9));
-  }
-  state.active={id:makeId(),name,date:today(),startedAt:Date.now(),gym:state.gym,busy,items,core:null}; save(); render();
+  const template=VEKTR_PROGRAMS.findTemplateByName(name);
+  let items=template.exercises.map((entry,i)=>{const meta=EXERCISE_BY_ID[entry.exerciseId],displayName=entry.legacyName||meta.displayName;return {id:makeId(),exerciseId:entry.exerciseId,name:displayName,displayNameAtTimeOfWorkout:displayName,weight:recWeight(displayName,entry.startWeight,entry.exerciseId),target:recTarget(displayName,entry.targetReps,entry.exerciseId),inc:entry.increment,workingSets:entry.workingSets,swaps:entry.substitutionIds.map(id=>EXERCISE_BY_ID[id].displayName),sets:Array(entry.workingSets).fill(null),done:false,skipped:false,order:i}});
+  if(busy==="3")items=groupPackedWorkout(items);
+  state.active={id:makeId(),programId:VEKTR_PROGRAMS.ACTIVE_PROGRAM_ID,workoutTemplateId:template.id,name,date:today(),startedAt:Date.now(),pausedAt:null,pausedDurationMs:0,gym:state.gym,busy,items,core:null}; save(); render();
 }
+function recentExerciseSessions(exerciseId,excludeWorkoutId=null){return state.history.filter(w=>w.id!==excludeWorkoutId).flatMap(w=>(w.items||[]).filter(x=>x.done&&!x.skipped&&(x.exerciseId||canonicalExerciseId(x.name))===exerciseId).map(x=>({...x,workoutDate:w.date}))).slice(0,6)}
 function completeItem(id){
   const x=state.active.items.find(i=>i.id===id); if(!x)return;
-  if(x.sets.some(v=>v===null||v==="")) return toast("Enter all 3 sets first");
-  x.done=true; const min=Math.min(...x.sets.map(Number)); x.next=(x.inc===0?x.weight:(min>=x.target?Number(x.weight)+x.inc:Number(x.weight)));
-  x.coach=min>=x.target?(x.inc===0?"ADD REPS":"INCREASE"):"REPEAT"; save(); render(); toast(x.coach+" next time");
+  if(x.sets.slice(0,x.workingSets||x.sets.length).some(v=>v===null||v==="")) return toast(`Enter all ${x.workingSets||x.sets.length} sets first`);
+  const result=VEKTR_PROGRESSION.evaluateSession({weight:x.weight,sets:x.sets,target:x.target,increment:x.inc,workingSets:x.workingSets,recentSessions:recentExerciseSessions(x.exerciseId||canonicalExerciseId(x.name)),manualNextWeight:x.nextOverride});
+  x.done=true;x.next=result.nextWeight;x.nextTarget=result.nextTarget;x.coach=result.coach;x.stalled=result.stalled;save();render();toast(result.message);
 }
 function skipItem(id){const x=state.active.items.find(i=>i.id===id);x.skipped=!x.skipped;save();render()}
 function xDoneToggle(id){
@@ -272,15 +236,18 @@ function chooseSwap(name){
   const original=x.originalName||x.name;
   x.originalName=original;
   x.originalExerciseName=original;
+  x.originalExerciseId=x.originalExerciseId||canonicalExerciseId(original);
   x.replacementId=canonicalExerciseId(name);
   x.replacementName=displayExerciseName(name);
   x.name=x.replacementName;
+  x.exerciseId=x.replacementId;
+  x.displayNameAtTimeOfWorkout=x.replacementName;
   x.weight=recWeight(x.name,x.weight);
   const prefs=replacementPrefs(); const oid=canonicalExerciseId(original); prefs[oid]=prefs[oid]||{}; prefs[oid][x.replacementId]=Number(prefs[oid][x.replacementId]||0)+1;
   closeSwapModal(); save(); render(); toast('Temporary swap added');
 }
-function restoreOriginalExercise(id){const x=state.active?.items.find(i=>i.id===id); if(!x||!x.originalName)return; x.name=x.originalName; delete x.replacementId; delete x.replacementName; save(); render();}
-function renameExercise(id,val){const x=state.active?.items.find(i=>i.id===id); if(!x)return; x.name=val.trim()||x.name; x.replacementName=x.name; x.replacementId=canonicalExerciseId(x.name); save(); render();}
+function restoreOriginalExercise(id){const x=state.active?.items.find(i=>i.id===id); if(!x||!x.originalName)return; x.name=x.originalName; x.exerciseId=x.originalExerciseId||canonicalExerciseId(x.originalName); x.displayNameAtTimeOfWorkout=x.originalName; delete x.replacementId; delete x.replacementName; save(); render();}
+function renameExercise(id,val){const x=state.active?.items.find(i=>i.id===id); if(!x)return; x.name=val.trim()||x.name; x.replacementName=x.name; x.replacementId=canonicalExerciseId(x.name); x.exerciseId=x.replacementId; x.displayNameAtTimeOfWorkout=x.name; save(); render();}
 function changeExercise(id){pendingSwapId=id; renderSwapModal(true)}
 
 
@@ -311,8 +278,8 @@ function renderSwapModal(changing=false){
     </div><button class="btn secondary wide" onclick="closeSwapModal()">Cancel</button></div>`;
   modal.classList.remove('hidden');
 }
-function renderSwapChoice(c,best=false){return `<button class="swap-card ${best?"best":""} ${c.lessExact?"less-exact":""} ${!c.meta.imageAsset?'no-image':''}" onclick="chooseSwap('${escAttr(c.name)}')">
-  ${c.meta.imageAsset?`<img src="${c.meta.imageAsset}" alt="">`:''}
+function renderSwapChoice(c,best=false){const art=VEKTR_ILLUSTRATIONS.renderExerciseIllustration(c.meta);return `<button class="swap-card ${best?"best":""} ${c.lessExact?"less-exact":""} ${!art?'no-image':''}" onclick="chooseSwap('${escAttr(c.name)}')">
+  ${art?`<span class="exercise-art">${art}</span>`:''}
   <span>${best?`<span class="best-badge">★ BEST REPLACEMENT</span>`:""}<strong>${c.name}</strong><span>${c.meta.equipment} · ${c.meta.exerciseType}</span><span>${c.reason}${c.lessExact?' · less exact':''}</span></span>
 </button>`}
 function openPlateCalculator(id){
@@ -329,6 +296,48 @@ function plateResultsHtml(){const x=state.active?.items.find(i=>i.id===pendingPl
 
 function updatePlateResults(){document.querySelectorAll('#plateModal .plate-options button').forEach(b=>b.classList.toggle('active',Number(b.dataset.bar)===plateBar)); const r=document.getElementById('plateDynamicResults'); if(r)r.innerHTML=plateResultsHtml();}
 function renderPlateModal(){const x=state.active?.items.find(i=>i.id===pendingPlateId); const modal=document.getElementById('plateModal'); if(!x){closePlateModal();return;} const target=x.calcTarget ?? String(x.weight||plateBar); modal.innerHTML=`<div class="modal plate-modal" role="dialog" aria-modal="true" aria-labelledby="plateModalTitle" onclick="event.stopPropagation()"><div class="modal-head"><button class="icon-btn" onclick="closePlateModal()" aria-label="Close">×</button><h2 id="plateModalTitle">PLATE CALCULATOR</h2></div><label><span class="field-label">TARGET WEIGHT</span><input id="plateTargetInput" class="calc-total" type="number" inputmode="decimal" value="${target}" oninput="setPlateTarget(this.value)"></label><div class="field-label" style="margin-top:10px">BAR</div><div class="plate-options bar-options">${[45,35].map(v=>`<button data-bar="${v}" class="btn secondary mini ${plateBar===v?'active':''}" onclick="setPlateBar(${v})">${v} lb</button>`).join('')}</div><div id="plateDynamicResults">${plateResultsHtml()}</div><div class="modal-actions plate-actions"><button class="btn primary wide" onclick="applyPlateWeight()">Apply Weight</button><button class="btn secondary wide" onclick="closePlateModal()">Close</button></div></div>`; modal.classList.remove('hidden'); setTimeout(()=>document.getElementById('plateTargetInput')?.focus(),0)}
+// VEKTR 2 dual-mode calculator. These declarations intentionally supersede the legacy
+// prototype functions above while existing historical data remains compatible.
+function openPlateCalculator(id){
+  const x=state.active?.items.find(i=>i.id===id);if(!x||!canUsePlateCalculator(x))return;
+  pendingPlateId=id;plateBar=VEKTR_PLATES.BAR_WEIGHTS.includes(Number(x.barWeight))?Number(x.barWeight):45;
+  plateMode='target';plateTarget=String(x.weight??plateBar);
+  const initial=VEKTR_PLATES.calculateTargetLoad(Number(plateTarget),plateBar);
+  loadedPlateCounts=VEKTR_PLATES.countsFromPlates(initial.valid?initial.platesPerSide:[]);
+  renderPlateModal();
+}
+function closePlateModal(){pendingPlateId=null;document.getElementById('plateModal').classList.add('hidden')}
+function setPlateMode(mode){plateMode=mode==='loaded'?'loaded':'target';renderPlateModal()}
+function setPlateBar(v){plateBar=Number(v);updatePlateResults()}
+function setPlateTarget(v){plateTarget=v;updatePlateResults()}
+function chooseNearestWeight(v){plateTarget=String(v);const input=document.getElementById('plateTargetInput');if(input)input.value=v;updatePlateResults()}
+function addLoadedPlate(v){loadedPlateCounts[v]=Number(loadedPlateCounts[v]||0)+1;updatePlateResults()}
+function removeLoadedPlate(v){loadedPlateCounts[v]=Math.max(0,Number(loadedPlateCounts[v]||0)-1);updatePlateResults()}
+function clearLoadedPlates(){loadedPlateCounts=VEKTR_PLATES.countsFromPlates([]);updatePlateResults()}
+function formatPlates(plates){return VEKTR_PLATES.formatPlateList(plates)}
+function targetPlateResultsHtml(){
+  if(plateTarget===''||!Number.isFinite(Number(plateTarget))||Number(plateTarget)<0)return `<div class="plate-result"><b>Enter a valid target weight.</b><div class="muted">Your exercise stays unchanged until Apply Weight.</div></div>`;
+  const result=VEKTR_PLATES.calculateTargetLoad(Number(plateTarget),plateBar),counts=VEKTR_PLATES.countsFromPlates(result.platesPerSide);
+  return `<div class="field-label" style="margin-top:12px">PLATES PER SIDE</div><div class="plate-dots">${VEKTR_PLATES.AVAILABLE_PLATES.map(p=>`<div class="plate-dot ${counts[p]?'active':''}"><b>${p}</b>${counts[p]>1?`<small>× ${counts[p]}</small>`:''}</div>`).join('')}</div><div class="plate-result compact"><div><span class="field-label">PER SIDE</span><b>${formatPlates(result.platesPerSide)}</b></div><div><span class="field-label">TOTAL</span><b>${result.achievedWeight} lb</b></div></div>${!result.exact?`<div class="muted" style="margin-top:7px">${result.belowBar?'Target is below the selected bar.':'Exact target is not loadable with these plates.'}</div><div class="field-label" style="margin-top:12px">NEAREST OPTIONS</div><div class="grid nearest-grid">${result.lowerOption?`<button class="btn secondary nearest-btn" onclick="chooseNearestWeight(${result.lowerOption.weight})"><b>${result.lowerOption.weight} lb</b><span>${formatPlates(result.lowerOption.platesPerSide)}</span></button>`:`<button class="btn secondary nearest-btn" disabled><b>—</b><span>No lower load</span></button>`}${result.higherOption?`<button class="btn secondary nearest-btn" onclick="chooseNearestWeight(${result.higherOption.weight})"><b>${result.higherOption.weight} lb</b><span>${formatPlates(result.higherOption.platesPerSide)}</span></button>`:''}</div>`:''}`;
+}
+function loadedPlateResultsHtml(){
+  const result=VEKTR_PLATES.calculateLoadedWeight(plateBar,loadedPlateCounts);
+  return `<div class="field-label" style="margin-top:12px">TAP PLATES LOADED ON ONE SIDE</div><div class="loaded-plate-grid">${VEKTR_PLATES.AVAILABLE_PLATES.map(p=>`<div class="loaded-plate"><button class="plate-dot ${result.counts[p]?'active':''}" onclick="addLoadedPlate(${p})" aria-label="Add ${p} pound plate"><b>${p}</b>${result.counts[p]?`<small>× ${result.counts[p]}</small>`:'<small>tap to add</small>'}</button><button class="btn secondary plate-minus" onclick="removeLoadedPlate(${p})" aria-label="Remove ${p} pound plate" ${result.counts[p]?'':'disabled'}>−</button></div>`).join('')}</div><button class="text-link plate-clear" onclick="clearLoadedPlates()">Clear plates</button><div class="plate-result compact"><div><span class="field-label">PER SIDE</span><b>${formatPlates(result.platesPerSide)}</b></div><div><span class="field-label">TOTAL</span><b>${result.totalWeight} lb</b></div></div>`;
+}
+function plateResultsHtml(){return plateMode==='loaded'?loadedPlateResultsHtml():targetPlateResultsHtml()}
+function updatePlateResults(){document.querySelectorAll('#plateModal .plate-options button').forEach(b=>b.classList.toggle('active',Number(b.dataset.bar)===plateBar));const results=document.getElementById('plateDynamicResults');if(results)results.innerHTML=plateResultsHtml()}
+function applyPlateWeight(){
+  const x=state.active?.items.find(i=>i.id===pendingPlateId);if(!x)return closePlateModal();
+  const result=plateMode==='loaded'?VEKTR_PLATES.calculateLoadedWeight(plateBar,loadedPlateCounts):VEKTR_PLATES.calculateTargetLoad(Number(plateTarget),plateBar);
+  const weight=plateMode==='loaded'?result.totalWeight:result.achievedWeight;
+  if(!result.valid||!Number.isFinite(weight))return toast('Enter a valid weight');
+  x.weight=weight;x.barWeight=plateBar;save();closePlateModal();render();toast('Weight applied');
+}
+function renderPlateModal(){
+  const x=state.active?.items.find(i=>i.id===pendingPlateId),modal=document.getElementById('plateModal');if(!x){closePlateModal();return;}
+  modal.innerHTML=`<div class="modal plate-modal" role="dialog" aria-modal="true" aria-labelledby="plateModalTitle" onclick="event.stopPropagation()"><div class="modal-head"><button class="icon-btn" onclick="closePlateModal()" aria-label="Close">×</button><h2 id="plateModalTitle">PLATE CALCULATOR</h2></div><div class="plate-mode-tabs"><button class="${plateMode==='target'?'active':''}" onclick="setPlateMode('target')">TARGET WEIGHT</button><button class="${plateMode==='loaded'?'active':''}" onclick="setPlateMode('loaded')">PLATES LOADED</button></div>${plateMode==='target'?`<label><span class="field-label">TARGET WEIGHT</span><input id="plateTargetInput" class="calc-total" type="number" inputmode="decimal" value="${escAttr(plateTarget)}" oninput="setPlateTarget(this.value)"></label>`:''}<div class="field-label" style="margin-top:10px">BAR</div><div class="plate-options bar-options">${VEKTR_PLATES.BAR_WEIGHTS.map(v=>`<button data-bar="${v}" class="btn secondary mini ${plateBar===v?'active':''}" onclick="setPlateBar(${v})">${v} lb</button>`).join('')}</div><div id="plateDynamicResults">${plateResultsHtml()}</div><div class="modal-actions plate-actions"><button class="btn primary wide" onclick="applyPlateWeight()">Apply Weight</button><button class="btn secondary wide" onclick="closePlateModal()">Close</button></div></div>`;
+  modal.classList.remove('hidden');if(plateMode==='target')setTimeout(()=>document.getElementById('plateTargetInput')?.focus(),0);
+}
 function escAttr(s){return String(s).replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 function moveItem(id,dir){const a=state.active.items;const i=a.findIndex(x=>x.id===id);const j=i+dir;if(j<0||j>=a.length)return;[a[i],a[j]]=[a[j],a[i]];save();render()}
 function finishWorkout(){
@@ -337,32 +346,42 @@ function finishWorkout(){
   document.getElementById("coreModal").classList.remove("hidden");
 }
 function finishWithCore(kind){
-  const w=state.active; w.endedAt=Date.now(); w.duration=Math.round((w.endedAt-w.startedAt)/60000);
+  const w=state.active; w.endedAt=Date.now(); w.duration=Math.round(elapsedWorkoutMs(w)/60000);
   w.core=kind==="skip"?[]:CORE[kind].map(x=>({name:x[0],target:x[1]}));
   if(kind==="skip")state.skippedCore++;else state.skippedCore=0;
   w.items.forEach(x=>{if(x.done){
-    const rec={next:x.next,coach:x.coach,lastSets:x.sets,lastWeight:x.weight};
-    state.lastWeights[x.name]=rec;
-    state.gymWeights[w.gym+"::"+x.name]=rec;
+    const rec={next:x.next,nextTarget:x.nextTarget,coach:x.coach,lastSets:x.sets,lastWeight:x.weight};
+    const exerciseId=x.exerciseId||canonicalExerciseId(x.name);
+    state.lastWeights[exerciseId]=rec;state.lastWeights[x.name]=rec;
+    state.gymWeights[w.gym+"::"+exerciseId]=rec;state.gymWeights[w.gym+"::"+x.name]=rec;
   }});
   state.history.unshift(w); state.active=null; state.rotationIndex=(state.rotationIndex+1)%ROTATION.length; save(); render(); toast("Workout saved");
 }
 function setVal(id,setIdx,val){const x=state.active.items.find(i=>i.id===id);x.sets[setIdx]=val===""?null:Number(val);save()}
 function changeWeight(id,val){const x=state.active.items.find(i=>i.id===id);x.weight=Number(val);save()}
+function changeNextWeight(id,val){const x=state.active.items.find(i=>i.id===id);if(!x)return;x.nextOverride=val===''?null:Number(val);if(x.nextOverride!==null)x.next=x.nextOverride;save()}
 function changeWorkoutDate(val){
   if(!state.active || !val) return;
   state.active.date=val;
   save();
 }
+function elapsedWorkoutMs(workout=state.active,at=Date.now()){if(!workout)return 0;const reference=workout.pausedAt||at;return Math.max(0,reference-Number(workout.startedAt||reference)-Number(workout.pausedDurationMs||0))}
+function formatElapsed(ms){const total=Math.floor(Math.max(0,ms)/1000),hours=Math.floor(total/3600),minutes=Math.floor((total%3600)/60),seconds=total%60;return hours?`${hours}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`:`${minutes}:${String(seconds).padStart(2,'0')}`}
+function updateWorkoutTimer(){const node=document.getElementById('workoutTimer');if(node&&state.active&&state.active.editingIndex===undefined){node.textContent=formatElapsed(elapsedWorkoutMs());node.classList.toggle('paused',Boolean(state.active.pausedAt))}}
+function openTimerModal(){if(!state.active||state.active.editingIndex!==undefined)return;const modal=document.getElementById('timerModal'),minutes=Math.round(elapsedWorkoutMs()/60000);modal.innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-labelledby="timerModalTitle" onclick="event.stopPropagation()"><h2 id="timerModalTitle">Workout Timer</h2><p class="calc-total" style="text-align:left">${formatElapsed(elapsedWorkoutMs())}</p><button class="btn ${state.active.pausedAt?'primary':'secondary'} wide" onclick="toggleWorkoutPause()">${state.active.pausedAt?'Resume':'Pause'}</button><label style="display:block;margin-top:14px"><span class="field-label">ELAPSED MINUTES</span><input id="elapsedMinutesInput" type="number" inputmode="numeric" min="0" value="${minutes}"></label><div class="modal-actions"><button class="btn primary wide" onclick="adjustElapsedMinutes()">Apply Time</button><button class="btn secondary wide" onclick="closeTimerModal()">Close</button></div></div>`;modal.classList.remove('hidden')}
+function closeTimerModal(){document.getElementById('timerModal').classList.add('hidden')}
+function toggleWorkoutPause(){const w=state.active;if(!w)return;if(w.pausedAt){w.pausedDurationMs=Number(w.pausedDurationMs||0)+(Date.now()-w.pausedAt);w.pausedAt=null}else w.pausedAt=Date.now();save();closeTimerModal();render()}
+function adjustElapsedMinutes(){const w=state.active,value=Number(document.getElementById('elapsedMinutesInput')?.value);if(!w||!Number.isFinite(value)||value<0)return toast('Enter valid minutes');const reference=w.pausedAt||Date.now();w.startedAt=reference-Number(w.pausedDurationMs||0)-value*60000;save();closeTimerModal();render()}
 function rebuildPerformance(){
   state.lastWeights={};
   state.gymWeights={};
   [...state.history].reverse().forEach(w=>{
     (w.items||[]).forEach(x=>{
       if(x.done){
-        const rec={next:x.next,coach:x.coach,lastSets:x.sets,lastWeight:x.weight};
-        state.lastWeights[x.name]=rec;
-        state.gymWeights[(w.gym||"Unknown")+"::"+x.name]=rec;
+        const rec={next:x.next,nextTarget:x.nextTarget,coach:x.coach,lastSets:x.sets,lastWeight:x.weight};
+        const exerciseId=x.exerciseId||canonicalExerciseId(x.name);
+        state.lastWeights[exerciseId]=rec;state.lastWeights[x.name]=rec;
+        state.gymWeights[(w.gym||"Unknown")+"::"+exerciseId]=rec;state.gymWeights[(w.gym||"Unknown")+"::"+x.name]=rec;
       }
     });
   });
@@ -391,9 +410,8 @@ function saveEditedWorkout(){
   if(!w || w.editingIndex===undefined || w.editingIndex===null) return;
   w.items.forEach(x=>{
     if(x.done && Array.isArray(x.sets) && x.sets.every(v=>v!==null && v!=="")){
-      const min=Math.min(...x.sets.map(Number));
-      x.next=x.inc===0?x.weight:(min>=x.target?Number(x.weight)+Number(x.inc):Number(x.weight));
-      x.coach=min>=x.target?(x.inc===0?"ADD REPS":"INCREASE"):"REPEAT";
+      const result=VEKTR_PROGRESSION.evaluateSession({weight:x.weight,sets:x.sets,target:x.target,increment:x.inc,workingSets:x.workingSets,recentSessions:recentExerciseSessions(x.exerciseId||canonicalExerciseId(x.name),w.id),manualNextWeight:x.nextOverride});
+      x.next=result.nextWeight;x.nextTarget=result.nextTarget;x.coach=result.coach;x.stalled=result.stalled;
     }
   });
   const index=w.editingIndex;
@@ -482,19 +500,18 @@ function renderToday(){
  </div>`:""}
  <button class="btn primary wide" onclick="startWorkout()">Start Workout</button>
  <div class="row" style="margin-top:10px"><button class="btn secondary" onclick="logBodyweight()">Quick Log Bodyweight</button>
- <select onchange="state.gym=this.value;save();render()">${state.customGyms.map(g=>`<option ${g===state.gym?"selected":""}>${g}</option>`).join("")}</select></div></section>
+ <button class="btn secondary" onclick="setGymMode('${state.gym==='Travel'?'Home':'Travel'}')">${state.gym==='Travel'?'✈ Travel':'⌂ Home'}</button></div></section>
  <div class="grid"><div class="stat"><span class="muted">Last workout</span><b>${last?.name||"None yet"}</b></div></div>
  <div class="section-title">Choose another workout</div><div class="row">${ROTATION.map(x=>`<button class="btn secondary mini" onclick="startWorkout('${x}')">${x}</button>`).join("")}</div>`;
  }
  const a=state.active;
  const upcoming=a.items.filter(x=>!x.done&&!x.skipped);
  const completed=a.items.filter(x=>x.done||x.skipped);
- return `<section class="card"><div class="row" style="justify-content:space-between"><div>
+ return `<section class="card"><div class="workout-head"><div>
  <div class="muted">${a.gym} · ${a.busy==="3"?"Packed":a.busy==="1"?"Empty":"Normal"}</div>
- <h1 style="margin:3px 0">${a.name}</h1>
+ <h1 style="margin:3px 0">${a.name}</h1></div><div class="top-actions">${a.editingIndex===undefined?`<button id="workoutTimer" class="btn secondary mini workout-timer ${a.pausedAt?'paused':''}" onclick="openTimerModal()">${formatElapsed(elapsedWorkoutMs(a))}</button>`:''}<button class="btn danger mini" onclick="cancelWorkout()">${a.editingIndex!==undefined?"Close":"Cancel"}</button></div></div>
  <label class="muted" style="display:block;margin-top:10px">Workout date</label>
- <input type="date" value="${a.date}" onchange="changeWorkoutDate(this.value)" style="margin-top:5px">
- </div><button class="btn danger mini" onclick="cancelWorkout()">${a.editingIndex!==undefined?"Close":"Cancel"}</button></div></section>
+ <input type="date" value="${a.date}" onchange="changeWorkoutDate(this.value)" style="margin-top:5px"></section>
  ${upcoming.map(x=>renderExercise(x)).join("")}
  ${completed.length?`<details class="completed-section"><summary>Completed / skipped (${completed.length})</summary>${completed.map(x=>renderExercise(x,true)).join("")}</details>`:""}
  ${a.editingIndex!==undefined?`<button class="btn primary wide" onclick="saveEditedWorkout()">Save Changes</button>`:`<button class="btn primary wide" onclick="finishWorkout()">Finish Workout</button>`}
@@ -502,13 +519,13 @@ function renderToday(){
  <div class="core-choice"><button class="btn secondary" onclick="finishWithCore('skip')">Skip</button><button class="btn secondary" onclick="finishWithCore('5')">5 min</button><button class="btn primary" onclick="finishWithCore('10')">10 min</button></div></div>`;
 }
 function renderExercise(x,collapsed=false){
- const status=x.skipped?"status-skipped":x.done?(x.coach==="INCREASE"||x.coach==="ADD REPS"?"status-increase":"status-repeat"):(x.coach==="REPEAT"?"status-repeat":"status-first");
+ const status=x.skipped?"status-skipped":x.coach==="REDUCE"?"status-reduce":x.done?(x.coach==="INCREASE"||x.coach==="ADD REPS"?"status-increase":"status-repeat"):(x.coach==="REPEAT"?"status-repeat":"status-first");
  const note=state.notes[x.name]||"";
  if(collapsed){
    return `<section class="card collapsed-done ${status}">
      <div class="done-summary">
        <div><div class="done-title">${x.skipped?"Skipped: ":"✓ "}${x.name}</div>${x.originalName?`<div class="subline">Replaced: ${x.originalName}</div>`:""}
-       <div class="muted">${x.skipped?"Not completed":`${x.weight} lb · ${x.sets.join(" / ")} reps · Next ${x.next} (${x.coach||"baseline"})`}</div></div>
+       <div class="muted">${x.skipped?"Not completed":`${x.weight} lb · ${x.sets.join(" / ")} reps · ${x.coach==='ADD REPS'?`Next ${x.nextTarget} reps`:`Next ${x.next} lb`} (${x.coach||"baseline"})`}</div></div>
        <button class="btn secondary mini" onclick="xDoneToggle('${x.id}')">Edit</button>
      </div>
    </section>`;
@@ -518,12 +535,12 @@ function renderExercise(x,collapsed=false){
    <button class="btn secondary mini" onclick="moveItem('${x.id}',-1)" aria-label="Move up">↑</button>
    <button class="btn secondary mini" onclick="moveItem('${x.id}',1)" aria-label="Move down">↓</button>
  </div>
- <h3>${x.name}</h3>${x.originalName?`<div class="subline">Originally: ${x.originalName}</div>`:""}<div class="meta">${x.coach||"Baseline"}</div>
- <div class="target-row"><div class="stat"><span class="eyebrow">Target weight</span><b class="target-num">${x.weight}</b><span class="muted">lb</span></div><div class="stat"><span class="eyebrow">Target reps</span><b class="target-num">${x.target}</b><span class="muted">per set</span></div></div>
- <div class="entry-grid">
+ <h3>${x.name}</h3>${x.originalName?`<div class="subline">Originally: ${x.originalName}</div>`:""}<div class="workout-target"><span>Target <b>${x.weight} lb</b></span><span>·</span><span><b>${x.target} reps</b> × ${x.workingSets||x.sets.length} sets</span><span>·</span><span>${x.coach||"Baseline"}</span></div>
+ <div class="entry-grid dynamic-sets" style="--set-count:${x.sets.length}">
    <label><span class="field-label">Weight</span><span class="weight-wrap"><input type="number" value="${x.weight}" onchange="changeWeight('${x.id}',this.value)" aria-label="Weight">${canUsePlateCalculator(x)?`<button type="button" class="btn secondary calc-btn" onclick="openPlateCalculator('${x.id}')" aria-label="Plate calculator"><svg class="calc-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="3" width="12" height="18" rx="2"></rect><path d="M9 7h6M9 11h.01M12 11h.01M15 11h.01M9 15h.01M12 15h.01M15 15h.01M9 18h6"></path></svg></button>`:''}</span></label>
-   ${[0,1,2].map(i=>`<label><span class="field-label">S${i+1}</span><input type="number" inputmode="numeric" value="${x.sets[i]??""}" onchange="setVal('${x.id}',${i},this.value)"></label>`).join("")}
+   ${x.sets.map((_,i)=>`<label><span class="field-label">S${i+1}</span><input type="number" inputmode="numeric" value="${x.sets[i]??""}" onchange="setVal('${x.id}',${i},this.value)"></label>`).join("")}
  </div>
+ ${x.coach&&x.inc>0?`<label class="manual-next"><span><span class="field-label">MANUAL NEXT WEIGHT</span><span class="subline">Optional override</span></span><input type="number" value="${x.nextOverride??x.next??x.weight}" onchange="changeNextWeight('${x.id}',this.value)"></label>`:''}${x.stalled?`<div class="stall-note">No progression across three sessions. Consider adjusting load, reps, or exercise setup.</div>`:''}
  <div class="row" style="margin-top:12px">
    <button class="btn secondary mini" onclick="openNotes('${escAttr(x.name)}')">◇ Notes</button>${note?`<div class="note-preview">${note.slice(0,90)}${note.length>90?"…":""}</div>`:""}
  </div>
@@ -558,8 +575,27 @@ function renderProgress(){
 function renderSettings(){return `<section class="card"><h2>Gym profile</h2><select onchange="state.gym=this.value;save();render()">${state.customGyms.map(g=>`<option ${g===state.gym?"selected":""}>${g}</option>`).join("")}</select> <button class="btn secondary mini" onclick="addGym()">Add gym</button></section>
  <section class="card"><h2>Backup</h2><div class="row"><button class="btn secondary" onclick="exportData()">Export JSON</button><label class="btn secondary">Import JSON<input class="hidden" type="file" accept=".json" onchange="importData(event)"></label></div></section>
  <section class="card"><h2>Data</h2><button class="btn danger" onclick="resetData()">Reset everything</button></section>
- <section class="card"><h2>App version</h2><p class="muted">VEKTR 1.0 — offline training tracker</p></section><section class="card"><h2>Install</h2><p class="muted">In Chrome, open the menu and choose <b>Add to Home screen</b> or <b>Install app</b>.</p></section>`}
+ <section class="card"><h2>App version</h2><p class="muted">VEKTR 2.0</p></section>`}
+
+// VEKTR 2 summary-first progress, detailed history, logged core, and simplified settings.
+function setGymMode(mode){state.gym=mode==='Travel'?'Travel':'Home';state.customGyms=['Home','Travel'];save();render()}
+function closeProgressModal(){document.getElementById('progressModal').classList.add('hidden')}
+function renderTrendChart(sessions){const points=sessions.slice().reverse().map((session,index)=>({x:index,y:Number(session.weight||0)}));if(points.length<2||points.every(point=>point.y===0))return '';const max=Math.max(...points.map(point=>point.y)),min=Math.min(...points.map(point=>point.y)),range=Math.max(1,max-min),coords=points.map((point,index)=>`${12+(index/(points.length-1))*296},${96-((point.y-min)/range)*72}`).join(' ');return `<svg class="progress-chart" viewBox="0 0 320 108" role="img" aria-label="Recent weight trend"><path d="M12 96H308M12 60H308M12 24H308" stroke="#252529" stroke-width="1"/><polyline points="${coords}" fill="none" stroke="#D01822" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`}
+function openExerciseProgress(exerciseId){const details=VEKTR_PROGRESS.exerciseDetails(state.history,exerciseId),modal=document.getElementById('progressModal');if(!details)return;modal.innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-labelledby="progressDetailTitle" onclick="event.stopPropagation()"><div class="modal-head"><button class="icon-btn" onclick="closeProgressModal()" aria-label="Back">←</button><div><div class="section-title">${details.category}</div><h2 id="progressDetailTitle">${details.name}</h2></div></div><div class="progress-summary"><div class="stat"><span class="muted">Latest</span><b>${details.latest.weight||'—'}${details.latest.weight?' lb':''}</b></div><div class="stat"><span class="muted">Next</span><b>${details.latest.coach==='ADD REPS'?`${details.latest.nextTarget} reps`:`${details.latest.next??'—'}${details.latest.next!==undefined?' lb':''}`}</b></div><div class="stat"><span class="muted">Best weight</span><b>${details.bestWeight||'—'}${details.bestWeight?' lb':''}</b></div><div class="stat"><span class="muted">Est. 1RM</span><b>${details.bestOneRepMax||'—'}${details.bestOneRepMax?' lb':''}</b></div></div>${renderTrendChart(details.sessions)}<div class="section-title">RECENT SESSIONS</div>${details.sessions.map(session=>`<div class="history-item"><b>${session.date}</b><div class="muted">${session.weight||0} lb · ${(session.sets||[]).join(' / ')} reps · ${session.coach||'Baseline'}</div></div>`).join('')}<button class="btn secondary wide" style="margin-top:14px" onclick="closeProgressModal()">Close</button></div>`;modal.classList.remove('hidden')}
+function openBodyweightHistory(){const modal=document.getElementById('progressModal');modal.innerHTML=`<div class="modal" role="dialog" aria-modal="true" onclick="event.stopPropagation()"><div class="modal-head"><button class="icon-btn" onclick="closeProgressModal()" aria-label="Back">←</button><h2>BODYWEIGHT</h2></div>${state.bodyweight.length?state.bodyweight.map(entry=>`<div class="history-item"><b>${entry.value} lb</b><span class="muted"> · ${entry.date}</span></div>`).join(''):'<p class="muted">No entries yet.</p>'}<button class="btn secondary wide" style="margin-top:14px" onclick="closeProgressModal()">Close</button></div>`;modal.classList.remove('hidden')}
+function openAllPrs(){const prs=VEKTR_PROGRESS.personalRecords(state.history),modal=document.getElementById('progressModal');modal.innerHTML=`<div class="modal" role="dialog" aria-modal="true" onclick="event.stopPropagation()"><div class="modal-head"><button class="icon-btn" onclick="closeProgressModal()" aria-label="Back">←</button><h2>PERSONAL RECORDS</h2></div>${prs.length?prs.map(pr=>`<div class="pr-row"><div><b>${pr.name}</b><div class="muted">${pr.type==='e1rm'?'Estimated 1RM':pr.type==='reps'?'Rep PR':'Weight PR'} · ${pr.date}</div></div><b>${pr.label}</b></div>`).join(''):'<p class="muted">No PRs yet.</p>'}<button class="btn secondary wide" style="margin-top:14px" onclick="closeProgressModal()">Close</button></div>`;modal.classList.remove('hidden')}
+function renderProgress(){const progress=VEKTR_PROGRESS.buildProgress(state.history,state.bodyweight),s=progress.summary,bw=progress.bodyweight;return `<div class="section-title">OVERVIEW</div><div class="progress-summary"><div class="stat"><span class="muted">Workouts</span><b>${s.workouts}</b></div><div class="stat"><span class="muted">Total volume</span><b>${s.totalVolume.toLocaleString()}</b></div><div class="stat"><span class="muted">Progressing</span><b>${s.progressing}</b></div><div class="stat"><span class="muted">Recent PRs</span><b>${s.recentPrs}</b></div></div><div class="section-title" style="margin-top:18px">RECENT HIGHLIGHTS</div><section class="card">${progress.highlights.length?progress.highlights.map(item=>`<div class="highlight-row"><span class="status-dot ${item.status}"></span><div style="flex:1"><b>${item.text}</b><div class="muted">${item.date}</div></div></div>`).join(''):'<p class="muted">Complete workouts to build highlights.</p>'}</section><div class="section-title">STRENGTH BY MUSCLE GROUP</div>${progress.groups.length?progress.groups.map(group=>`<details class="category"><summary><div><b>${group.category}</b><div class="muted">${group.exercises.length} exercise${group.exercises.length===1?'':'s'} · ${group.increasing} increasing</div></div><span>›</span></summary><div class="category-body">${group.exercises.map(exercise=>`<button class="exercise-progress-row" onclick="openExerciseProgress('${exercise.exerciseId}')"><span class="status-dot ${exercise.status}"></span><span style="flex:1"><b>${exercise.name}</b><span class="muted" style="display:block">${exercise.latest.weight||0} lb → ${exercise.latest.coach==='ADD REPS'?`${exercise.latest.nextTarget} reps`:`${exercise.latest.next??exercise.latest.weight} lb`}</span></span><span>›</span></button>`).join('')}</div></details>`).join(''):'<section class="card"><p class="muted">Complete a workout to see categorized progress.</p></section>'}<div class="section-title" style="margin-top:18px">BODYWEIGHT</div><section class="card">${bw?`<div class="settings-row"><div><span class="muted">Latest</span><b style="font-size:26px;display:block">${bw.latest} lb</b><span class="muted">${bw.date}${bw.change===null?'':` · ${bw.change>0?'+':''}${bw.change} lb`}</span></div><button class="btn secondary mini" onclick="openBodyweightHistory()">View history</button></div>`:'<div class="settings-row"><span class="muted">No bodyweight entries.</span><button class="btn secondary mini" onclick="logBodyweight()">Log weight</button></div>'}</section><div class="section-title">PERSONAL RECORDS</div><section class="card">${progress.prs.length?progress.prs.slice(0,3).map(pr=>`<div class="pr-row"><div><b>${pr.name}</b><div class="muted">${pr.date}</div></div><b>${pr.label}</b></div>`).join(''):'<p class="muted">No PRs yet.</p>'}${progress.prs.length>3?`<button class="btn secondary wide" style="margin-top:12px" onclick="openAllPrs()">View all PRs</button>`:''}</section>`}
+function renderHistory(){return `<div class="section-title">WORKOUT HISTORY</div>${state.history.length?state.history.map((workout,index)=>`<details class="history-workout"><summary><div class="row" style="justify-content:space-between"><div><b>${workout.name}</b><div class="muted">${workout.date} · ${workout.gym} · ${workout.duration||0} min</div></div><span>›</span></div></summary><div class="history-detail">${(workout.items||[]).map(item=>`<div class="history-exercise"><div class="row" style="justify-content:space-between"><b>${item.name}</b><span class="muted">${item.skipped?'Skipped':item.coach||'Baseline'}</span></div>${item.originalName?`<div class="subline">Originally: ${item.originalName}</div>`:''}<div class="muted">${item.skipped?'Not completed':`${item.weight||0} lb · ${(item.sets||[]).join(' / ')} reps`}</div>${state.notes[item.name]?`<div class="subline">${state.notes[item.name]}</div>`:''}</div>`).join('')}${workout.core?.length?`<div class="section-title" style="margin-top:12px">CORE</div>${workout.core.map(core=>`<div class="history-exercise"><b>${core.name}</b><div class="muted">${core.completed?`${core.actual??core.target} completed`:'Skipped'}</div></div>`).join('')}`:''}<div class="row" style="margin-top:12px"><button class="btn secondary mini" onclick="editHistory(${index})">Edit</button><button class="btn danger mini" onclick="deleteHistory(${index})">Delete</button></div></div></details>`).join(''):'<section class="card"><p class="muted">No workouts yet.</p></section>'}`}
+function renderSettings(){return `<div class="section-title">TRAINING</div><section class="card"><div class="settings-row"><div><b>Training Program</b><div class="muted">Push / Pull / Legs · 6-workout rotation</div></div><span>Active</span></div><div class="settings-row"><div><b>Gym mode</b><div class="muted">Home assumes full equipment; Travel prioritizes free weights.</div></div><button class="btn secondary mini" onclick="setGymMode('${state.gym==='Travel'?'Home':'Travel'}')">${state.gym}</button></div><div class="settings-row"><div><b>Weight units</b><div class="muted">Pounds</div></div><span>lb</span></div></section><div class="section-title">DATA</div><section class="card"><div class="settings-row"><button class="btn secondary" onclick="exportData()">Export Backup</button><label class="btn secondary">Import Backup<input class="hidden" type="file" accept=".json" onchange="importData(event)"></label></div></section><div class="section-title">APP</div><section class="card"><div class="settings-row"><div><b>Version</b><div class="muted">VEKTR 2.0</div></div></div><div class="settings-row"><button class="btn danger" onclick="resetData()">Reset Data</button></div></section>`}
+
+function startCoreLog(kind){const draft=CORE[kind].map(([name,target])=>({exerciseId:canonicalExerciseId(name),name,target,actual:target,completed:true}));state.active.coreDraft=draft;save();const modal=document.getElementById('coreModal');modal.innerHTML=`<h2>${kind}-minute core</h2><p class="muted">Uncheck anything you skip. Adjust the number only if you want to.</p>${draft.map((entry,index)=>`<label class="core-log-row"><input type="checkbox" checked onchange="setCoreCompleted(${index},this.checked)"><span><b>${entry.name}</b><span class="subline">Target ${entry.target}</span></span><input type="number" value="${entry.actual}" onchange="setCoreActual(${index},this.value)" aria-label="${entry.name} completed"></label>`).join('')}<div class="modal-actions"><button class="btn primary wide" onclick="saveCoreLog()">Save Workout</button><button class="btn secondary wide" onclick="finishWithCore('skip')">Skip Core</button></div>`;modal.classList.remove('hidden')}
+function setCoreCompleted(index,value){if(state.active?.coreDraft?.[index])state.active.coreDraft[index].completed=Boolean(value);save()}
+function setCoreActual(index,value){if(state.active?.coreDraft?.[index])state.active.coreDraft[index].actual=Number(value);save()}
+function finalizeWorkout(coreEntries){const w=state.active;w.endedAt=Date.now();w.duration=Math.round(elapsedWorkoutMs(w)/60000);w.core=coreEntries;delete w.coreDraft;if(coreEntries.some(entry=>entry.completed))state.skippedCore=0;else state.skippedCore++;w.items.forEach(item=>{if(item.done){const rec={next:item.next,nextTarget:item.nextTarget,coach:item.coach,lastSets:item.sets,lastWeight:item.weight},exerciseId=item.exerciseId||canonicalExerciseId(item.name);state.lastWeights[exerciseId]=rec;state.lastWeights[item.name]=rec;state.gymWeights[w.gym+'::'+exerciseId]=rec;state.gymWeights[w.gym+'::'+item.name]=rec}});state.history.unshift(w);state.active=null;state.rotationIndex=(state.rotationIndex+1)%ROTATION.length;save();render();toast('Workout saved')}
+function saveCoreLog(){finalizeWorkout((state.active?.coreDraft||[]).map(entry=>({...entry})))}
+function finishWithCore(kind){if(kind==='skip')finalizeWorkout([]);else startCoreLog(kind)}
 render();
+setInterval(updateWorkoutTimer,1000);
 if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}))}
 </script>
 </body></html>
