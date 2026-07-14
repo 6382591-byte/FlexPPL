@@ -12,7 +12,7 @@
     :root{--page:#050505;--elev:#0B0B0C;--card:#111113;--surface:#171719;--line:#2A2A2E;--red:#B3121B;--red2:#D01822;--redDark:#7A0C12;--text:#F3F3F3;--muted:#A3A3AA;--dim:#6F6F77;--green:#5F9F73;--amber:#B9903B;--reduce:#C2474A;--blue:#5E7F9F}
     *{box-sizing:border-box}html{background:var(--page)}body{margin:0;background:radial-gradient(circle at 50% -10%,rgba(179,18,27,.16),transparent 34%),linear-gradient(180deg,#050505,#090909 55%,#050505);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;letter-spacing:.01em}button,input,select,textarea{font:inherit}.app{max-width:760px;margin:auto;min-height:100vh;padding:14px 14px calc(104px + env(safe-area-inset-bottom));overflow-x:hidden}
     header{display:flex;justify-content:center;align-items:center;margin:0 0 14px;padding:8px 0}.brand{display:flex;justify-content:center;align-items:center;gap:10px;font-weight:850;font-size:22px;letter-spacing:.28em;text-indent:.28em}.brand img{width:34px;height:34px}.icon-btn{height:40px;width:40px;border-radius:12px;background:transparent;border:1px solid var(--line);color:var(--muted)}.pill{background:var(--surface);border:1px solid var(--line);padding:8px 11px;border-radius:999px;color:var(--muted);font-size:13px}.card{background:linear-gradient(180deg,rgba(23,23,25,.78),rgba(17,17,19,.98));border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0;box-shadow:0 18px 38px rgba(0,0,0,.22)}.hero{padding:22px}.eyebrow,.section-title,.field-label{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.16em}.hero h1,h1{font-size:34px;margin:6px 0 8px;line-height:1}.muted{color:var(--muted)}.dim{color:var(--dim)}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.btn{border:0;border-radius:14px;padding:13px 15px;font-weight:780;cursor:pointer;min-height:44px}.primary{background:linear-gradient(135deg,var(--redDark),var(--red2));color:white;border:1px solid #C31520}.secondary{background:var(--surface);color:var(--text);border:1px solid var(--line)}.danger{background:rgba(194,71,74,.13);color:#F0B1B3;border:1px solid rgba(194,71,74,.55)}.outline-red{background:transparent;color:#F1B6B9;border:1px solid var(--red)}.wide{width:100%}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:var(--elev);border:1px solid var(--line);border-radius:14px;padding:13px}.stat b{display:block;font-size:24px;line-height:1.1;margin-top:4px}.tabs{position:fixed;left:0;right:0;bottom:0;background:rgba(11,11,12,.94);border-top:1px solid var(--line);display:flex;justify-content:center;z-index:10;backdrop-filter:blur(14px);padding-bottom:env(safe-area-inset-bottom)}.tabs .inner{width:min(760px,100%);display:grid;grid-template-columns:repeat(4,1fr)}.tab{background:none;border:0;color:var(--dim);padding:11px 5px 10px;font-size:12px}.tab svg{display:block;margin:0 auto 4px;stroke:currentColor}.tab.active{color:var(--red2)}
-    .exercise{position:relative}.exercise h3{margin:0 84px 6px 0;font-size:21px}.target-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.target-num{font-size:30px;font-weight:850}.meta{font-size:14px;color:var(--muted)}.order-controls{position:absolute;top:14px;right:14px;display:flex;gap:6px}.order-controls button{width:36px;height:36px;padding:0}.entry-grid{display:grid;grid-template-columns:minmax(88px,1.2fr) repeat(3,minmax(0,1fr));gap:7px;margin-top:14px}.entry-grid label{min-width:0}.entry-grid input,select,input[type=number],input[type=text],textarea{min-width:0;width:100%;background:#09090A;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px 7px;text-align:center;font-size:16px}textarea{text-align:left;min-height:120px}.status-first{border-left:3px solid var(--blue)}.status-repeat{border-left:3px solid var(--amber)}.status-increase{border-left:3px solid var(--green)}.status-reduce{border-left:3px solid var(--reduce)}.collapsed-done{padding:12px 14px;background:#0C0D0C}.done-summary{display:flex;justify-content:space-between;align-items:center;gap:12px}.done-title{font-weight:820}.completed-section{margin-top:18px}.completed-section summary{cursor:pointer;color:var(--muted);font-weight:700;padding:10px 2px}.mini{padding:9px 12px;border-radius:12px;min-height:38px}.hidden{display:none!important}.history-item{padding:13px 0;border-bottom:1px solid var(--line)}.history-item:last-child{border-bottom:0}.core-choice{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:86px;background:#101812;color:#D9F0DF;padding:12px 16px;border-radius:12px;border:1px solid rgba(95,159,115,.55);display:none;z-index:40}.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.76);display:flex;align-items:center;justify-content:center;padding:18px;z-index:30;backdrop-filter:blur(8px)}.modal{width:min(480px,100%);max-height:calc(100vh - 36px);overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 24px 70px rgba(0,0,0,.58)}.modal h2{margin:0 0 8px}.modal-actions{display:grid;gap:12px;margin-top:18px}.busy-btn,.choice-btn{padding:18px 16px;text-align:left}.busy-btn strong,.choice-btn strong{display:block;font-size:21px}.busy-btn span,.choice-btn span{display:block;margin-top:4px;color:var(--muted);font-size:14px}.recommended,.choice-btn:first-child{border-color:var(--red);box-shadow:inset 0 0 0 1px rgba(179,18,27,.25)}.best-badge{display:inline-block;margin-bottom:8px;color:#F3C2C5;border:1px solid var(--red);border-radius:999px;padding:4px 8px;font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:.1em}.weight-wrap{display:grid;grid-template-columns:minmax(0,1fr) 42px;gap:6px}.calc-btn{width:42px;height:42px;padding:0}.plate-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.plate-options button{border-radius:999px}.plate-options button.active{background:rgba(179,18,27,.24);border-color:var(--red);color:#fff}.plate-result{background:var(--elev);border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:14px}.plate-list{font-size:24px;font-weight:850;margin-top:4px}.note-preview{width:100%;font-size:13px;color:var(--muted);padding-top:2px}.chart{height:90px;width:100%;margin-top:10px}.wordmark{letter-spacing:.3em;text-indent:.3em}.vcheck{font-size:52px;color:var(--red2);text-align:center;line-height:1}.top-actions{display:flex;gap:8px}.progress-line{stroke:var(--red2);fill:none;stroke-width:2}.gridline{stroke:#252529;stroke-width:1}
+    .exercise{position:relative}.exercise h3{margin:0 84px 6px 0;font-size:21px}.target-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.target-num{font-size:30px;font-weight:850}.meta{font-size:14px;color:var(--muted)}.order-controls{position:absolute;top:14px;right:14px;display:flex;gap:6px}.order-controls button{width:36px;height:36px;padding:0}.entry-grid{display:grid;grid-template-columns:minmax(88px,1.2fr) repeat(3,minmax(0,1fr));gap:7px;margin-top:14px}.entry-grid label{min-width:0}.entry-grid input,select,input[type=number],input[type=text],textarea{min-width:0;width:100%;background:#09090A;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px 7px;text-align:center;font-size:16px}textarea{text-align:left;min-height:120px}.status-first{border-left:3px solid var(--blue)}.status-repeat{border-left:3px solid var(--amber)}.status-increase{border-left:3px solid var(--green)}.status-reduce{border-left:3px solid var(--reduce)}.collapsed-done{padding:12px 14px;background:#0C0D0C}.done-summary{display:flex;justify-content:space-between;align-items:center;gap:12px}.done-title{font-weight:820}.completed-section{margin-top:18px}.completed-section summary{cursor:pointer;color:var(--muted);font-weight:700;padding:10px 2px}.mini{padding:9px 12px;border-radius:12px;min-height:38px}.hidden{display:none!important}.history-item{padding:13px 0;border-bottom:1px solid var(--line)}.history-item:last-child{border-bottom:0}.core-choice{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:86px;background:#101812;color:#D9F0DF;padding:12px 16px;border-radius:12px;border:1px solid rgba(95,159,115,.55);display:none;z-index:40}.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.76);display:flex;align-items:center;justify-content:center;padding:18px;z-index:30;backdrop-filter:blur(8px)}.modal{width:min(480px,100%);max-height:calc(100vh - 36px);overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 24px 70px rgba(0,0,0,.58)}.modal.full{width:min(720px,100%);height:calc(100vh - 24px);border-radius:24px;display:flex;flex-direction:column}.modal-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}.modal-head h2{margin:0;font-size:24px;letter-spacing:.06em}.swap-card{display:grid;grid-template-columns:86px 1fr;gap:13px;align-items:center;background:var(--elev);border:1px solid var(--line);border-radius:18px;padding:12px;text-align:left;color:var(--text);width:100%}.swap-card.best{border-color:var(--red);box-shadow:inset 0 0 0 1px rgba(179,18,27,.3)}.swap-card img{width:86px;height:58px;object-fit:cover;border-radius:12px;opacity:.78}.swap-card strong{display:block;font-size:19px}.swap-card span{display:block;color:var(--muted);font-size:13px;margin-top:3px}.calc-total{font-size:48px;font-weight:900;text-align:center}.plate-visual{display:flex;gap:6px;align-items:end;justify-content:center;min-height:62px}.plate-disc{width:28px;border-radius:6px;background:linear-gradient(180deg,#343438,#151517);border:1px solid #555;color:#ddd;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800}.trend-wrap{overflow:hidden}.notes-list .history-item{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start}.modal h2{margin:0 0 8px}.modal-actions{display:grid;gap:12px;margin-top:18px}.busy-btn,.choice-btn{padding:18px 16px;text-align:left}.busy-btn strong,.choice-btn strong{display:block;font-size:21px}.busy-btn span,.choice-btn span{display:block;margin-top:4px;color:var(--muted);font-size:14px}.recommended,.choice-btn:first-child{border-color:var(--red);box-shadow:inset 0 0 0 1px rgba(179,18,27,.25)}.best-badge{display:inline-block;margin-bottom:8px;color:#F3C2C5;border:1px solid var(--red);border-radius:999px;padding:4px 8px;font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:.1em}.weight-wrap{display:grid;grid-template-columns:minmax(0,1fr) 42px;gap:6px}.calc-btn{width:42px;height:42px;padding:0}.plate-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.plate-options button{border-radius:999px}.plate-options button.active{background:rgba(179,18,27,.24);border-color:var(--red);color:#fff}.plate-result{background:var(--elev);border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:14px}.plate-list{font-size:24px;font-weight:850;margin-top:4px}.note-preview{width:100%;font-size:13px;color:var(--muted);padding-top:2px}.chart{height:90px;width:100%;margin-top:10px}.wordmark{letter-spacing:.3em;text-indent:.3em}.vcheck{font-size:52px;color:var(--red2);text-align:center;line-height:1}.top-actions{display:flex;gap:8px}.progress-line{stroke:var(--red2);fill:none;stroke-width:2}.gridline{stroke:#252529;stroke-width:1}
     @media (max-width:520px){.app{padding-left:12px;padding-right:12px}.grid{grid-template-columns:1fr}.entry-grid{grid-template-columns:82px repeat(3,minmax(0,1fr));gap:6px}.entry-grid input{padding:11px 4px;font-size:15px}.hero h1,h1{font-size:29px}.brand{font-size:18px}.target-num{font-size:26px}.btn{padding-left:12px;padding-right:12px}.tab{font-size:11px}}
   </style>
 </head>
@@ -85,6 +85,41 @@ const PROGRAM={
  ["Lying Hamstring Curl",70,12,10,["Seated Ham Curl","Standing Ham Curl"]],
  ["Seated Calf Raise",90,20,10,["Standing Calf Raise","Leg Press Calf Raise"]]
 ]};
+
+const EXERCISE_META={};
+const META_DEFAULT={primaryMuscle:"General",secondaryMuscles:[],movementPattern:"General",equipmentType:"Bodyweight",type:"compound",substitutions:[]};
+function slugifyExercise(name){return String(name||"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"generic"}
+function exerciseImage(name){return `assets/exercises/${slugifyExercise(name)}.svg`}
+function inferMeta(name,subs=[]){
+  const n=String(name).toLowerCase(); let m={...META_DEFAULT,substitutions:subs};
+  if(/bench|press|fly|pec|push-up/.test(n)){m.primaryMuscle="Chest";m.secondaryMuscles=["Triceps","Shoulders"];m.movementPattern=/fly|pec/.test(n)?"Chest fly":"Horizontal press";m.equipmentType=/db|dumbbell/.test(n)?"Dumbbell":/cable|rope/.test(n)?"Cable":/smith/.test(n)?"Smith machine":/machine|pec/.test(n)?"Machine":/push-up/.test(n)?"Bodyweight":"Barbell";m.type=/fly/.test(n)?"isolation":"compound";}
+  if(/shoulder|landmine/.test(n)){m.primaryMuscle="Shoulders";m.secondaryMuscles=["Triceps"];m.movementPattern="Vertical press";m.equipmentType=/db/.test(n)?"Dumbbell":/smith/.test(n)?"Smith machine":/machine/.test(n)?"Machine":"Barbell";}
+  if(/lateral/.test(n)){m.primaryMuscle="Side delts";m.secondaryMuscles=["Shoulders"];m.movementPattern="Lateral raise";m.equipmentType=/cable/.test(n)?"Cable":/machine/.test(n)?"Machine":"Dumbbell";m.type="isolation";}
+  if(/triceps|pushdown|skull|extension/.test(n)){m.primaryMuscle="Triceps";m.secondaryMuscles=[];m.movementPattern=/pushdown/.test(n)?"Elbow extension down":"Elbow extension";m.equipmentType=/cable|rope|pushdown/.test(n)?"Cable":/db/.test(n)?"Dumbbell":"Barbell";m.type="isolation";}
+  if(/pulldown|pull-up/.test(n)){m.primaryMuscle="Lats";m.secondaryMuscles=["Biceps","Upper back"];m.movementPattern="Vertical pull";m.equipmentType=/pull-up/.test(n)?"Bodyweight":/cable|pulldown/.test(n)?"Cable":"Machine";}
+  if(/row/.test(n)){m.primaryMuscle="Upper back";m.secondaryMuscles=["Lats","Biceps"];m.movementPattern="Horizontal pull";m.equipmentType=/cable/.test(n)?"Cable":/db/.test(n)?"Dumbbell":"Machine";}
+  if(/face|rear|reverse/.test(n)){m.primaryMuscle="Rear delts";m.secondaryMuscles=["Upper back"];m.movementPattern="Rear delt pull";m.equipmentType=/cable|face/.test(n)?"Cable":/band/.test(n)?"Band":"Machine";m.type="isolation";}
+  if(/curl/.test(n)){m.primaryMuscle="Biceps";m.secondaryMuscles=["Forearms"];m.movementPattern=/hammer/.test(n)?"Neutral curl":"Curl";m.equipmentType=/cable/.test(n)?"Cable":/db/.test(n)?"Dumbbell":/machine|preacher/.test(n)?"Machine":"Barbell";m.type="isolation";}
+  if(/squat|leg press|lunge|step-up/.test(n)){m.primaryMuscle="Quads";m.secondaryMuscles=["Glutes","Hamstrings"];m.movementPattern=/lunge|step-up|split/.test(n)?"Single-leg squat":"Squat";m.equipmentType=/smith/.test(n)?"Smith machine":/leg press|hack|belt/.test(n)?"Machine":/goblet|db/.test(n)?"Dumbbell":"Bodyweight";}
+  if(/leg extension|sissy|spanish/.test(n)){m.primaryMuscle="Quads";m.secondaryMuscles=[];m.movementPattern="Knee extension";m.equipmentType=/leg extension/.test(n)?"Machine":"Bodyweight";m.type="isolation";}
+  if(/ham/.test(n)){m.primaryMuscle="Hamstrings";m.secondaryMuscles=[];m.movementPattern="Knee flexion";m.equipmentType="Machine";m.type="isolation";}
+  if(/calf/.test(n)){m.primaryMuscle="Calves";m.secondaryMuscles=[];m.movementPattern="Calf raise";m.equipmentType=/leg press|seated|standing/.test(n)?"Machine":"Bodyweight";m.type="isolation";}
+  return m;
+}
+function getMeta(name,subs){return EXERCISE_META[name]||inferMeta(name,subs)}
+function reasonFor(original,candidate){const a=getMeta(original.name,original.swaps),b=getMeta(candidate); if(a.movementPattern===b.movementPattern&&a.primaryMuscle===b.primaryMuscle)return "Same movement pattern"; if(a.primaryMuscle===b.primaryMuscle&&a.equipmentType===b.equipmentType)return "Same primary muscle + equipment"; if(a.primaryMuscle===b.primaryMuscle)return "Same primary muscle"; return "Similar training stimulus"}
+function rankedReplacements(x){
+  const base=getMeta(x.name,x.swaps); const pool=[...(x.swaps||[]),...Object.values(PROGRAM).flat().map(e=>e[0])].filter(n=>n&&n!==x.name);
+  return [...new Set(pool)].map(name=>{const m=getMeta(name);let score=0;if(m.movementPattern===base.movementPattern&&m.primaryMuscle===base.primaryMuscle)score=300;else if(m.primaryMuscle===base.primaryMuscle&&m.equipmentType===base.equipmentType)score=200;else if(m.primaryMuscle===base.primaryMuscle)score=100; if((x.swaps||[]).includes(name))score+=20; return {name,meta:m,score,reason:reasonFor(x,name)}}).sort((a,b)=>b.score-a.score||a.name.localeCompare(b.name)).slice(0,3);
+}
+function calculatePlateLoad(targetWeight,barWeight,availablePlates=[45,35,25,15,10,5]){
+  targetWeight=Number(targetWeight||0);barWeight=Number(barWeight||45); const plates=[...availablePlates].map(Number).sort((a,b)=>b-a); const maxSide=Math.max(0,Math.ceil((Math.max(targetWeight,barWeight)-barWeight)/2)+100); const best=new Map(); best.set(0,[]);
+  for(let s=1;s<=maxSide;s++){let cand=null; for(const p of plates){const prev=best.get(s-p); if(prev){const arr=[...prev,p].sort((a,b)=>b-a); if(!cand||arr.length<cand.length||(arr.length===cand.length&&arr.join(',')>cand.join(','))) cand=arr;}} if(cand)best.set(s,cand)}
+  const achievable=[...best.keys()].map(side=>({side,weight:barWeight+2*side,plates:best.get(side)})).sort((a,b)=>a.weight-b.weight);
+  const exact=achievable.find(o=>o.weight===targetWeight); const lower=[...achievable].reverse().find(o=>o.weight<=targetWeight)||achievable[0]; const higher=achievable.find(o=>o.weight>=targetWeight)||achievable.at(-1);
+  const chosen=exact||lower; return {exact:!!exact,platesPerSide:chosen.plates,achievedWeight:chosen.weight,lowerOption:lower?{weight:lower.weight,platesPerSide:lower.plates}:null,higherOption:higher?{weight:higher.weight,platesPerSide:higher.plates}:null};
+}
+
 const CORE={
   "5":[["Cable Crunch",12],["Dead Bug / side",10],["Side Plank / side (sec)",30]],
   "10":[["Hanging Knee Raise",10],["Pallof Press / side",10],["Reverse Crunch",12],["Plank (sec)",45]]
@@ -226,60 +261,49 @@ function renderSwapModal(){
   const x=state.active?.items.find(i=>i.id===pendingSwapId);
   const modal=document.getElementById("swapModal");
   if(!x){closeSwapModal();return;}
-  const choices=(x.swaps||[]).slice(0,3);
-  modal.innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-labelledby="swapModalTitle" onclick="event.stopPropagation()">
-    <h2 id="swapModalTitle">Can't do this?</h2>
-    <p class="muted">Pick one replacement for this workout only.</p>
-    <div class="modal-actions">${choices.map((name,i)=>`<button class="btn secondary choice-btn" onclick="chooseSwap('${escAttr(name)}')">${i===0?`<span class="best-badge">Best replacement</span>`:""}<strong>${name}</strong><span>${i===0?"Same movement pattern":"Similar stimulus"}</span></button>`).join("")}</div>
-    <button class="btn secondary wide" style="margin-top:14px" onclick="closeSwapModal()">Cancel</button>
+  const choices=rankedReplacements(x);
+  modal.innerHTML=`<div class="modal full" role="dialog" aria-modal="true" aria-labelledby="swapModalTitle" onclick="event.stopPropagation()">
+    <div class="modal-head"><button class="icon-btn" onclick="closeSwapModal()" aria-label="Back">←</button><h2 id="swapModalTitle">CAN'T DO THIS?</h2></div>
+    <div style="flex:1;overflow:auto;padding-bottom:10px">
+      ${choices[0]?renderSwapChoice(choices[0],true):""}
+      <div class="section-title" style="margin:18px 0 8px">Other options</div>
+      <div class="modal-actions" style="margin-top:0">${choices.slice(1).map(c=>renderSwapChoice(c,false)).join("")}</div>
+    </div>
+    <button class="btn secondary wide" onclick="closeSwapModal()">Cancel</button>
   </div>`;
   modal.classList.remove("hidden");
 }
-function openPlateCalculator(id){
-  pendingPlateId=id;
-  const x=state.active?.items.find(i=>i.id===id);
-  plateBar=x?.barWeight||45;
-  renderPlateModal();
-}
+function renderSwapChoice(c,best=false){return `<button class="swap-card ${best?"best":""}" onclick="chooseSwap('${escAttr(c.name)}')">
+  <img src="${exerciseImage(c.name)}" alt="" onerror="this.src='assets/exercises/generic.svg'">
+  <span>${best?`<span class="best-badge">Best replacement</span>`:""}<strong>${c.name}</strong><span>${c.meta.equipmentType} · ${c.meta.type}</span><span>${c.reason}</span></span>
+</button>`}
 function closePlateModal(){
   pendingPlateId=null;
   document.getElementById("plateModal").classList.add("hidden");
 }
 function setPlateBar(v){plateBar=Number(v);renderPlateModal()}
-function plateBreakdown(total,bar=45){
-  let side=(Number(total||0)-bar)/2;
-  if(side<0) side=0;
-  const plates=[];
-  [45,35,25,15,10,5].forEach(p=>{while(side+0.001>=p){plates.push(p);side-=p;}});
-  return {plates,extra:side};
-}
-function achievableAround(total,bar=45){
-  const vals=[];
-  for(let w=bar;w<=Math.max(Number(total||0)+100,bar);w+=10) vals.push(w);
-  let lower=bar,higher=bar;
-  vals.forEach(v=>{if(v<=total)lower=v;if(v>=total&&higher<total)higher=v});
-  higher=vals.find(v=>v>=total)||lower;
-  return {lower,higher};
-}
-function renderPlateModal(){
+function setPlateTarget(v){const x=state.active?.items.find(i=>i.id===pendingPlateId); if(x){x.calcTarget=Number(v)||0; renderPlateModal(false)}}
+function chooseNearestWeight(v){const x=state.active?.items.find(i=>i.id===pendingPlateId); if(x){x.calcTarget=Number(v); renderPlateModal(false)}}
+function applyPlateWeight(){const x=state.active?.items.find(i=>i.id===pendingPlateId); if(!x)return closePlateModal(); x.weight=Number(x.calcTarget||x.weight||0); x.barWeight=plateBar; delete x.calcTarget; save(); closePlateModal(); render(); toast("Weight applied")}
+function plateDisc(p){const h={45:58,35:52,25:46,15:38,10:32,5:26}[p]||30;return `<div class="plate-disc" style="height:${h}px">${p}</div>`}
+function renderPlateModal(focus=true){
   const x=state.active?.items.find(i=>i.id===pendingPlateId);
   const modal=document.getElementById("plateModal");
   if(!x){closePlateModal();return;}
-  const weight=Number(x.weight||0);
-  const result=plateBreakdown(weight,plateBar);
-  const around=achievableAround(weight,plateBar);
+  const target=Number(x.calcTarget ?? x.weight ?? 0);
+  const result=calculatePlateLoad(target,plateBar,[45,35,25,15,10,5]);
   modal.innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-labelledby="plateModalTitle" onclick="event.stopPropagation()">
-    <h2 id="plateModalTitle">Plate calculator</h2>
-    <p class="muted">${x.name}</p>
-    <div class="grid"><div class="stat"><span class="eyebrow">Total</span><b>${weight} lb</b></div><div class="stat"><span class="eyebrow">Per side</span><b>${result.plates.length?result.plates.join(" + "):"0"}</b></div></div>
-    <div class="field-label" style="margin-top:14px">Bar</div>
-    <div class="plate-options">${[45,35].map(v=>`<button class="btn secondary mini ${plateBar===v?"active":""}" onclick="setPlateBar(${v})">${v} lb</button>`).join("")}</div>
-    <div class="field-label" style="margin-top:14px">Plate options</div>
-    <div class="plate-options">${[45,35,25,15,10,5].map(v=>`<button class="btn secondary mini ${result.plates.includes(v)?"active":""}">${v}</button>`).join("")}</div>
-    <div class="plate-result"><div class="eyebrow">Nearest achievable</div><div class="row"><span class="pill">Lower ${around.lower} lb</span><span class="pill">Higher ${around.higher} lb</span></div>${result.extra>0.01?`<div class="muted" style="margin-top:8px">Exact target falls between available plate jumps.</div>`:""}</div>
-    <button class="btn primary wide" style="margin-top:14px" onclick="closePlateModal()">Done</button>
+    <h2 id="plateModalTitle">Plate Calculator</h2><p class="muted">${x.name}</p>
+    <label><span class="field-label">Target Weight</span><input id="plateTargetInput" class="calc-total" type="number" inputmode="decimal" value="${target}" oninput="setPlateTarget(this.value)"></label>
+    <div class="field-label" style="margin-top:14px">Bar</div><div class="plate-options">${[45,35].map(v=>`<button class="btn secondary mini ${plateBar===v?"active":""}" onclick="setPlateBar(${v})">${v} lb</button>`).join("")}</div>
+    <div class="field-label" style="margin-top:14px">Plates Per Side</div><div class="plate-visual">${result.platesPerSide.length?result.platesPerSide.map(plateDisc).join(""):"<span class='muted'>No plates</span>"}</div>
+    <div class="plate-result"><div class="row" style="justify-content:space-between"><span>Per Side:</span><b>${result.platesPerSide.length?result.platesPerSide.join(" + "):"0"}</b></div><div class="row" style="justify-content:space-between"><span>Total:</span><b>${result.achievedWeight} lb</b></div>${!result.exact?`<div class="muted" style="margin-top:8px">Exact target is not possible with available plates.</div>`:""}</div>
+    <div class="field-label" style="margin-top:14px">Nearest Options</div><div class="grid"><button class="btn secondary" onclick="chooseNearestWeight(${result.lowerOption?.weight ?? result.achievedWeight})">Lower ${result.lowerOption?.weight ?? result.achievedWeight} lb</button><button class="btn secondary" onclick="chooseNearestWeight(${result.higherOption?.weight ?? result.achievedWeight})">Higher ${result.higherOption?.weight ?? result.achievedWeight} lb</button></div>
+    <div class="plate-options">${result.platesPerSide.map((v,i)=>`<button class="btn secondary mini active" onclick="chooseNearestWeight(${result.achievedWeight})">${v}</button>`).join("")}</div>
+    <div class="modal-actions"><button class="btn primary wide" onclick="applyPlateWeight()">Apply Weight</button><button class="btn secondary wide" onclick="closePlateModal()">Done</button></div>
   </div>`;
   modal.classList.remove("hidden");
+  if(focus) setTimeout(()=>document.getElementById("plateTargetInput")?.focus(),0);
 }
 function escAttr(s){return String(s).replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 function moveItem(id,dir){const a=state.active.items;const i=a.findIndex(x=>x.id===id);const j=i+dir;if(j<0||j>=a.length)return;[a[i],a[j]]=[a[j],a[i]];save();render()}
