@@ -43,7 +43,10 @@
     .core-choice{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:82px;background:#052e16;color:#dcfce7;padding:12px 16px;border-radius:12px;border:1px solid #166534;display:none}
     .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,.72);display:flex;align-items:center;justify-content:center;padding:18px;z-index:30;backdrop-filter:blur(6px)}
     .modal{width:min(460px,100%);background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 24px 70px rgba(0,0,0,.55)}
-    .modal h2{margin:0 0 8px}.modal-actions{display:grid;gap:12px;margin-top:18px}.busy-btn{padding:20px 16px;font-size:18px;text-align:left}.busy-btn strong{display:block;font-size:22px}.busy-btn span{display:block;margin-top:3px;color:var(--muted);font-size:14px}
+    .modal h2{margin:0 0 8px}.modal-actions{display:grid;gap:12px;margin-top:18px}.busy-btn,.choice-btn{padding:20px 16px;font-size:18px;text-align:left}.busy-btn strong,.choice-btn strong{display:block;font-size:22px}.busy-btn span,.choice-btn span{display:block;margin-top:3px;color:var(--muted);font-size:14px}
+    .best-badge{display:inline-block;margin-bottom:7px;background:rgba(34,197,94,.16);color:#bbf7d0;border:1px solid #166534;border-radius:999px;padding:4px 8px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+    .weight-wrap{display:grid;grid-template-columns:minmax(0,1fr) 42px;gap:6px}.calc-btn{width:42px;height:42px;margin-top:22px;padding:0;border-radius:12px}
+    .plate-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.plate-options button.active{background:var(--accent);color:#052e16}.plate-result{background:#0d1727;border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:14px}.plate-list{font-size:24px;font-weight:850;margin-top:4px}
     .drag{color:var(--muted);font-size:22px;cursor:grab}.top-actions{display:flex;gap:8px}.top-actions button{padding:8px 10px}
     @media (max-width:520px){.grid{grid-template-columns:1fr}.entry-grid{grid-template-columns:76px repeat(3,minmax(0,1fr));gap:6px}.entry-grid input{padding:11px 4px;font-size:15px}.hero h1{font-size:28px}}
   </style>
@@ -59,10 +62,13 @@
       <button class="btn secondary busy-btn" onclick="beginWorkoutWithBusy('1')"><strong>Empty</strong><span>Use the normal exercise order.</span></button>
       <button class="btn secondary busy-btn" onclick="beginWorkoutWithBusy('2')"><strong>Normal</strong><span>Use the normal exercise order.</span></button>
       <button class="btn primary busy-btn" onclick="beginWorkoutWithBusy('3')"><strong>Packed</strong><span>Prioritize easier-to-access stations first.</span></button>
+      <button class="btn secondary busy-btn" onclick="closeBusyModal()"><strong>Cancel</strong><span>Go back without starting.</span></button>
     </div>
-    <button class="btn secondary wide" style="margin-top:14px" onclick="closeBusyModal()">Cancel</button>
   </div>
 </div>
+<div id="swapModal" class="modal-backdrop hidden" onclick="closeSwapModal()" role="presentation"></div>
+<div id="plateModal" class="modal-backdrop hidden" onclick="closePlateModal()" role="presentation"></div>
+<div id="quickInputModal" class="modal-backdrop hidden" onclick="closeQuickInputModal()" role="presentation"></div>
 <script>
 const ROTATION=["Push A","Pull A","Legs A","Push B","Pull B","Legs B"];
 const PROGRAM={
@@ -121,6 +127,10 @@ const DEFAULT_STATE={rotationIndex:0,active:null,history:[],bodyweight:[],gym:"C
 let state=load();
 let page="today";
 let pendingWorkoutName=null;
+let pendingSwapId=null;
+let pendingPlateId=null;
+let plateBar=45;
+let quickInputAction=null;
 
 function cloneDefault(){return JSON.parse(JSON.stringify(DEFAULT_STATE))}
 function makeId(){
@@ -214,9 +224,72 @@ function xDoneToggle(id){
   render();
 }
 function swapItem(id){
-  const x=state.active.items.find(i=>i.id===id); const choice=prompt("Swap with:\\n"+x.swaps.map((s,i)=>`${i+1}. ${s}`).join("\\n"));
-  const n=Number(choice)-1;if(n>=0&&n<x.swaps.length){x.name=x.swaps[n];x.weight=recWeight(x.name,x.weight);save();render()}
+  pendingSwapId=id;
+  renderSwapModal();
 }
+function closeSwapModal(){
+  pendingSwapId=null;
+  document.getElementById("swapModal").classList.add("hidden");
+}
+function chooseSwap(name){
+  const x=state.active?.items.find(i=>i.id===pendingSwapId);
+  if(!x) return closeSwapModal();
+  x.originalName=x.originalName||x.name;
+  x.name=name;
+  x.weight=recWeight(name,x.weight);
+  closeSwapModal();
+  save();
+  render();
+  toast("Temporary swap added");
+}
+function renderSwapModal(){
+  const x=state.active?.items.find(i=>i.id===pendingSwapId);
+  const modal=document.getElementById("swapModal");
+  if(!x){closeSwapModal();return;}
+  const choices=(x.swaps||[]).slice(0,3);
+  modal.innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-labelledby="swapModalTitle" onclick="event.stopPropagation()">
+    <h2 id="swapModalTitle">Can't do this?</h2>
+    <p class="muted">Pick one replacement for this workout only.</p>
+    <div class="modal-actions">${choices.map((name,i)=>`<button class="btn secondary choice-btn" onclick="chooseSwap('${escAttr(name)}')">${i===0?`<span class="best-badge">Best replacement</span>`:""}<strong>${name}</strong><span>Tap to use now.</span></button>`).join("")}</div>
+    <button class="btn secondary wide" style="margin-top:14px" onclick="closeSwapModal()">Cancel</button>
+  </div>`;
+  modal.classList.remove("hidden");
+}
+function openPlateCalculator(id){
+  pendingPlateId=id;
+  const x=state.active?.items.find(i=>i.id===id);
+  plateBar=x?.barWeight||45;
+  renderPlateModal();
+}
+function closePlateModal(){
+  pendingPlateId=null;
+  document.getElementById("plateModal").classList.add("hidden");
+}
+function setPlateBar(v){plateBar=Number(v);renderPlateModal()}
+function plateBreakdown(total,bar=45){
+  let side=(Number(total||0)-bar)/2;
+  if(side<0) side=0;
+  const plates=[];
+  [45,35,25,10,5,2.5].forEach(p=>{while(side+0.001>=p){plates.push(p);side-=p;}});
+  return {plates,extra:side};
+}
+function renderPlateModal(){
+  const x=state.active?.items.find(i=>i.id===pendingPlateId);
+  const modal=document.getElementById("plateModal");
+  if(!x){closePlateModal();return;}
+  const weight=Number(x.weight||0);
+  const result=plateBreakdown(weight,plateBar);
+  modal.innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-labelledby="plateModalTitle" onclick="event.stopPropagation()">
+    <h2 id="plateModalTitle">Plate calculator</h2>
+    <p class="muted">${x.name} · ${weight} lb total</p>
+    <div class="field-label">Bar</div>
+    <div class="plate-options">${[45,35,15].map(v=>`<button class="btn secondary mini ${plateBar===v?"active":""}" onclick="setPlateBar(${v})">${v} lb</button>`).join("")}</div>
+    <div class="plate-result"><div class="muted">Add to each side</div><div class="plate-list">${result.plates.length?result.plates.join(" + "):"No plates"}</div>${result.extra>0.01?`<div class="muted">Plus ${result.extra.toFixed(1)} lb per side to be exact.</div>`:""}</div>
+    <button class="btn primary wide" style="margin-top:14px" onclick="closePlateModal()">Done</button>
+  </div>`;
+  modal.classList.remove("hidden");
+}
+function escAttr(s){return String(s).replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 function moveItem(id,dir){const a=state.active.items;const i=a.findIndex(x=>x.id===id);const j=i+dir;if(j<0||j>=a.length)return;[a[i],a[j]]=[a[j],a[i]];save();render()}
 function finishWorkout(){
   const unfinished=state.active.items.filter(x=>!x.done&&!x.skipped).length;
@@ -306,10 +379,35 @@ function cancelWorkout(){
     state.active=null;save();render();
   }
 }
-function logBodyweight(){const v=prompt("Bodyweight");if(v){state.bodyweight.unshift({date:today(),value:Number(v)});save();render()}}
-function addGym(){const n=prompt("Gym name");if(n){state.customGyms.push(n);state.gym=n;save();render()}}
+function openQuickInput(title,label,type,action){
+  quickInputAction=action;
+  const modal=document.getElementById("quickInputModal");
+  modal.innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-labelledby="quickInputTitle" onclick="event.stopPropagation()">
+    <h2 id="quickInputTitle">${title}</h2>
+    <label><span class="field-label">${label}</span><input id="quickInputValue" type="${type}" inputmode="${type==="number"?"decimal":"text"}" autofocus></label>
+    <div class="modal-actions"><button class="btn primary wide" onclick="submitQuickInput()">Save</button><button class="btn secondary wide" onclick="closeQuickInputModal()">Cancel</button></div>
+  </div>`;
+  modal.classList.remove("hidden");
+  setTimeout(()=>document.getElementById("quickInputValue")?.focus(),0);
+}
+function closeQuickInputModal(){
+  quickInputAction=null;
+  document.getElementById("quickInputModal").classList.add("hidden");
+}
+function submitQuickInput(){
+  const v=document.getElementById("quickInputValue")?.value.trim();
+  if(!v) return closeQuickInputModal();
+  const action=quickInputAction;
+  closeQuickInputModal();
+  if(action==="bodyweight") state.bodyweight.unshift({date:today(),value:Number(v)});
+  if(action==="gym"){state.customGyms.push(v);state.gym=v;}
+  save();
+  render();
+}
+function logBodyweight(){openQuickInput("Bodyweight","Weight","number","bodyweight")}
+function addGym(){openQuickInput("Add gym","Gym name","text","gym")}
 function exportData(){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:"application/json"}));a.download="flexppl-backup.json";a.click()}
-function importData(ev){const f=ev.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{state=normalizeState(JSON.parse(r.result));save();render();toast("Backup restored")}catch{alert("Invalid backup")}};r.readAsText(f)}
+function importData(ev){const f=ev.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{state=normalizeState(JSON.parse(r.result));save();render();toast("Backup restored")}catch{toast("Invalid backup")}};r.readAsText(f)}
 function resetData(){if(confirm("Delete all FlexPPL data?")){localStorage.removeItem("flexppl");state=cloneDefault();render()}}
 function render(){document.getElementById("app").innerHTML=`
 <header><div class="brand">FlexPPL</div><div class="pill">${state.gym}</div></header>
@@ -377,11 +475,11 @@ function renderExercise(x,collapsed=false){
  </div>
  <div class="exercise-head"><div><h3>${x.name}</h3><div class="meta">Goal ${x.target} reps · ${x.coach||"First log"}</div></div></div>
  <div class="entry-grid">
-   <label><span class="field-label">Weight</span><input type="number" value="${x.weight}" onchange="changeWeight('${x.id}',this.value)" aria-label="Weight"></label>
+   <label><span class="field-label">Weight</span><span class="weight-wrap"><input type="number" value="${x.weight}" onchange="changeWeight('${x.id}',this.value)" aria-label="Weight"><button type="button" class="btn secondary calc-btn" onclick="openPlateCalculator('${x.id}')" aria-label="Plate calculator">🧮</button></span></label>
    ${[0,1,2].map(i=>`<label><span class="field-label">S${i+1}</span><input type="number" inputmode="numeric" value="${x.sets[i]??""}" onchange="setVal('${x.id}',${i},this.value)"></label>`).join("")}
  </div>
  <div class="row" style="margin-top:12px">
-   <button class="btn swap mini" onclick="swapItem('${x.id}')">Swap</button>
+   <button class="btn swap mini" onclick="swapItem('${x.id}')">Can't do this</button>
    <button class="btn secondary mini" onclick="skipItem('${x.id}')">Skip</button>
    <button class="btn primary mini" style="margin-left:auto" onclick="completeItem('${x.id}')">Complete</button>
  </div>
@@ -410,7 +508,7 @@ function renderProgress(){
 function renderSettings(){return `<section class="card"><h2>Gym profile</h2><select onchange="state.gym=this.value;save();render()">${state.customGyms.map(g=>`<option ${g===state.gym?"selected":""}>${g}</option>`).join("")}</select> <button class="btn secondary mini" onclick="addGym()">Add gym</button></section>
  <section class="card"><h2>Backup</h2><div class="row"><button class="btn secondary" onclick="exportData()">Export JSON</button><label class="btn secondary">Import JSON<input class="hidden" type="file" accept=".json" onchange="importData(event)"></label></div></section>
  <section class="card"><h2>Data</h2><button class="btn danger" onclick="resetData()">Reset everything</button></section>
- <section class="card"><h2>App version</h2><p class="muted">FlexPPL 0.4 — cleaner cards and completed section</p></section><section class="card"><h2>Install</h2><p class="muted">In Chrome, open the menu and choose <b>Add to Home screen</b> or <b>Install app</b>.</p></section>`}
+ <section class="card"><h2>App version</h2><p class="muted">FlexPPL 0.5 — simple swaps and plate calculator</p></section><section class="card"><h2>Install</h2><p class="muted">In Chrome, open the menu and choose <b>Add to Home screen</b> or <b>Install app</b>.</p></section>`}
 render();
 if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}))}
 </script>
