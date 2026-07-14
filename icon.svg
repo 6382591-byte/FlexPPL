@@ -1,6 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-<rect width="512" height="512" rx="112" fill="#111827"/>
-<path d="M118 178h50v156h-50zM344 178h50v156h-50zM168 220h176v72H168z" fill="#22c55e"/>
-<circle cx="143" cy="256" r="52" fill="none" stroke="#38bdf8" stroke-width="18"/>
-<circle cx="369" cy="256" r="52" fill="none" stroke="#38bdf8" stroke-width="18"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="VEKTR logo">
+  <rect width="512" height="512" rx="96" fill="#050505"/>
+  <path d="M96 92h72l88 236 88-236h72L288 420h-64L96 92z" fill="#B3121B"/>
+  <path d="M168 92h44l44 122 44-122h44l-66 178 34 90h-44l-12-34-12 34h-44l34-90-66-178z" fill="#D01822" opacity=".95"/>
+  <path d="M126 128l76 206h34L160 128h-34zm226 0l-76 206h34l76-206h-34z" fill="#050505" opacity=".45"/>
+  <path d="M256 92v268" stroke="#050505" stroke-width="12" opacity=".55"/>
+  <path d="M150 420h212" stroke="#B3121B" stroke-width="18" stroke-linecap="round"/>
 </svg>
