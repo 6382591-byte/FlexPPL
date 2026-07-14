@@ -1,18 +1,22 @@
 import { spawn } from "node:child_process";
 import { mkdir } from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
 
 const BASE_URL = process.env.BASE_URL || "http://127.0.0.1:4173";
 const CHROME = process.env.CHROME_PATH || "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe";
 const DEBUG_PORT = Number(process.env.CHROME_DEBUG_PORT || 9333);
 const RESULTS_DIR = path.resolve("test-results");
+// Keep Chromium's profile path short. CacheStorage still encounters Windows
+// path-length failures when the profile is nested inside a deep workspace.
+const PROFILE_DIR = path.join(os.tmpdir(), `vektr-${process.pid}-${Date.now()}`);
 
 await mkdir(RESULTS_DIR, { recursive: true });
 
 const chrome = spawn(
   CHROME,
   [
-    "--headless=old",
+    "--headless=new",
     "--disable-gpu",
     "--disable-gpu-compositing",
     "--disable-software-rasterizer",
@@ -20,8 +24,10 @@ const chrome = spawn(
     "--in-process-gpu",
     "--no-sandbox",
     "--no-first-run",
+    "--disable-extensions",
+    "--disable-component-extensions-with-background-pages",
     `--remote-debugging-port=${DEBUG_PORT}`,
-    `--user-data-dir=${path.join(RESULTS_DIR, `chrome-profile-${process.pid}`)}`,
+    `--user-data-dir=${PROFILE_DIR}`,
     "about:blank",
   ],
   { stdio: ["ignore", "ignore", "pipe"] },
@@ -335,6 +341,46 @@ try {
   assert(await evaluate("state.stateVersion === VEKTR_STATE.CURRENT_STATE_VERSION"), "Legacy state did not migrate");
   assert(await evaluate("state.history[0].items[0].sets.join(',') === '6,6,5'"), "Legacy sets changed during migration");
   assert(await evaluate("state.notes['Bench Press'] === 'test note'"), "Legacy note was lost");
+
+  await client.call("ServiceWorker.enable");
+  const registrationAttempt = await evaluate(`navigator.serviceWorker.register('/sw.js').then(registration => ({ ok:true, scope:registration.scope })).catch(error => ({ ok:false, message:String(error), secure:isSecureContext }))`);
+  assert(registrationAttempt.ok, `Service worker registration failed: ${JSON.stringify(registrationAttempt)}`);
+  const serviceWorkerState = await evaluate(`Promise.race([
+    navigator.serviceWorker.ready.then(registration => ({ ready:true, active:registration.active?.state || null })),
+    new Promise(resolve => setTimeout(async () => {
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      resolve({ ready:false, registrations:registrations.map(registration => ({ installing:registration.installing?.state || null, waiting:registration.waiting?.state || null, active:registration.active?.state || null })) });
+    }, 5000))
+  ])`);
+  if (!serviceWorkerState.ready) {
+    const serviceWorkerEvents = client.events.filter((event) => event.method.startsWith("ServiceWorker."));
+    throw new Error(`Service worker did not activate: ${JSON.stringify(serviceWorkerState)} ${JSON.stringify(serviceWorkerEvents)}`);
+  }
+  await client.call("Page.navigate", { url: `${BASE_URL}/` });
+  await delay(700);
+  const offlinePrerequisites = await evaluate(`Promise.all([
+    Promise.resolve(Boolean(navigator.serviceWorker.controller)),
+    caches.open('vektr-v12-release-candidate').then(cache => Promise.all([
+      cache.match('/index.html').then(Boolean),
+      cache.match('/js/exercises.js').then(Boolean),
+      cache.match('/js/progress.js').then(Boolean)
+    ]))
+  ]).then(([controlled, cached]) => ({ controlled, cached }))`);
+  assert(offlinePrerequisites.controlled, `Service worker did not control the reloaded page: ${JSON.stringify(offlinePrerequisites)}`);
+  assert(offlinePrerequisites.cached.every(Boolean), `Offline shell was not fully cached: ${JSON.stringify(offlinePrerequisites)}`);
+  await client.call("Network.enable");
+  await client.call("Network.emulateNetworkConditions", { offline: true, latency: 0, downloadThroughput: 0, uploadThroughput: 0 });
+  await client.call("Page.navigate", { url: `${BASE_URL}/` });
+  await delay(700);
+  const offlinePage = await evaluate(`({
+    text: document.body?.innerText || '',
+    url: location.href,
+    controlled: Boolean(navigator.serviceWorker?.controller),
+    readyState: document.readyState
+  })`);
+  assert(offlinePage.text.includes("Push A"), `Offline navigation did not restore the Today screen: ${JSON.stringify(offlinePage)}`);
+  assert(await evaluate("typeof VEKTR_EXERCISES === 'object' && typeof VEKTR_PROGRESS === 'object' && typeof VEKTR_PLATES === 'object'"), "Offline modules did not load from cache");
+  await client.call("Network.emulateNetworkConditions", { offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1 });
 
   const screenshot = await client.call("Page.captureScreenshot", { format: "png", fromSurface: true });
   await import("node:fs/promises").then(({ writeFile }) =>

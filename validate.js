@@ -13,6 +13,7 @@ function assert(condition, message) {
 }
 
 const html = fs.readFileSync("index.html", "utf8");
+const serviceWorker = fs.readFileSync("sw.js", "utf8");
 const inlineScripts = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)]
   .map((match) => match[1])
   .filter((script) => script.trim());
@@ -68,4 +69,6 @@ assert(replacements.auditReplacementIntegrity().length === 0, "Replacement integ
 assert(plates.calculateLoadedWeight(45,{45:1,25:1,5:1}).totalWeight===195,"Loaded plate audit failed");
 assert(progression.evaluateSession({weight:175,sets:[6,6,6],target:6,increment:5,workingSets:3}).nextWeight===180,"Progression audit failed");
 assert(progress.buildProgress([],[]).summary.workouts===0,"Progress summary audit failed");
+assert(!serviceWorker.includes("/assets/exercises/"), "Obsolete exercise art is still precached");
+assert(!html.includes("Add to Home screen") && !html.includes("Install app"), "Install tutorial still present");
 console.log(`validation passed (${exercises.EXERCISE_LIBRARY.length} canonical exercises, ${visibleExerciseIds.size} audited illustrations, strict swap integrity, ${Object.keys(programs.WORKOUT_TEMPLATES).length} workouts)`);

@@ -575,7 +575,7 @@ function renderProgress(){
 function renderSettings(){return `<section class="card"><h2>Gym profile</h2><select onchange="state.gym=this.value;save();render()">${state.customGyms.map(g=>`<option ${g===state.gym?"selected":""}>${g}</option>`).join("")}</select> <button class="btn secondary mini" onclick="addGym()">Add gym</button></section>
  <section class="card"><h2>Backup</h2><div class="row"><button class="btn secondary" onclick="exportData()">Export JSON</button><label class="btn secondary">Import JSON<input class="hidden" type="file" accept=".json" onchange="importData(event)"></label></div></section>
  <section class="card"><h2>Data</h2><button class="btn danger" onclick="resetData()">Reset everything</button></section>
- <section class="card"><h2>App version</h2><p class="muted">VEKTR 1.0 — offline training tracker</p></section><section class="card"><h2>Install</h2><p class="muted">In Chrome, open the menu and choose <b>Add to Home screen</b> or <b>Install app</b>.</p></section>`}
+ <section class="card"><h2>App version</h2><p class="muted">VEKTR 2.0</p></section>`}
 
 // VEKTR 2 summary-first progress, detailed history, logged core, and simplified settings.
 function setGymMode(mode){state.gym=mode==='Travel'?'Travel':'Home';state.customGyms=['Home','Travel'];save();render()}
