@@ -130,6 +130,7 @@ try {
   assert(await evaluate("document.body.innerText.includes('Push A')"), "Today screen did not render");
   assert(await evaluate("typeof VEKTR_STATE === 'object'"), "State module did not load");
   assert(await evaluate("typeof VEKTR_EXERCISES === 'object'"), "Exercise module did not load");
+  assert(await evaluate("typeof VEKTR_ILLUSTRATIONS === 'object'"), "Illustration module did not load");
   assert(await evaluate("typeof VEKTR_PROGRAMS === 'object'"), "Program module did not load");
   assert(await evaluate("VEKTR_EXERCISES.EXERCISE_LIBRARY.length >= 100"), "Canonical library is incomplete");
   assert(
@@ -152,6 +153,28 @@ try {
     assert(result.name === workoutName, `${workoutName} did not start`);
     assert(result.items > 0, `${workoutName} has no exercises`);
   }
+
+  const swapAudit = await evaluate(`(() => {
+    state.active = null;
+    pendingWorkoutName = 'Pull A';
+    beginWorkoutWithBusy('2');
+    swapItem(state.active.items[0].id);
+    return {
+      cards: document.querySelectorAll('#swapModal .swap-card').length,
+      illustrations: document.querySelectorAll('#swapModal svg.exercise-illustration').length,
+      identities: [...document.querySelectorAll('#swapModal svg.exercise-illustration')].map(svg => svg.dataset.exerciseId),
+      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    };
+  })()`);
+  assert(swapAudit.cards >= 1, "Swap modal did not render replacement cards");
+  assert(swapAudit.illustrations === swapAudit.cards, "A visible swap card has no accurate illustration");
+  assert(new Set(swapAudit.identities).size === swapAudit.identities.length, "Swap modal repeated an exercise illustration");
+  assert(!swapAudit.overflow, "Swap modal introduced horizontal overflow");
+  const swapScreenshot = await client.call("Page.captureScreenshot", { format: "png", fromSurface: true });
+  await import("node:fs/promises").then(({ writeFile }) =>
+    writeFile(path.join(RESULTS_DIR, "browser-smoke-swap.png"), Buffer.from(swapScreenshot.data, "base64")),
+  );
+  await evaluate("closeSwapModal(); state.active = null; save(); render();");
 
   const legacyState = {
     rotationIndex: 1,
