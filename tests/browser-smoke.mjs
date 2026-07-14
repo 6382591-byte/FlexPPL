@@ -236,6 +236,40 @@ try {
   assert(appliedWeight === 195, "Apply Weight did not update the active exercise");
   await evaluate("state.active = null; save(); render();");
 
+  const workoutEngineAudit = await evaluate(`(() => {
+    state.active = null;
+    pendingWorkoutName = 'Push A';
+    beginWorkoutWithBusy('2');
+    state.active.startedAt = Date.now() - 65000;
+    render();
+    updateWorkoutTimer();
+    const timerText = document.getElementById('workoutTimer')?.textContent;
+    const bench = state.active.items.find(item => item.exerciseId === 'bench-press');
+    bench.sets = Array(bench.workingSets).fill(bench.target);
+    completeItem(bench.id);
+    const progression = { coach: bench.coach, next: bench.next };
+    xDoneToggle(bench.id);
+    changeNextWeight(bench.id, 177.5);
+    const override = bench.nextOverride;
+    const fourSet = state.active.items[1];
+    fourSet.workingSets = 4;
+    fourSet.sets = [null, null, null, null];
+    render();
+    const setLabels = [...document.querySelectorAll('.exercise')].find(card => card.textContent.includes(fourSet.name))?.querySelectorAll('.entry-grid label').length;
+    const overflow = document.documentElement.scrollWidth > document.documentElement.clientWidth;
+    return { timerText, progression, override, setLabels, overflow };
+  })()`);
+  assert(workoutEngineAudit.timerText === "1:05", `Persistent timer rendered ${workoutEngineAudit.timerText}`);
+  assert(workoutEngineAudit.progression.coach === "INCREASE" && workoutEngineAudit.progression.next === 180, "Workout progression did not increase correctly");
+  assert(workoutEngineAudit.override === 177.5, "Manual next-weight override failed");
+  assert(workoutEngineAudit.setLabels === 5, "Variable four-set UI did not render Weight + S1-S4");
+  assert(!workoutEngineAudit.overflow, "Variable sets introduced horizontal overflow");
+  const activeScreenshot = await client.call("Page.captureScreenshot", { format: "png", fromSurface: true });
+  await import("node:fs/promises").then(({ writeFile }) =>
+    writeFile(path.join(RESULTS_DIR, "browser-smoke-active.png"), Buffer.from(activeScreenshot.data, "base64")),
+  );
+  await evaluate("state.active = null; save(); render();");
+
   const legacyState = {
     rotationIndex: 1,
     gym: "Travel Gym",
