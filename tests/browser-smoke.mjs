@@ -21,7 +21,7 @@ const chrome = spawn(
     "--no-sandbox",
     "--no-first-run",
     `--remote-debugging-port=${DEBUG_PORT}`,
-    `--user-data-dir=${path.join(RESULTS_DIR, "chrome-profile")}`,
+    `--user-data-dir=${path.join(RESULTS_DIR, `chrome-profile-${process.pid}`)}`,
     "about:blank",
   ],
   { stdio: ["ignore", "ignore", "pipe"] },
@@ -131,6 +131,7 @@ try {
   assert(await evaluate("typeof VEKTR_STATE === 'object'"), "State module did not load");
   assert(await evaluate("typeof VEKTR_EXERCISES === 'object'"), "Exercise module did not load");
   assert(await evaluate("typeof VEKTR_ILLUSTRATIONS === 'object'"), "Illustration module did not load");
+  assert(await evaluate("typeof VEKTR_PLATES === 'object'"), "Plate calculator module did not load");
   assert(await evaluate("typeof VEKTR_PROGRAMS === 'object'"), "Program module did not load");
   assert(await evaluate("VEKTR_EXERCISES.EXERCISE_LIBRARY.length >= 100"), "Canonical library is incomplete");
   assert(
@@ -201,6 +202,39 @@ try {
   assert(correctionAudit.corrected.sets.join(",") === "10,9,8" && correctionAudit.corrected.weight === 65, "Correction lost logged work");
   assert(correctionAudit.restored.exerciseId === "cable-curl", "Restore original exercise failed");
   assert(correctionAudit.restored.sets.join(",") === "10,9,8" && correctionAudit.restored.weight === 65, "Restore lost logged work");
+
+  const calculatorAudit = await evaluate(`(() => {
+    state.active = null;
+    pendingWorkoutName = 'Push A';
+    beginWorkoutWithBusy('2');
+    const bench = state.active.items.find(item => item.name === 'Bench Press');
+    openPlateCalculator(bench.id);
+    const targetModeVisible = document.body.innerText.includes('TARGET WEIGHT') && document.body.innerText.includes('PLATES LOADED');
+    setPlateTarget('180');
+    const nearestVisible = document.body.innerText.includes('175 lb') && document.body.innerText.includes('185 lb');
+    closePlateModal();
+    const unchangedAfterClose = bench.weight === 175;
+    openPlateCalculator(bench.id);
+    setPlateMode('loaded');
+    clearLoadedPlates();
+    addLoadedPlate(45);
+    addLoadedPlate(25);
+    addLoadedPlate(5);
+    const loadedTotalVisible = document.body.innerText.includes('195 lb');
+    return { id: bench.id, targetModeVisible, nearestVisible, unchangedAfterClose, loadedTotalVisible, overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth };
+  })()`);
+  assert(calculatorAudit.targetModeVisible, "Dual calculator modes are not visible");
+  assert(calculatorAudit.nearestVisible, "Target mode nearest loads are wrong");
+  assert(calculatorAudit.unchangedAfterClose, "Closing calculator changed the exercise");
+  assert(calculatorAudit.loadedTotalVisible, "Loaded mode did not calculate 195 lb");
+  assert(!calculatorAudit.overflow, "Plate calculator introduced horizontal overflow");
+  const plateScreenshot = await client.call("Page.captureScreenshot", { format: "png", fromSurface: true });
+  await import("node:fs/promises").then(({ writeFile }) =>
+    writeFile(path.join(RESULTS_DIR, "browser-smoke-plate.png"), Buffer.from(plateScreenshot.data, "base64")),
+  );
+  const appliedWeight = await evaluate(`(() => { applyPlateWeight(); return state.active.items.find(item => item.id === ${JSON.stringify(calculatorAudit.id)}).weight; })()`);
+  assert(appliedWeight === 195, "Apply Weight did not update the active exercise");
+  await evaluate("state.active = null; save(); render();");
 
   const legacyState = {
     rotationIndex: 1,

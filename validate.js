@@ -3,6 +3,7 @@ const vm = require("node:vm");
 const exercises = require("./js/exercises.js");
 const illustrations = require("./js/illustrations.js");
 const replacements = require("./js/replacements.js");
+const plates = require("./js/plate-calculator.js");
 const programs = require("./js/programs.js");
 
 function assert(condition, message) {
@@ -55,8 +56,10 @@ assert(/PLATE CALCULATOR/.test(html) && /TARGET WEIGHT/.test(html) && /PER SIDE/
 assert(html.includes('src="js/exercises.js"'), "Exercise module not loaded");
 assert(html.includes('src="js/illustrations.js"'), "Illustration module not loaded");
 assert(html.includes('src="js/replacements.js"'), "Replacement module not loaded");
+assert(html.includes('src="js/plate-calculator.js"'), "Plate calculator module not loaded");
 assert(html.includes('src="js/programs.js"'), "Program module not loaded");
 assert(html.includes('src="js/state.js"'), "State module not loaded");
 
 assert(replacements.auditReplacementIntegrity().length === 0, "Replacement integrity audit failed");
+assert(plates.calculateLoadedWeight(45,{45:1,25:1,5:1}).totalWeight===195,"Loaded plate audit failed");
 console.log(`validation passed (${exercises.EXERCISE_LIBRARY.length} canonical exercises, ${visibleExerciseIds.size} audited illustrations, strict swap integrity, ${Object.keys(programs.WORKOUT_TEMPLATES).length} workouts)`);
