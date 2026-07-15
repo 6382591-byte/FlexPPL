@@ -1,7 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
-  <title id="title">VEKTR icon</title>
-  <desc id="desc">Symmetrical crimson geometric V mark on matte black.</desc>
-  <rect width="512" height="512" rx="96" fill="#050505"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <path fill="#B3121B" d="M74 108h86l96 222 96-222h86L298 438h-84L74 108Z"/>
   <path fill="#050505" d="M160 108h42l54 132 54-132h42l-96 224-96-224Z"/>
   <path fill="#D01822" d="M118 122h42l96 224 96-224h42L282 394h-52L118 122Z" opacity=".82"/>

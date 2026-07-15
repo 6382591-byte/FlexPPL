@@ -22,6 +22,8 @@
     gymWeights: {},
     skippedCore: 0,
     replacementPrefs: {},
+    customExercises: [],
+    machineSettings: {},
   });
 
   function deepClone(value) {
@@ -39,8 +41,11 @@
     return `id-${Date.now()}-${Math.random().toString(36).slice(2)}`;
   }
 
-  function todayISO() {
-    return new Date().toISOString().slice(0, 10);
+  function todayISO(date = new Date()) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
   }
 
   function isTrue(value) {
@@ -58,13 +63,42 @@
 
   function normalizeSets(rawSets, requestedCount) {
     const source = Array.isArray(rawSets) ? rawSets.slice() : [];
-    const count = Math.max(1, finiteNumber(requestedCount, Math.max(3, source.length)));
+    const rawCount = Math.trunc(finiteNumber(requestedCount, Math.max(3, source.length)));
+    const count = Math.min(6, Math.max(1, rawCount));
     while (source.length < count) source.push(null);
+    source.length = count;
     return source.map((value) =>
       value === "" || value === undefined || value === null
         ? null
         : finiteNumber(value, null),
     );
+  }
+
+  const LEGACY_EXERCISE_IDS = {
+    "hack squat / leg press": "hack-squat",
+    "hack squat leg press": "hack-squat",
+    "hack squat or leg press": "hack-squat",
+    "one-arm db row": "one-arm-db-row",
+    "one-arm dumbbell row": "one-arm-db-row",
+    "rear-delt fly": "rear-delt-db-fly",
+    "rear delt fly": "rear-delt-db-fly",
+    "ez bar curl": "ez-bar-curl",
+    "ez-bar curl": "ez-bar-curl",
+    "bar curl": "barbell-curl",
+    "pull-up / assisted pull-up": "assisted-pull-up",
+    "db rdl": "db-rdl",
+    "straight-leg dumbbell deadlift": "db-rdl",
+    "straight leg dumbbell deadlift": "db-rdl",
+    "dumbbell straight-leg deadlift": "db-rdl",
+    "dumbbell stiff-leg deadlift": "db-stiff-leg-deadlift",
+    "db stiff-leg deadlift": "db-stiff-leg-deadlift",
+    "db sldl": "db-stiff-leg-deadlift",
+  };
+
+  function resolveLegacyExerciseId(item = {}) {
+    if (item.exerciseId || item.canonicalExerciseId) return item.exerciseId || item.canonicalExerciseId;
+    const key = String(item.originalExerciseName || item.originalName || item.name || "").trim().toLowerCase();
+    return LEGACY_EXERCISE_IDS[key] || null;
   }
 
   function normalizeItem(item = {}, index = 0, options = {}) {
@@ -74,9 +108,11 @@
     return {
       ...item,
       id: item.id || idFactory(),
-      exerciseId: item.exerciseId || item.canonicalExerciseId || null,
+      exerciseId: resolveLegacyExerciseId(item),
       name: item.name || "Exercise",
       displayNameAtTimeOfWorkout: item.displayNameAtTimeOfWorkout || item.name || "Exercise",
+      originalExerciseId: item.originalExerciseId || resolveLegacyExerciseId(item),
+      originalExerciseName: item.originalExerciseName || item.originalName || item.name || "Exercise",
       weight: finiteNumber(item.weight),
       target: finiteNumber(item.target),
       inc: finiteNumber(item.inc),
@@ -172,16 +208,26 @@
       lastWeights: plainObject(merged.lastWeights),
       gymWeights: plainObject(merged.gymWeights),
       replacementPrefs: plainObject(merged.replacementPrefs),
+      machineSettings: plainObject(merged.machineSettings),
+      customExercises: Array.isArray(merged.customExercises) ? merged.customExercises.filter((exercise) => exercise && exercise.id && exercise.displayName) : [],
       active: merged.active ? normalizeWorkout(merged.active, fallbackName, sharedOptions) : null,
     };
   }
 
   function loadState(storage, options = {}) {
+    const stored = storage.getItem(STORAGE_KEY);
     try {
-      const raw = JSON.parse(storage.getItem(STORAGE_KEY) || "{}");
+      const raw = JSON.parse(stored || "{}");
       return normalizeState(raw, options);
     } catch (_error) {
-      return cloneDefault();
+      if (stored) {
+        try {
+          storage.setItem(`${STORAGE_KEY}:corrupt:${Date.now()}`, stored);
+        } catch (_preserveError) {
+          // If preservation storage also fails, still return a safe recovery state.
+        }
+      }
+      return { ...cloneDefault(), storageRecovery: { corrupted: true, message: "Stored VEKTR data could not be parsed. Export or import a backup before resetting." } };
     }
   }
 

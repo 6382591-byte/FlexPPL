@@ -63,3 +63,19 @@ test("plate formatting exposes repeated plates clearly", () => {
   assert.equal(plates.formatPlateList([]), "Bar only");
   assert.equal(plates.formatPlateList([45, 45, 25, 5]), "45 × 2 + 25 + 5");
 });
+
+
+test('plate-loaded machine calculations are honest about plates-only and total system load', () => {
+  const bothUnknown = plates.calculateMachineLoad({ baseResistance: 0, counts: { 45: 2 }, loadingConfiguration: 'both-sides', trackingMode: 'plates-only' });
+  assert.equal(bothUnknown.displayedWeight, 180);
+  assert.equal(bothUnknown.label, '180 lb plates loaded');
+  assert.equal(bothUnknown.helper, 'Machine starting resistance not included');
+
+  const bothKnown = plates.calculateMachineLoad({ baseResistance: 75, counts: { 45: 2 }, loadingConfiguration: 'both-sides', trackingMode: 'total-system' });
+  assert.equal(bothKnown.displayedWeight, 255);
+  assert.equal(bothKnown.label, '255 lb total system load');
+  assert.equal(bothKnown.helper, 'Includes 75 lb machine resistance');
+
+  const single = plates.calculateMachineLoad({ baseResistance: 0, counts: { 45: 1, 25: 1 }, loadingConfiguration: 'single-point', trackingMode: 'plates-only' });
+  assert.equal(single.displayedWeight, 70);
+});

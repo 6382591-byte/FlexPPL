@@ -6,6 +6,7 @@ const {
   normalizeState,
   loadState,
   saveState,
+  todayISO,
 } = require("../js/state.js");
 
 function ids() {
@@ -115,4 +116,31 @@ test("migrates legacy gym profiles to zero-setup Home and Travel modes", () => {
   assert.deepEqual(migrated.customGyms, ["Home", "Travel"]);
   assert.equal(migrated.history[0].gym, "Travel");
   assert.equal(migrated.activeProgramId, "ppl6");
+});
+
+
+test("todayISO uses the local calendar date instead of UTC slicing", () => {
+  const lateLocal = new Date(2026, 6, 14, 23, 30, 0);
+  assert.equal(todayISO(lateLocal), "2026-07-14");
+});
+
+test("working set counts are integer-clamped to the supported 1-6 range", () => {
+  const high = normalizeState({ active: { name: "Test", items: [{ name: "Bench Press", workingSets: 9, sets: [1, 2, 3, 4, 5, 6, 7] }] } });
+  assert.equal(high.active.items[0].workingSets, 6);
+  assert.equal(high.active.items[0].sets.length, 6);
+  const low = normalizeState({ active: { name: "Test", items: [{ name: "Bench Press", workingSets: -2, sets: [] }] } });
+  assert.equal(low.active.items[0].workingSets, 1);
+});
+
+
+test("legacy exercise names resolve to canonical IDs while preserving display wording", () => {
+  const migrated = normalizeState({ history: [{ name: "Legs A", items: [
+    { name: "Hack Squat / Leg Press", sets: [8, 8, 8], workingSets: 3 },
+    { name: "DB SLDL", sets: [10, 10, 10], workingSets: 3 },
+    { name: "One-Arm DB Row", sets: [10, 10, 10], workingSets: 3 },
+  ] }] }, { idFactory: ids() });
+  assert.equal(migrated.history[0].items[0].exerciseId, "hack-squat");
+  assert.equal(migrated.history[0].items[0].displayNameAtTimeOfWorkout, "Hack Squat / Leg Press");
+  assert.equal(migrated.history[0].items[1].exerciseId, "db-stiff-leg-deadlift");
+  assert.equal(migrated.history[0].items[2].exerciseId, "one-arm-db-row");
 });
