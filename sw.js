@@ -1,13 +1,14 @@
-const CACHE = "vektr-v13-major-stabilization";
+const CACHE = "vektr-v14-production-icons";
 const ASSETS = [
   "/index.html",
   "/manifest.webmanifest",
-  "/icon.svg",
   "/assets/icons/icon-monochrome.svg",
   "/assets/icons/icon-foreground.svg",
-  "/assets/icons/icon-192.svg",
-  "/assets/icons/icon-512.svg",
-  "/assets/icons/icon-maskable-512.svg",
+  "/assets/icons/icon-192.png",
+  "/assets/icons/icon-512.png",
+  "/assets/icons/icon-maskable-512.png",
+  "/assets/icons/apple-touch-icon.png",
+  "/assets/icons/favicon.ico",
   "/js/exercises.js",
   "/js/illustrations.js",
   "/js/replacements.js",
