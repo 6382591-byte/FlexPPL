@@ -5,3 +5,17 @@ test("canonical IDs keep sessions together",()=>{const biceps=progress.groupByCa
 test("PRs use completed data and ignore zero-weight core weight records",()=>{const prs=progress.personalRecords(history);assert.ok(prs.some(record=>record.name==="Barbell Curl"&&record.type==="weight"&&record.value===65));assert.ok(!prs.some(record=>record.name==="Plank"&&record.type==="weight"))});
 test("bodyweight summary stays compact",()=>{const result=progress.bodyweightSummary([{value:180.2,date:"2026-07-10"},{value:181,date:"2026-07-03"}]);assert.equal(result.latest,180.2);assert.equal(result.change,-0.8)});
 test("exercise details are compact",()=>{const details=progress.exerciseDetails(history,"barbell-curl");assert.equal(details.category,"Biceps");assert.equal(details.sessions.length,2);assert.equal(details.bestWeight,65)});
+
+
+test('progress wording reports earned recommendations without pretending the next target was lifted', () => {
+  const result = progress.buildProgress([{ id: 'w1', date: '2026-07-01', items: [{ exerciseId: 'bench-press', name: 'Bench Press', weight: 175, sets: [8,8,8], done: true, coach: 'INCREASE', next: 180 }] }], []);
+  assert.match(result.highlights[0].text, /earned an increase/);
+  assert.match(result.highlights[0].text, /Next target: 180 lb/);
+});
+
+test('exercise details compute all-time best from full history while only showing six recent sessions', () => {
+  const history = Array.from({ length: 8 }, (_, index) => ({ id: `w${index}`, date: `2026-07-${String(index + 1).padStart(2, '0')}`, items: [{ exerciseId: 'bench-press', name: 'Bench Press', weight: 100 + index * 10, sets: [5,5,5], done: true }] })).reverse();
+  const details = progress.exerciseDetails(history, 'bench-press');
+  assert.equal(details.sessions.length, 6);
+  assert.equal(details.bestWeight, 170);
+});

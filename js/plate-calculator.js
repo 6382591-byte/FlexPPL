@@ -96,6 +96,34 @@
     return { valid: Number.isFinite(bar) && bar > 0, barWeight: bar, counts: normalizedCounts, platesPerSide, sideWeight, totalWeight: bar + 2 * sideWeight };
   }
 
+
+  function platesFromCounts(counts = {}) {
+    const normalizedCounts = normalizeCounts(counts);
+    const plates = [];
+    for (const plate of AVAILABLE_PLATES) {
+      for (let count = 0; count < normalizedCounts[plate]; count += 1) plates.push(plate);
+    }
+    return plates;
+  }
+
+  function calculateMachineLoad({ baseResistance = 0, counts = {}, loadingConfiguration = "both-sides", trackingMode = "plates-only" } = {}) {
+    const base = Math.max(0, Number(baseResistance) || 0);
+    const normalizedCounts = normalizeCounts(counts);
+    const loadedPlates = platesFromCounts(normalizedCounts);
+    const plateSum = loadedPlates.reduce((sum, plate) => sum + plate, 0);
+    const bothSides = loadingConfiguration !== "single-point";
+    const platesLoaded = bothSides ? 2 * plateSum : plateSum;
+    const includesMachine = trackingMode === "total-system" && base > 0;
+    const displayedWeight = includesMachine ? base + platesLoaded : platesLoaded;
+    const label = includesMachine
+      ? `${displayedWeight} lb total system load`
+      : `${displayedWeight} lb plates loaded`;
+    const helper = includesMachine
+      ? `Includes ${base} lb machine resistance`
+      : "Machine starting resistance not included";
+    return { valid: true, baseResistance: base, counts: normalizedCounts, loadedPlates, loadingConfiguration: bothSides ? "both-sides" : "single-point", trackingMode: includesMachine ? "total-system" : "plates-only", platesLoaded, totalSystemLoad: base + platesLoaded, displayedWeight, label, helper };
+  }
+
   function countsFromPlates(plates = []) {
     const counts = normalizeCounts();
     for (const plate of plates) if (Object.hasOwn(counts, plate)) counts[plate] += 1;
@@ -116,6 +144,7 @@
     fewestPlatesForSide,
     calculateTargetLoad,
     calculateLoadedWeight,
+    calculateMachineLoad,
     countsFromPlates,
     formatPlateList,
   });

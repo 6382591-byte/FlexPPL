@@ -1,8 +1,13 @@
-const CACHE = "vektr-v12-release-candidate";
+const CACHE = "vektr-v13-major-stabilization";
 const ASSETS = [
   "/index.html",
   "/manifest.webmanifest",
   "/icon.svg",
+  "/assets/icons/icon-monochrome.svg",
+  "/assets/icons/icon-foreground.svg",
+  "/assets/icons/icon-192.svg",
+  "/assets/icons/icon-512.svg",
+  "/assets/icons/icon-maskable-512.svg",
   "/js/exercises.js",
   "/js/illustrations.js",
   "/js/replacements.js",

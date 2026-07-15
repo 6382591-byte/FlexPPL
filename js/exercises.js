@@ -75,6 +75,9 @@
       type: config.type || "isolation",
       gymModes: config.gymModes || "Both",
       supportsPlateCalculator: Boolean(config.supportsPlateCalculator),
+      loadingType: config.loadingType || (config.equipment === "Barbell" || config.equipment === "EZ bar" ? "standard-barbell" : config.equipment === "Dumbbell" ? "dumbbell" : config.equipment === "Cable" ? "cable-stack" : config.equipment === "Bodyweight" ? "bodyweight" : config.equipment === "Machine" ? "selectorized-machine" : "none"),
+      loadSemantics: config.loadSemantics || (config.equipment === "Dumbbell" ? "per-hand" : config.equipment === "Bodyweight" ? "bodyweight" : config.equipment === "Cable" ? "stack-weight" : "total-load"),
+      supportsEstimated1RM: config.supportsEstimated1RM ?? (config.type === "compound" && !["Cable", "Machine", "Bodyweight"].includes(config.equipment)),
       imageAsset: config.image ? `assets/exercises/${config.image}.svg` : null,
       aliases: config.aliases || [],
       closestMatchIds: [],
@@ -169,29 +172,61 @@
 
   // Legs and glutes
   add("hack-squat", "Hack Squat", { primary: "Quads", secondary: ["Glutes"], family: "squat", variant: "hack machine", equipment: "Machine", type: "compound", gymModes: "Home", image: "hack-squat" });
-  add("leg-press", "Leg Press", { primary: "Quads", secondary: ["Glutes"], family: "squat", variant: "sled machine", equipment: "Machine", type: "compound", gymModes: "Home", image: "leg-press" });
+  add("leg-press", "Leg Press", { primary: "Quads", secondary: ["Glutes"], family: "squat", variant: "sled machine", equipment: "Machine", type: "compound", gymModes: "Home", loadingType: "plate-loaded-machine", loadSemantics: "machine-system-total", image: "leg-press" });
+  add("pendulum-squat", "Pendulum Squat", { primary: "Quads", secondary: ["Glutes"], family: "squat", variant: "pendulum machine", equipment: "Machine", type: "compound", gymModes: "Home", loadingType: "plate-loaded-machine", loadSemantics: "machine-system-total" });
+  add("v-squat", "V-Squat", { primary: "Quads", secondary: ["Glutes"], family: "squat", variant: "v-squat machine", equipment: "Machine", type: "compound", gymModes: "Home", loadingType: "plate-loaded-machine", loadSemantics: "machine-system-total" });
+  add("single-leg-leg-press", "Single-Leg Leg Press", { primary: "Quads", secondary: ["Glutes"], family: "squat", variant: "single-leg sled", equipment: "Machine", type: "compound", gymModes: "Home", loadingType: "plate-loaded-machine", loadSemantics: "machine-system-total" });
   add("smith-squat", "Smith Squat", { primary: "Quads", secondary: ["Glutes"], family: "squat", variant: "smith", equipment: "Smith machine", type: "compound", gymModes: "Home", image: "smith-squat" });
   add("back-squat", "Barbell Back Squat", { primary: "Quads", secondary: ["Glutes", "Hamstrings"], family: "squat", variant: "barbell back", equipment: "Barbell", type: "compound", supportsPlateCalculator: true, aliases: ["Back Squat"], image: "squat" });
   add("front-squat", "Front Squat", { primary: "Quads", secondary: ["Glutes"], family: "squat", variant: "barbell front", equipment: "Barbell", type: "compound", supportsPlateCalculator: true });
+  add("safety-bar-squat", "Safety-Bar Squat", { primary: "Quads", secondary: ["Glutes", "Hamstrings"], family: "squat", variant: "safety bar", equipment: "Barbell", type: "compound", supportsPlateCalculator: true, aliases: ["SSB Squat"] });
   add("goblet-squat", "Goblet Squat", { primary: "Quads", secondary: ["Glutes"], family: "squat", variant: "goblet", equipment: "Dumbbell", type: "compound", image: "goblet-squat" });
+  add("heel-elevated-goblet-squat", "Heel-Elevated Goblet Squat", { primary: "Quads", secondary: ["Glutes"], family: "squat", variant: "heel-elevated goblet", equipment: "Dumbbell", type: "compound", image: "goblet-squat" });
+  add("heel-elevated-db-squat", "Heel-Elevated Dumbbell Squat", { primary: "Quads", secondary: ["Glutes"], family: "squat", variant: "heel-elevated dumbbell", equipment: "Dumbbell", type: "compound", aliases: ["Heel-Elevated Dumbbell Squat"] });
+  add("db-front-squat", "Dumbbell Front Squat", { primary: "Quads", secondary: ["Glutes"], family: "squat", variant: "dumbbell front rack", equipment: "Dumbbell", type: "compound" });
+  add("kb-front-squat", "Kettlebell Front Squat", { primary: "Quads", secondary: ["Glutes"], family: "squat", variant: "kettlebell front rack", equipment: "Kettlebell", type: "compound" });
+  add("landmine-squat", "Landmine Squat", { primary: "Quads", secondary: ["Glutes"], family: "squat", variant: "landmine", equipment: "Barbell", type: "compound" });
   add("belt-squat", "Belt Squat", { primary: "Quads", secondary: ["Glutes"], family: "squat", variant: "belt machine", equipment: "Machine", type: "compound", gymModes: "Home", image: "belt-squat" });
   add("walking-lunge", "Walking Lunge", { primary: "Quads", secondary: ["Glutes", "Hamstrings"], family: "unilateral squat/lunge", variant: "walking", equipment: "Dumbbell", type: "compound", image: "walking-lunge" });
   add("reverse-lunge", "Reverse Lunge", { primary: "Quads", secondary: ["Glutes", "Hamstrings"], family: "unilateral squat/lunge", variant: "reverse", equipment: "Dumbbell", type: "compound", image: "reverse-lunge" });
   add("step-up", "Step-Up", { primary: "Quads", secondary: ["Glutes", "Hamstrings"], family: "unilateral squat/lunge", variant: "step", equipment: "Dumbbell", type: "compound", image: "step-up" });
   add("bulgarian-split-squat", "Bulgarian Split Squat", { primary: "Quads", secondary: ["Glutes", "Hamstrings"], family: "unilateral squat/lunge", variant: "rear-foot elevated", equipment: "Dumbbell", type: "compound", image: "bulgarian-split-squat" });
+  add("smith-bulgarian-split-squat", "Smith Bulgarian Split Squat", { primary: "Quads", secondary: ["Glutes", "Hamstrings"], family: "unilateral squat/lunge", variant: "smith rear-foot elevated", equipment: "Smith machine", type: "compound", gymModes: "Home" });
+  add("static-split-squat", "Static Split Squat", { primary: "Quads", secondary: ["Glutes", "Hamstrings"], family: "unilateral squat/lunge", variant: "static split", equipment: "Dumbbell", type: "compound" });
+  add("deficit-reverse-lunge", "Deficit Reverse Lunge", { primary: "Quads", secondary: ["Glutes", "Hamstrings"], family: "unilateral squat/lunge", variant: "deficit reverse", equipment: "Dumbbell", type: "compound", image: "reverse-lunge" });
+  add("lateral-lunge", "Lateral Lunge", { primary: "Quads", secondary: ["Glutes"], family: "unilateral squat/lunge", variant: "lateral", equipment: "Dumbbell", type: "compound" });
+  add("curtsy-lunge", "Curtsy Lunge", { primary: "Quads", secondary: ["Glutes"], family: "unilateral squat/lunge", variant: "curtsy", equipment: "Dumbbell", type: "compound" });
+  add("box-step-up", "Box Step-Up", { primary: "Quads", secondary: ["Glutes", "Hamstrings"], family: "unilateral squat/lunge", variant: "box step", equipment: "Dumbbell", type: "compound", image: "step-up" });
   add("leg-extension", "Leg Extension", { primary: "Quads", family: "knee extension", variant: "selectorized", equipment: "Machine", gymModes: "Home", image: "leg-extension" });
   add("spanish-squat", "Spanish Squat", { primary: "Quads", family: "knee extension", variant: "band-supported", equipment: "Resistance band", image: "spanish-squat" });
   add("sissy-squat", "Sissy Squat", { primary: "Quads", family: "knee extension", variant: "bodyweight", equipment: "Bodyweight", image: "sissy-squat" });
+  add("reverse-nordic-curl", "Reverse Nordic Curl", { primary: "Quads", family: "knee extension", variant: "bodyweight reverse nordic", equipment: "Bodyweight" });
+  add("wall-sit", "Wall Sit", { primary: "Quads", family: "knee extension", variant: "isometric", equipment: "Bodyweight" });
+  add("bodyweight-split-squat", "Bodyweight Split Squat", { primary: "Quads", secondary: ["Glutes"], family: "unilateral squat/lunge", variant: "bodyweight split", equipment: "Bodyweight", type: "compound" });
   add("seated-hamstring-curl", "Seated Hamstring Curl", { primary: "Hamstrings", family: "knee flexion", variant: "seated machine", equipment: "Machine", gymModes: "Home", aliases: ["Seated Ham Curl"], image: "seated-hamstring-curl" });
   add("lying-hamstring-curl", "Lying Hamstring Curl", { primary: "Hamstrings", family: "knee flexion", variant: "lying machine", equipment: "Machine", gymModes: "Home", aliases: ["Lying Ham Curl"], image: "lying-hamstring-curl" });
   add("standing-hamstring-curl", "Standing Hamstring Curl", { primary: "Hamstrings", family: "knee flexion", variant: "standing machine", equipment: "Machine", gymModes: "Home", aliases: ["Standing Ham Curl"], image: "standing-ham-curl" });
   add("barbell-rdl", "Barbell Romanian Deadlift", { primary: "Hamstrings", secondary: ["Glutes"], family: "hip hinge", variant: "barbell", equipment: "Barbell", type: "compound", supportsPlateCalculator: true, aliases: ["Barbell RDL", "Romanian Deadlift"], image: "hinge" });
-  add("db-rdl", "Dumbbell Romanian Deadlift", { primary: "Hamstrings", secondary: ["Glutes"], family: "hip hinge", variant: "dumbbell", equipment: "Dumbbell", type: "compound", aliases: ["DB RDL"], image: "hinge" });
+  add("db-rdl", "Dumbbell Romanian Deadlift", { primary: "Hamstrings", secondary: ["Glutes"], family: "hip hinge", variant: "dumbbell romanian", equipment: "Dumbbell", type: "compound", aliases: ["DB RDL", "Straight-Leg Dumbbell Deadlift", "Straight Leg Dumbbell Deadlift", "Dumbbell Straight-Leg Deadlift"], image: "hinge" });
+  add("barbell-stiff-leg-deadlift", "Barbell Stiff-Leg Deadlift", { primary: "Hamstrings", secondary: ["Glutes"], family: "hip hinge", variant: "barbell stiff-leg", equipment: "Barbell", type: "compound", supportsPlateCalculator: true, aliases: ["Barbell SLDL"] });
+  add("db-stiff-leg-deadlift", "Dumbbell Stiff-Leg Deadlift", { primary: "Hamstrings", secondary: ["Glutes"], family: "hip hinge", variant: "dumbbell stiff-leg", equipment: "Dumbbell", type: "compound", aliases: ["Dumbbell Stiff-Leg Deadlift", "DB Stiff-Leg Deadlift", "Dumbbell SLDL", "DB SLDL"], image: "hinge" });
+  add("good-morning", "Good Morning", { primary: "Hamstrings", secondary: ["Glutes"], family: "hip hinge", variant: "barbell good morning", equipment: "Barbell", type: "compound", supportsPlateCalculator: true });
+  add("cable-pull-through", "Cable Pull-Through", { primary: "Glutes", secondary: ["Hamstrings"], family: "hip hinge", variant: "cable pull-through", equipment: "Cable", type: "compound", gymModes: "Home" });
   add("hip-thrust", "Hip Thrust", { primary: "Glutes", secondary: ["Hamstrings"], family: "hip hinge", variant: "barbell hip thrust", equipment: "Barbell", type: "compound", supportsPlateCalculator: true });
+  add("db-hip-thrust", "Dumbbell Hip Thrust", { primary: "Glutes", secondary: ["Hamstrings"], family: "hip hinge", variant: "dumbbell hip thrust", equipment: "Dumbbell", type: "compound" });
+  add("machine-hip-thrust", "Machine Hip Thrust", { primary: "Glutes", secondary: ["Hamstrings"], family: "hip hinge", variant: "machine hip thrust", equipment: "Machine", type: "compound", gymModes: "Home" });
+  add("glute-bridge", "Glute Bridge", { primary: "Glutes", secondary: ["Hamstrings"], family: "hip hinge", variant: "bodyweight bridge", equipment: "Bodyweight", type: "compound" });
+  add("back-extension-45", "45-Degree Back Extension", { primary: "Hamstrings", secondary: ["Glutes", "Lower back"], family: "hip hinge", variant: "45-degree back extension", equipment: "Machine", type: "compound" });
+  add("nordic-hamstring-curl", "Nordic Hamstring Curl", { primary: "Hamstrings", family: "knee flexion", variant: "nordic", equipment: "Bodyweight" });
+  add("sliding-leg-curl", "Sliding Leg Curl", { primary: "Hamstrings", family: "knee flexion", variant: "sliding", equipment: "Bodyweight" });
+  add("stability-ball-leg-curl", "Stability-Ball Leg Curl", { primary: "Hamstrings", family: "knee flexion", variant: "stability ball", equipment: "Other" });
+  add("db-leg-curl", "Dumbbell Leg Curl", { primary: "Hamstrings", family: "knee flexion", variant: "dumbbell prone", equipment: "Dumbbell" });
 
   // Calves
   add("standing-calf-raise", "Standing Calf Raise", { primary: "Calves", family: "standing calf raise", variant: "machine", equipment: "Machine", gymModes: "Home", image: "standing-calf-raise" });
   add("leg-press-calf-raise", "Leg Press Calf Raise", { primary: "Calves", family: "standing calf raise", variant: "leg press", equipment: "Machine", gymModes: "Home", image: "leg-press-calf-raise" });
+  add("hack-squat-calf-raise", "Hack-Squat Calf Raise", { primary: "Calves", family: "standing calf raise", variant: "hack squat machine", equipment: "Machine", gymModes: "Home", image: "standing-calf-raise" });
+  add("plate-loaded-standing-calf-raise", "Plate-Loaded Standing Calf Raise", { primary: "Calves", family: "standing calf raise", variant: "plate-loaded machine", equipment: "Machine", gymModes: "Home", image: "standing-calf-raise" });
   add("smith-calf-raise", "Smith Machine Calf Raise", { primary: "Calves", family: "standing calf raise", variant: "smith", equipment: "Smith machine", gymModes: "Home" });
   add("single-leg-calf-raise", "Single-Leg Standing Calf Raise", { primary: "Calves", family: "standing calf raise", variant: "single-leg bodyweight", equipment: "Bodyweight", image: "standing-calf-raise" });
   add("db-standing-calf-raise", "Dumbbell Standing Calf Raise", { primary: "Calves", family: "standing calf raise", variant: "dumbbell", equipment: "Dumbbell", image: "standing-calf-raise" });
@@ -201,6 +236,7 @@
   add("seated-db-calf-raise", "Seated Dumbbell Calf Raise", { primary: "Calves", family: "seated calf raise", variant: "dumbbell", equipment: "Dumbbell", image: "seated-calf-raise" });
   add("seated-barbell-calf-raise", "Seated Barbell Calf Raise", { primary: "Calves", family: "seated calf raise", variant: "barbell", equipment: "Barbell", image: "seated-calf-raise" });
   add("bent-knee-calf-raise", "Bent-Knee Calf Raise", { primary: "Calves", family: "seated calf raise", variant: "bodyweight", equipment: "Bodyweight", image: "seated-calf-raise" });
+  add("donkey-calf-raise", "Donkey Calf Raise", { primary: "Calves", family: "standing calf raise", variant: "donkey", equipment: "Machine", gymModes: "Home", image: "standing-calf-raise" });
 
   // Traps, grip, and core
   add("barbell-shrug", "Barbell Shrug", { primary: "Traps", secondary: ["Grip"], family: "shrug", variant: "barbell", equipment: "Barbell", supportsPlateCalculator: true, image: "shrug-carry" });
@@ -246,12 +282,12 @@
   familyRelations(["rear-delt-db-fly", "chest-supported-rear-delt-raise", "reverse-pec-deck", "plate-rear-delt-raise", "prone-y-raise"], ["face-pull"], ["wide-grip-barbell-row"]);
   familyRelations(["cable-curl", "bayesian-cable-curl", "ez-bar-curl", "barbell-curl", "db-curl", "alternating-db-curl", "incline-db-curl", "machine-curl", "preacher-curl", "plate-curl", "kettlebell-curl"], [], ["reverse-barbell-curl"]);
   familyRelations(["hammer-curl", "cross-body-hammer-curl", "rope-hammer-curl"], ["kettlebell-curl"], ["reverse-barbell-curl", "barbell-curl"]);
-  familyRelations(["hack-squat", "leg-press", "smith-squat", "back-squat", "front-squat", "goblet-squat", "belt-squat"]);
-  familyRelations(["walking-lunge", "reverse-lunge", "step-up", "bulgarian-split-squat"]);
-  familyRelations(["leg-extension", "spanish-squat", "sissy-squat"]);
-  familyRelations(["seated-hamstring-curl", "lying-hamstring-curl", "standing-hamstring-curl"]);
-  familyRelations(["barbell-rdl", "db-rdl", "hip-thrust"]);
-  familyRelations(["standing-calf-raise", "leg-press-calf-raise", "smith-calf-raise", "single-leg-calf-raise", "db-standing-calf-raise", "barbell-standing-calf-raise"], [], ["seated-calf-raise"]);
+  familyRelations(["hack-squat", "leg-press", "pendulum-squat", "v-squat", "smith-squat", "back-squat", "front-squat", "safety-bar-squat", "goblet-squat", "heel-elevated-goblet-squat", "heel-elevated-db-squat", "db-front-squat", "kb-front-squat", "landmine-squat", "belt-squat", "single-leg-leg-press"]);
+  familyRelations(["walking-lunge", "reverse-lunge", "deficit-reverse-lunge", "lateral-lunge", "curtsy-lunge", "step-up", "box-step-up", "bulgarian-split-squat", "smith-bulgarian-split-squat", "static-split-squat", "bodyweight-split-squat"]);
+  familyRelations(["leg-extension", "spanish-squat", "sissy-squat", "reverse-nordic-curl", "wall-sit"]);
+  familyRelations(["seated-hamstring-curl", "lying-hamstring-curl", "standing-hamstring-curl", "nordic-hamstring-curl", "sliding-leg-curl", "stability-ball-leg-curl", "db-leg-curl"]);
+  familyRelations(["barbell-rdl", "db-rdl", "barbell-stiff-leg-deadlift", "db-stiff-leg-deadlift", "good-morning", "cable-pull-through", "hip-thrust", "db-hip-thrust", "machine-hip-thrust", "glute-bridge", "back-extension-45"]);
+  familyRelations(["standing-calf-raise", "leg-press-calf-raise", "hack-squat-calf-raise", "smith-calf-raise", "single-leg-calf-raise", "db-standing-calf-raise", "barbell-standing-calf-raise", "plate-loaded-standing-calf-raise", "donkey-calf-raise"], [], ["seated-calf-raise"]);
   familyRelations(["seated-calf-raise", "plate-loaded-seated-calf-raise", "seated-db-calf-raise", "seated-barbell-calf-raise", "bent-knee-calf-raise"], [], ["standing-calf-raise"]);
   familyRelations(["barbell-shrug", "trap-bar-shrug", "db-shrug"]);
   familyRelations(["farmer-carry", "suitcase-carry"]);
@@ -309,6 +345,34 @@
     return EXERCISE_BY_ID[canonicalExerciseId(nameOrId)] || null;
   }
 
+
+  const CATEGORY_ORDER = ["Chest", "Back", "Shoulders", "Biceps", "Triceps", "Quads", "Hamstrings / Glutes", "Calves", "Core", "Other"];
+  const normalizeSearch = (value) => String(value || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  function exerciseCategory(record) { return record?.progressCategory || "Other"; }
+  function exercisesByCategory(category) { return records.filter((record) => exerciseCategory(record) === category).sort((a, b) => a.displayName.localeCompare(b.displayName)); }
+  function searchExercises(query, limit = 20) {
+    const q = normalizeSearch(query);
+    if (!q) return [];
+    const scored = [];
+    for (const record of records) {
+      const names = [record.displayName, ...record.aliases];
+      const normalizedNames = names.map(normalizeSearch);
+      let score = 0;
+      if (normalizedNames[0] === q) score = 100;
+      else if (normalizedNames.slice(1).includes(q)) score = 95;
+      else if (normalizedNames[0].startsWith(q)) score = 85;
+      else if (normalizedNames.slice(1).some((name) => name.startsWith(q))) score = 80;
+      else if (normalizedNames[0].includes(q)) score = 70;
+      else if (normalizedNames.slice(1).some((name) => name.includes(q))) score = 68;
+      else {
+        const metadata = normalizeSearch([record.progressCategory, record.primaryMuscleGroup, record.equipment, record.movementFamily, record.movementVariant].join(" "));
+        if (metadata.includes(q)) score = 45;
+      }
+      if (score) scored.push({ record, score });
+    }
+    return scored.sort((a, b) => b.score - a.score || a.record.displayName.localeCompare(b.record.displayName)).slice(0, limit).map((entry) => entry.record);
+  }
+
   return {
     MOVEMENT_FAMILIES,
     META_DEFAULT,
@@ -317,6 +381,10 @@
     EXERCISE_ALIASES,
     canonicalExerciseId,
     getExercise,
+    CATEGORY_ORDER,
+    exerciseCategory,
+    exercisesByCategory,
+    searchExercises,
     slugify,
   };
 });
